@@ -11,6 +11,90 @@ const routes: Routes = [
     redirectTo: 'home',
     pathMatch: 'full'
   },
+  {
+    path: 'registro-cliente',
+    loadChildren: () => import('./GestionCliente/registo-cliente/registo-cliente.module').then( m => m.RegistoClientePageModule)
+  },
+  {
+    path: 'consulta-cliente',
+    loadChildren: () => import('./GestionCliente/consuta-cliente/consuta-cliente.module').then( m => m.ConsutaClientePageModule)
+  },
+  {
+    path: 'editar-cliente',
+    loadChildren: () => import('./GestionCliente/editar-cliente/editar-cliente.module').then( m => m.EditarClientePageModule)
+  },
+  {
+    path: 'eliminar-cliente',
+    loadChildren: () => import('./GestionCliente/eliminar-cliente/eliminar-cliente.module').then( m => m.EliminarClientePageModule)
+  },
+  {
+    path: 'registro-venta',
+    loadChildren: () => import('./GestionVenta/registro-venta/registro-venta.module').then( m => m.RegistroVentaPageModule)
+  },
+  {
+    path: 'editar-venta',
+    loadChildren: () => import('./GestionVenta/editar-venta/editar-venta.module').then( m => m.EditarVentaPageModule)
+  },
+  {
+    path: 'consulta-venta',
+    loadChildren: () => import('./GestionVenta/consulta-venta/consulta-venta.module').then( m => m.ConsultaVentaPageModule)
+  },
+  {
+    path: 'registro-animal',
+    loadChildren: () => import('./GestionAnimal/registro-animal/registro-animal.module').then( m => m.RegistroAnimalPageModule)
+  },
+  {
+    path: 'consulta-animal',
+    loadChildren: () => import('./GestionAnimal/consulta-animal/consulta-animal.module').then( m => m.ConsultaAnimalPageModule)
+  },
+  {
+    path: 'editar-animal',
+    loadChildren: () => import('./GestionAnimal/editar-animal/editar-animal.module').then( m => m.EditarAnimalPageModule)
+  },
+  {
+    path: 'eliminar-animal',
+    loadChildren: () => import('./GestionAnimal/eliminar-animal/eliminar-animal.module').then( m => m.EliminarAnimalPageModule)
+  },
+  {
+    path: 'registro',
+    loadChildren: () => import('./ControlFitosanitario/registro/registro.module').then( m => m.RegistroPageModule)
+  },
+  {
+    path: 'consulta',
+    loadChildren: () => import('./ControlFitosanitario/consulta/consulta.module').then( m => m.ConsultaPageModule)
+  },
+  {
+    path: 'editar',
+    loadChildren: () => import('./ControlFitosanitario/editar/editar.module').then( m => m.EditarPageModule)
+  },
+  {
+    path: 'eliminar',
+    loadChildren: () => import('./ControlFitosanitario/eliminar/eliminar.module').then( m => m.EliminarPageModule)
+  },
+  {
+    path: 'registro-producto',
+    loadChildren: () => import('./GestionProducto/registro-producto/registro-producto.module').then( m => m.RegistroProductoPageModule)
+  },
+  {
+    path: 'consulta-producto',
+    loadChildren: () => import('./GestionProducto/consulta-producto/consulta-producto.module').then( m => m.ConsultaProductoPageModule)
+  },
+  {
+    path: 'editar-producto',
+    loadChildren: () => import('./GestionProducto/editar-producto/editar-producto.module').then( m => m.EditarProductoPageModule)
+  },
+  {
+    path: 'eliminar-producto',
+    loadChildren: () => import('./GestionProducto/eliminar-producto/eliminar-producto.module').then( m => m.EliminarProductoPageModule)
+  },
+  {
+    path: 'login',
+    loadChildren: () => import('./Login/login/login.module').then( m => m.LoginPageModule)
+  },
+  {
+    path: 'registrar',
+    loadChildren: () => import('./Login/registrar/registrar.module').then( m => m.RegistrarPageModule)
+  }
 ];
 
 @NgModule({

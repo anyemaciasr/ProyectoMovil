@@ -1,0 +1,31 @@
+<app-header titulo="Gestion Cliente"> </app-header>
+
+<ion-content>
+  <ion-list>
+    <ion-grid fixed>
+      <ion-row class="ion-justify-content-center ion-text-center">
+        <ion-col size="12" size-md="12" size-lg="12">
+          <ion-item  (click)="opciones(cliente)" *ngFor="let cliente of clientes">
+            <ion-avatar slot="start">
+              <ion-img src="/assets/tony.jpg"></ion-img>
+            </ion-avatar>
+            <ion-label>
+              <h3>{{cliente.identificacion}}</h3>
+              <h4>{{cliente.nombres}}</h4>
+              <h4>{{cliente.apellidos}}</h4>
+            </ion-label>
+          </ion-item>
+        </ion-col>
+
+
+      </ion-row>
+    </ion-grid>
+
+  </ion-list>
+</ion-content>
+
+<ion-fab vertical="bottom" horizontal="end" slot="fixed">
+  <ion-fab-button routerLink="/registro-cliente">
+    <ion-icon name="add"></ion-icon>
+  </ion-fab-button>
+</ion-fab>
