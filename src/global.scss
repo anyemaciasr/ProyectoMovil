@@ -24,3 +24,13 @@
 @import "~@ionic/angular/css/text-alignment.css";
 @import "~@ionic/angular/css/text-transformation.css";
 @import "~@ionic/angular/css/flex-utils.css";
+
+.rojo, .rojo  .sc-ion-action-sheet-md {
+    color: red !important;
+}
+.negrita{
+    font-weight: bolder;
+}
+.gris, .gris  .sc-ion-action-sheet-md {
+    color: rgb(51, 63, 66) !important;
+}

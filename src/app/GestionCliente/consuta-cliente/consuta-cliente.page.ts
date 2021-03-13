@@ -13,16 +13,16 @@ export class ConsutaClientePage implements OnInit {
   constructor(private actionSheetController: ActionSheetController, private alertController: AlertController, private router:Router) { }
 
   clientes: Cliente[] = [{
-    identificacion: "123456",
-    nombres: "juan carlos",
-    apellidos: "ortiz",
+    identificacion: "1234567893",
+    nombres: "Juan carlos",
+    apellidos: "ortiz reales",
     telefono: "3013222303",
     correo: "angely@gmail.com"
   },
   {
-    identificacion: "183456",
-    nombres: "juan ",
-    apellidos: "ortiz",
+    identificacion: "1003244070",
+    nombres: "Ayelyn ",
+    apellidos: "macias reyes",
     telefono: "5726145",
     correo: "jk@gmail.com"
   }
@@ -38,36 +38,41 @@ export class ConsutaClientePage implements OnInit {
 
   async presentActionSheet(cliente :Cliente) {
     const actionSheet = await this.actionSheetController.create({
-      header: '',
-      cssClass: 'my-custom-class',
-      buttons: [{
+      header: 'Opciones',
+      cssClass: 'my-custom-class negrita',
+      buttons: [
+        {
+          text: 'Consultar',
+          icon: 'clipboard',
+          cssClass: "gris",
+          handler: () => {
+           this.AlerConsulta(cliente);
+            
+          }
+        },
+        {
+          text: 'Editar',
+          icon: 'pencil',
+          cssClass: "gris",
+          handler: () => {
+            this.router.navigate(['/editar-cliente']);
+          }
+        },
+        {
         text: 'Eliminar',
         role: 'destructive',
         icon: 'trash',
         cssClass: "rojo",
         handler: () => {
-          this.AlertEliminar();
+          this.AlertEliminar(cliente);
         }
       },
-      {
-        text: 'Consultar',
-        icon: 'clipboard',
-        handler: () => {
-         this.AlerConsulta(cliente);
-          
-        }
-      },
-      {
-        text: 'Editar',
-        icon: 'pencil',
-        handler: () => {
-          this.router.navigate(['/editar-cliente']);
-        }
-      },
+     
       {
         text: 'Cancel',
         icon: 'close',
         role: 'cancel',
+        cssClass: "negrita gris",
         handler: () => {
           console.log('Cancel clicked');
         }
@@ -77,20 +82,20 @@ export class ConsutaClientePage implements OnInit {
   }
 
 
-  async AlertEliminar() {
+  async AlertEliminar(cliente:Cliente) {
     const alert = await this.alertController.create({
-      cssClass: 'my-custom-class',
+      cssClass: 'my-custom-class ',
       header: 'Alerta',
       subHeader: '',
-      message: 'Esta seguro de eliminar este cliente',
+      message: '¿Seguro que quiere eliminar a '+'<b>'+ cliente.nombres +' ' + cliente.apellidos + '</b>'+' de tu lista de clientes?',
       buttons: [
         {
           text: "Cancelar",
           role: "cancel",
-          cssClass: "rojo",
         },
         {
           text: "Eliminar",
+          cssClass: "rojo",
           handler: () => { console.log("click en ok") },
 
         }
@@ -101,10 +106,9 @@ export class ConsutaClientePage implements OnInit {
   }
   async AlerConsulta(cliente:Cliente) {
     const alert = await this.alertController.create({
-      cssClass: 'my-custom-class',
-      header: 'Datos cliente',
-      subHeader: 'Subtitle',
-      message: 'identificacion: ' + cliente.identificacion +'<br>Nombres: '+ cliente.nombres +'<br>Apellidos: '+cliente.apellidos
+      cssClass: 'my-custom-class ',
+      header: 'Datos del cliente',
+      message: 'Identificacion: ' + cliente.identificacion +'<br>Nombres: '+ cliente.nombres +'<br>Apellidos: '+cliente.apellidos
       +'<br>Telefono: '+ cliente.telefono +'<br>Correo: '+cliente.correo,
       buttons: ['OK']
     });

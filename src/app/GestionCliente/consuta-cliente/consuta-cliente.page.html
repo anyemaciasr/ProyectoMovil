@@ -7,16 +7,15 @@
         <ion-col size="12" size-md="12" size-lg="12">
           <ion-item  (click)="opciones(cliente)" *ngFor="let cliente of clientes">
             <ion-avatar slot="start">
-              <ion-img src="/assets/tony.jpg"></ion-img>
+              <ion-img src="/assets/avatar.jpg"></ion-img>
             </ion-avatar>
             <ion-label>
-              <h3>{{cliente.identificacion}}</h3>
-              <h4>{{cliente.nombres}}</h4>
-              <h4>{{cliente.apellidos}}</h4>
+              <h3 class="negrita">{{ cliente.nombres}} {{cliente.apellidos}}</h3>
+              <h4>{{cliente.identificacion}}</h4>
             </ion-label>
           </ion-item>
         </ion-col>
-
+        
 
       </ion-row>
     </ion-grid>
