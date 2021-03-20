@@ -87,7 +87,9 @@ export class ConsutaClientePage implements OnInit {
       cssClass: 'my-custom-class ',
       header: 'Alerta',
       subHeader: '',
-      message: '¿Seguro que quiere eliminar a '+'<b>'+ cliente.nombres +' ' + cliente.apellidos + '</b>'+' de tu lista de clientes?',
+      message: '¿Seguro que quiere eliminar a '+'<b>'
+      + cliente.nombres +' ' + cliente.apellidos + '</b>'
+      +' de tu lista de clientes?',
       buttons: [
         {
           text: "Cancelar",
@@ -108,8 +110,11 @@ export class ConsutaClientePage implements OnInit {
     const alert = await this.alertController.create({
       cssClass: 'my-custom-class ',
       header: 'Datos del cliente',
-      message: 'Identificacion: ' + cliente.identificacion +'<br>Nombres: '+ cliente.nombres +'<br>Apellidos: '+cliente.apellidos
-      +'<br>Telefono: '+ cliente.telefono +'<br>Correo: '+cliente.correo,
+      message: 'Identificacion: ' + cliente.identificacion 
+      +'<br>Nombres: '+ cliente.nombres +'<br>Apellidos: '
+      +cliente.apellidos
+      +'<br>Telefono: '+ cliente.telefono +'<br>Correo: '
+      +cliente.correo,
       buttons: ['OK']
     });
 
