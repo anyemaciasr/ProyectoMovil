@@ -20,7 +20,7 @@ const routes: Routes = [
     loadChildren: () => import('./GestionCliente/consuta-cliente/consuta-cliente.module').then( m => m.ConsutaClientePageModule)
   },
   {
-    path: 'editar-cliente',
+    path: 'editar-cliente/:id',
     loadChildren: () => import('./GestionCliente/editar-cliente/editar-cliente.module').then( m => m.EditarClientePageModule)
   },
   {

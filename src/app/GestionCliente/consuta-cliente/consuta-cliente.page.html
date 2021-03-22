@@ -5,7 +5,7 @@
     <ion-grid fixed>
       <ion-row class="ion-justify-content-center ion-text-center">
         <ion-col size="12" size-md="12" size-lg="12">
-          <ion-item  (click)="opciones(cliente)" *ngFor="let cliente of clientes">
+          <ion-item  (click)="opciones(cliente)" *ngFor="let cliente of this.sqlService.clientes">
             <ion-avatar slot="start">
               <ion-img src="/assets/tony.jpg"></ion-img>
             </ion-avatar>

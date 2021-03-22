@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { ActionSheetController, AlertController } from '@ionic/angular';
+import { ActionSheetController, AlertController, ToastController, ViewDidEnter } from '@ionic/angular';
 import { Cliente } from 'src/app/models/cliente/cliente';
+import { SqlServiceService } from 'src/app/services/sql-service.service';
 
 @Component({
   selector: 'app-consuta-cliente',
@@ -10,7 +11,11 @@ import { Cliente } from 'src/app/models/cliente/cliente';
 })
 export class ConsutaClientePage implements OnInit {
   cliente: Cliente;
-  constructor(private actionSheetController: ActionSheetController, private alertController: AlertController, private router:Router) { }
+  constructor(private sqlService:SqlServiceService
+    , private actionSheetController: ActionSheetController
+    , private alertController: AlertController
+    , private router:Router
+    , private toastController:ToastController){ }
 
   clientes: Cliente[] = [{
     identificacion: "1234567893",
@@ -32,6 +37,11 @@ export class ConsutaClientePage implements OnInit {
   ngOnInit() {
     this.cliente = new Cliente();
   }
+  
+ /* ionViewDidEnter(){
+    this.clientes = this.sqlService.consultarPersonas();
+  }*/
+
   opciones(cliente :Cliente) {
     this.presentActionSheet(cliente);
   }
@@ -55,7 +65,7 @@ export class ConsutaClientePage implements OnInit {
           icon: 'pencil',
           cssClass: "gris",
           handler: () => {
-            this.router.navigate(['/editar-cliente']);
+            this.router.navigate(['/editar-cliente',cliente.identificacion]);
           }
         },
         {
@@ -98,13 +108,23 @@ export class ConsutaClientePage implements OnInit {
         {
           text: "Eliminar",
           cssClass: "rojo",
-          handler: () => { console.log("click en ok") },
+          handler: () => {
+           this.sqlService.eliminar(cliente.identificacion);
+           this.presentToast();
+          },
 
         }
       ],
     });
 
     await alert.present();
+  }
+  async presentToast() {
+    const toast = await this.toastController.create({
+      message: 'Cliente eliminado exitosamente',
+      duration: 2000
+    });
+    toast.present();
   }
   async AlerConsulta(cliente:Cliente) {
     const alert = await this.alertController.create({

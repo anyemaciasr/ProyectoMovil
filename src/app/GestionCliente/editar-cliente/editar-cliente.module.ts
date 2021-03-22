@@ -15,7 +15,8 @@ import { ComponentsModule } from 'src/app/components/components.module';
     CommonModule,
     FormsModule,
     IonicModule,
-    EditarClientePageRoutingModule
+    EditarClientePageRoutingModule,
+    ComponentsModule
   ],
   declarations: [EditarClientePage]
 })

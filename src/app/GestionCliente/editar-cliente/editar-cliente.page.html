@@ -1,45 +1,44 @@
 <app-header titulo="Gestion Cliente"> </app-header>
 
 <ion-content class="ion-paddin">
-
   <ion-list>
-    <form >
-      <ion-grid  >
-        <ion-row  class="ion-justify-content-center ion-text-center">
+    <form>
+      <ion-grid>
+        <ion-row class="ion-justify-content-center ion-text-center">
           <ion-col size="12" size-md="6" size-lg="4">
-            <h3>Editar Cliente</h3>
+            <h3>Editar cliente</h3>
           </ion-col>
         </ion-row>
-        <ion-row  class="ion-justify-content-center ion-text-center">
+        <ion-row class="ion-justify-content-center ion-text-center">
           <ion-col size="12" size-md="6" size-lg="4">
             <ion-item>
-              <ion-label  position="floating" >Identificacion <ion-text color="danger">*</ion-text>
+              <ion-label position="floating">Identificacion <ion-text color="danger">*</ion-text>
               </ion-label>
-              <ion-input  type="text"name="identificacion" [ngModel]="cliente.identificacion"></ion-input>
+              <ion-input type="text" name="identificacion" [(ngModel)]="cliente.identificacion"></ion-input>
             </ion-item>
           </ion-col>
           <ion-col size="12" size-md="6" size-lg="4">
             <ion-item>
               <ion-label position="floating">Nombres <ion-text color="danger">*</ion-text>
               </ion-label>
-              <ion-input type="text" name="nombres" [ngModel]="cliente.nombres"></ion-input>
+              <ion-input type="text" name="nombres" [(ngModel)]="cliente.nombres"></ion-input>
             </ion-item>
           </ion-col>
         </ion-row>
-
-        <ion-row  class="ion-justify-content-center ion-text-center">
+  
+        <ion-row class="ion-justify-content-center ion-text-center">
           <ion-col size="12" size-md="6" size-lg="4">
             <ion-item>
               <ion-label position="floating">Apellidos <ion-text color="danger">*</ion-text>
               </ion-label>
-              <ion-input type="text" name="apellidos" [ngModel]="cliente.apellidos"></ion-input>
+              <ion-input type="text" name="apellidos" [(ngModel)]="cliente.apellidos"></ion-input>
             </ion-item>
           </ion-col>
           <ion-col size="12" size-md="6" size-lg="4">
             <ion-item>
               <ion-label position="floating">Telefono <ion-text color="danger">*</ion-text>
               </ion-label>
-              <ion-input name="telefono" [ngModel]="cliente.telefono" type="number"></ion-input>
+              <ion-input name="telefono" [(ngModel)]="cliente.telefono" type="number"></ion-input>
             </ion-item>
           </ion-col>
         </ion-row>
@@ -48,20 +47,19 @@
             <ion-item>
               <ion-label position="floating">Correo<ion-text color="danger">*</ion-text>
               </ion-label>
-              <ion-input name="correo" [ngModel]="cliente.correo" type="email"></ion-input>
+              <ion-input name="correo" [(ngModel)]="cliente.correo" type="email"></ion-input>
             </ion-item>
           </ion-col>
           <br>
           <br>
           <ion-col size="12" size-md="6" size-lg="4">
-            <ion-button id="boton" size=" undefined" class="shadow-red" shape="round">Editar</ion-button>
+            <ion-button id="boton" (click)="editar()" size=" undefined" class="shadow-red" shape="round">Editar</ion-button>
           </ion-col>
         </ion-row>
-
+  
       </ion-grid>
-
-     
+  
+  
     </form>
   </ion-list>
-
 </ion-content>
