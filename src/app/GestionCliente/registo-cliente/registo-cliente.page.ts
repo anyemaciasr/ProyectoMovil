@@ -29,11 +29,11 @@ export class RegistoClientePage implements OnInit {
     this.cliente.correo = "";
 
     this.formGroup = this.formBuilder.group({
-      identificacion:[this.cliente.identificacion, [Validators.required, Validators.minLength(6)]],
+      identificacion: [this.cliente.identificacion, [Validators.required, Validators.minLength(6)]],
       nombres: [this.cliente.nombres, Validators.required],
       apellidos: [this.cliente.apellidos, Validators.required],
       telefono: [this.cliente.telefono, Validators.required],
-      correo: [this.cliente.correo, [Validators.required,Validators.email]]
+      correo: [this.cliente.correo, [Validators.required, Validators.email]]
     })
   }
   get control() {
@@ -51,26 +51,25 @@ export class RegistoClientePage implements OnInit {
 
   guardarCliente() {
     this.cliente = this.formGroup.value;
-    console.log("Este es el mensaje de ts guaradar" + JSON.stringify(this.cliente.nombres));
-    this.sqlService.guardarCliente(this.cliente).subscribe(c => {
-      this.cliente = c;
-      this.presentToast('Cliente guardado exitosamente');
-    });
-    this.consultarCliente();
-    this.limpiarCampos();
+    if (this.sqlService.validarCliente(this.cliente)) {
+      this.presentToast('El cliente ya se encuentra registrado');
+      return;
+    } else {
+      this.sqlService.guardarCliente(this.cliente).subscribe(c => {
+        this.cliente = c;
+        this.presentToast('Cliente guardado exitosamente');
+      });
+      this.consultarCliente();
+      this.formGroup.reset();
+    }
+
   }
   consultarCliente() {
     this.clientes = this.sqlService.clientes;
   }
-  limpiarCampos() {
-    this.cliente.identificacion = "";
-    this.cliente.nombres = "";
-    this.cliente.apellidos = "";
-    this.cliente.telefono = "";
-    this.cliente.correo = "";
-  }
 
-  async presentToast(mensaje:string) {
+
+  async presentToast(mensaje: string) {
     const toast = await this.toastController.create({
       message: mensaje,
       duration: 2000

@@ -1,4 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { ToastController } from '@ionic/angular';
 import { Cliente } from 'src/app/models/cliente/cliente';
@@ -11,14 +12,29 @@ import { SqlServiceService } from 'src/app/services/sql-service.service';
 })
 export class EditarClientePage implements OnInit {
   cliente: Cliente;
+  formGroup: FormGroup;
   constructor(private sqlService: SqlServiceService
             , private toastController: ToastController
-            ,private route: ActivatedRoute) { }
+            ,private route: ActivatedRoute
+            ,private formBuilder: FormBuilder) { }
 
   ngOnInit() {
     this.cliente = new Cliente();
     var id = this.route.snapshot.paramMap.get("id");
     this.cliente = this.buscarCliente(id);
+    this.buildForm(this.cliente);
+  }
+
+  buildForm(clienteEncontrado:Cliente) {
+    this.cliente = clienteEncontrado
+
+    this.formGroup = this.formBuilder.group({
+      identificacion:[this.cliente.identificacion, [Validators.required, Validators.minLength(6)]],
+      nombres: [this.cliente.nombres, Validators.required],
+      apellidos: [this.cliente.apellidos, Validators.required],
+      telefono: [this.cliente.telefono, Validators.required],
+      correo: [this.cliente.correo, [Validators.required,Validators.email]]
+    })
   }
 
   buscarCliente(id:string):Cliente{
@@ -26,17 +42,12 @@ export class EditarClientePage implements OnInit {
   }
 
   editar() {
+    this.cliente = this.formGroup.value;
     this.sqlService.editar(this.cliente);
     this.presentToast();
-    this.limpiarCampos();
+    this.formGroup.reset;
   }
-  limpiarCampos(){
-    this.cliente.identificacion = "";
-    this.cliente.nombres = "";
-    this.cliente.apellidos = "";
-    this.cliente.telefono = "";
-    this.cliente.correo = "";
-  }
+ 
 
   async presentToast() {
     const toast = await this.toastController.create({

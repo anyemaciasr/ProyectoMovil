@@ -79,6 +79,15 @@ export class SqlServiceService {
 
   }
 
+  validarCliente(clienteBuscar:Cliente):boolean{
+    this.clientes.forEach(cliente =>{
+      if(cliente.identificacion == clienteBuscar.identificacion){
+        return true;
+      }
+    })
+    return false;
+  }
+
   eliminar(id: string) {
     this.baseDatos.transaction((p) => {
       p.executeSql(`DELETE FROM Clientes WHERE identificacion = ${id}`)
