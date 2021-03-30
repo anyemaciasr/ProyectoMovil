@@ -16,7 +16,9 @@ import { SQLite } from '@ionic-native/sqlite/ngx';
     ComponentsModule,
     BrowserModule,
      IonicModule.forRoot(), 
-     AppRoutingModule],
+     AppRoutingModule
+
+    ],
   providers: [{ provide: RouteReuseStrategy, useClass: IonicRouteStrategy },SQLite],
   bootstrap: [AppComponent],
 })

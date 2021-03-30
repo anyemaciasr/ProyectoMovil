@@ -7,7 +7,10 @@
         <ion-col size="12" size-md="12" size-lg="12">
           <ion-item  (click)="opciones(cliente)" *ngFor="let cliente of this.sqlService.clientes">
             <ion-avatar slot="start">
-              <ion-img src="/assets/tony.jpg"></ion-img>
+              <ion-text color="primary">
+                <ngx-avatar  [name]="cliente.nombres" value="28%" bgColor="#2650D3" fgColor="#FFFFFF" size="40"
+                textSizeRatio="2.5" [round]="true"></ngx-avatar>
+              </ion-text>
             </ion-avatar>
             <ion-label>
               <h3 class="negrita">{{ cliente.nombres}} {{cliente.apellidos}}</h3>

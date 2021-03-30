@@ -8,6 +8,8 @@ import { ConsutaClientePageRoutingModule } from './consuta-cliente-routing.modul
 
 import { ConsutaClientePage } from './consuta-cliente.page';
 import { ComponentsModule } from 'src/app/components/components.module';
+import { AvatarModule } from 'ngx-avatar';
+
 
 @NgModule({
   imports: [
@@ -15,7 +17,8 @@ import { ComponentsModule } from 'src/app/components/components.module';
     CommonModule,
     FormsModule,
     IonicModule,
-    ConsutaClientePageRoutingModule
+    ConsutaClientePageRoutingModule,
+    AvatarModule
   ],
   declarations: [ConsutaClientePage]
 })
