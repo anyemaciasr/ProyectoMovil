@@ -1,9 +1,33 @@
-<ion-header>
-  <ion-toolbar>
-    <ion-title>ConsultaAnimal</ion-title>
-  </ion-toolbar>
-</ion-header>
+<app-header titulo="Gestión Animal"> </app-header>
 
 <ion-content>
+  <ion-list>
+    <ion-grid fixed>
+      <ion-row class="ion-justify-content-center ion-text-center">
+        <ion-col size="12" size-md="12" size-lg="12">
+          <ion-item (click)="opciones(animal)" *ngFor="let animal of animales ; let i = index;" >
+           <ion-avatar slot="start">
+              <ion-text color="primary">
+                <ngx-avatar  src="assets/logo1.jpg"  value="28%" size="40" textSizeRatio="2.5" [round]="true" ></ngx-avatar>
+              </ion-text>
+            </ion-avatar>
+            <ion-label>
+              <h3 class="negrita">{{animal.identificacion}}</h3>
+             <h4>{{animal.origen}}</h4>
+              <h4>{{animal.tipoGanado}}</h4>
+            </ion-label>
+          </ion-item>
+          
+        </ion-col>
+      </ion-row>
+    </ion-grid>
 
+  </ion-list>
 </ion-content>
+
+<ion-fab vertical="bottom" horizontal="end" slot="fixed">
+  <ion-fab-button routerLink="/registro-animal">
+    <ion-icon name="add"></ion-icon>
+  </ion-fab-button>
+</ion-fab>
+

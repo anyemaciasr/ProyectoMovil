@@ -1,9 +1,163 @@
-<ion-header>
-  <ion-toolbar>
-    <ion-title>EditarAnimal</ion-title>
-  </ion-toolbar>
-</ion-header>
+<app-header titulo="Gestión Animal"> </app-header>
 
 <ion-content>
+  <ion-slides #slides (ionSlideDidChange)="slideChanged()" pager="true" [options]="slideOpts">
+    <ion-slide>
+      <ion-list>
+        <form>
+          <ion-grid class="ion-paddin">
+            <ion-row class="ion-justify-content-center ion-text-center">
+              <ion-col size="12" size-md="6" size-lg="4">
+                <h3>Editar Animales</h3>
+              </ion-col>
+            </ion-row>
+            <ion-row class="ion-justify-content-center ion-text-center">
+              <ion-col size="12" size-md="6" size-lg="4">
+                <ion-item>
+                  <ion-label position="floating">Identificacion <ion-text color="danger"></ion-text>
+                  </ion-label>
+                  <ion-input type="text" name="identificacion"  ></ion-input>
+                </ion-item>
+              </ion-col>
+              <ion-col size="12" size-md="6" size-lg="4">
+                <ion-item>
+                  <ion-label>fecha nacimiento</ion-label>
+                  <ion-datetime name="fechaNacimienti" display-format="D  MMMM YY" (ionChange)="cambioFecha($event)">
+                  </ion-datetime>
+                </ion-item>
+              </ion-col>
 
+            </ion-row>
+            <ion-row class="ion-justify-content-center ion-text-center">
+              <ion-col size="12" size-md="6" size-lg="4">
+                <ion-item>
+                  <ion-label position="floating">Origen<ion-text color="danger"></ion-text>
+                  </ion-label>
+                  <ion-input type="text" name="origen"></ion-input>
+                </ion-item>
+              </ion-col>
+              <ion-col size="12" size-md="6" size-lg="4">
+                <ion-item>
+                  <ion-label position="floating">Padre<ion-text color="danger"></ion-text>
+                  </ion-label>
+                  <ion-input name="padre" type="text"></ion-input>
+                </ion-item>
+              </ion-col>
+            </ion-row>
+            <ion-row class="ion-justify-content-center ion-text-center">
+              <ion-col size="12" size-md="6" size-lg="4">
+                <ion-item>
+                  <ion-label position="floating">Madre<ion-text color="danger"></ion-text>
+                  </ion-label>
+                  <ion-input name="madre" type="text"></ion-input>
+                </ion-item>
+              </ion-col>
+              <ion-col size="12" size-md="6" size-lg="4">
+                <ion-item>
+                  <ion-label position="floating">Peso inicial<ion-text color="danger"></ion-text>
+                  </ion-label>
+                  <ion-input name="pesoInicial" type="text"></ion-input>
+                </ion-item>
+              </ion-col>
+            </ion-row>
+
+
+          </ion-grid>
+
+        </form>
+      </ion-list>
+
+
+
+    </ion-slide>
+
+    <ion-slide>
+      <ion-list>
+        <form>
+
+          <ion-grid fixed>
+            <ion-row class="ion-justify-content-center ion-text-center">
+              <ion-col size="12" size-md="6" size-lg="4">
+                <h3>Editar Animales</h3>
+              </ion-col>
+            </ion-row>
+            <ion-row class="ion-justify-content-center ion-text-center">
+              <ion-col size="12" size-md="6" size-lg="4">
+                <ion-item>
+                  <ion-label position="floating">Peso final<ion-text color="danger"></ion-text>
+                  </ion-label>
+                  <ion-input name="pesoFinal" type="text"></ion-input>
+                </ion-item>
+              </ion-col>
+              <ion-col size="12" size-md="6" size-lg="4">
+                <ion-item>
+                  <ion-label>Agrupacion</ion-label>
+                  <ion-select #agrupacion (ionChange)="onChange(agrupacion.value)" interface="popover">
+                    <ion-select-option value="Lote">Lote</ion-select-option>
+                    <ion-select-option value="Unidad">Unidad</ion-select-option>
+                  </ion-select>
+                </ion-item>
+
+              </ion-col>
+            </ion-row>
+
+            <ion-row  class="ion-justify-content-center ion-text-center">
+              <ion-col size="12" size-md="6" size-lg="4" >
+                <ion-item *ngIf="validarAgrupacion()" >
+                  <ion-label position="floating">Cantidad<ion-text color="danger"></ion-text>
+                  </ion-label>
+                  <ion-input name="cantidad" type="number"></ion-input>
+                </ion-item>
+               
+              </ion-col>
+              
+              <ion-col size="12" size-md="6" size-lg="4">
+                <ion-item>
+                  <ion-label>Tipo ganado</ion-label>
+                  <ion-select interface="popover">
+                    <ion-select-option value="nes">gato</ion-select-option>
+                    <ion-select-option value="n64">perro</ion-select-option>
+                    <ion-select-option value="ps">conejo</ion-select-option>
+
+                  </ion-select>
+                </ion-item>
+              </ion-col>
+            </ion-row>
+            <br>
+              <br>
+            <ion-row>
+              <ion-col size="12">
+                <ion-button id="boton" size=" undefined" class="shadow-red" shape="round">Editar</ion-button>
+              </ion-col>
+            </ion-row>
+          </ion-grid>
+        </form>
+      </ion-list>
+
+
+    </ion-slide>
+  </ion-slides>
+
+  <ion-row>
+    <ion-col size="12">
+
+      <ion-item lines="none" 	detail="false">
+        <ion-buttons slot="end" *ngIf="this.activeIndex===0; else volverButton">
+          <ion-chip (click)="cambiarIndex(1)" color="primary" shape="round" size="small">
+            <ion-label>Siguiente</ion-label>
+            <ion-icon name="arrow-forward-outline"></ion-icon>
+          </ion-chip>
+        </ion-buttons>
+        <ng-template #volverButton>
+          <ion-buttons slot="end">
+            <ion-chip (click)="cambiarIndex(0)" color="primary" shape="round" size="small">
+              <ion-icon name="arrow-back-outline"></ion-icon>
+              <ion-label>Volver</ion-label>
+            </ion-chip>
+          </ion-buttons>
+        </ng-template>
+      </ion-item>
+
+    </ion-col>
+  </ion-row>
 </ion-content>

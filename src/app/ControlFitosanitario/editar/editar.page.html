@@ -1,9 +1,83 @@
-<ion-header>
-  <ion-toolbar>
-    <ion-title>Editar</ion-title>
-  </ion-toolbar>
-</ion-header>
-
 <ion-content>
+
+
+
+  <ion-list>
+    <form>
+      <ion-grid class="ion-paddin">
+
+        <ion-row  class="ion-justify-content-center ion-text-center">
+          <ion-col size="12" size-md="6" size-lg="4">
+            <h3>Registro Fitosanitario</h3>
+          </ion-col>
+        </ion-row>
+
+        <ion-row class="ion-justify-content-center ion-text-center">
+          <ion-col size="12" size-md="6" size-lg="4">
+            <ion-item>
+              <ion-label  position="floating">Nombre medicamento</ion-label>
+              <ion-input type="text" name="nombreMedicamento" [ngModel]="fitosanitario.nombreMedicamento"></ion-input>
+            </ion-item>
+          </ion-col>
+
+          <ion-col size="12" size-md="6" size-lg="4">
+            <ion-item>
+              <ion-label  position="floating">Dosis aplicada</ion-label>
+              <ion-input type="text" name="dosisAplicada" [ngModel]="fitosanitario.dosisAplicada"></ion-input>
+            </ion-item>
+          </ion-col>
+        </ion-row>
+
+        <ion-row class="ion-justify-content-center ion-text-center">
+          <ion-col size="12" size-md="6" size-lg="4">
+            <ion-item>
+              <ion-label  position="floating">Tiempo de retiro</ion-label>
+              <ion-input type="text" name="tiempoRetiro" [ngModel]="fitosanitario.tiempoRetiro"></ion-input>
+            </ion-item>
+          </ion-col>
+
+          <ion-col size="12" size-md="6" size-lg="4">
+            <ion-item>
+              <ion-label  position="floating">Medicamento</ion-label>
+              <ion-input type="text" name="tipoMedicamento" [ngModel]="fitosanitario.tipoMedicamento"></ion-input>
+            </ion-item>
+          </ion-col>
+        </ion-row>
+
+
+        <ion-row class="ion-justify-content-center ion-text-center">
+          <ion-col size="12" size-md="6" size-lg="4">
+            <ion-item>
+              <ion-label  position="floating">Animal tratado</ion-label>
+              <ion-input type="text" name="animalTratado" [ngModel]="fitosanitario.animalTratado"></ion-input>
+            </ion-item>
+          </ion-col>
+
+          <ion-col size="12" size-md="6" size-lg="4">
+            <ion-item>
+              <ion-label>Fecha aplicación</ion-label>
+              <ion-datetime name="fechaAplicacion" value="1990-02-19" placeholder="Seleccione la fecha"
+                [ngModel]="fitosanitario.fechaAplicacion">
+              </ion-datetime>
+            </ion-item>
+          </ion-col>
+        </ion-row>
+
+        <ion-row class="ion-justify-content-center ion-text-center">
+          <ion-col size="12" size-md="6" size-lg="4">
+            <ion-button size=" undefined" class="shadow-red" shape="round">Registrar</ion-button>
+          </ion-col>
+        </ion-row>
+
+
+
+
+      </ion-grid>
+
+    </form>
+  </ion-list>
+
+
+
 
 </ion-content>
