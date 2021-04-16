@@ -1,4 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 import { ActionSheetController, AlertController, IonSlides } from '@ionic/angular';
 
 @Component({
@@ -10,11 +11,13 @@ export class RegistroAnimalPage implements OnInit {
   @ViewChild('slides', { static: true }) slides: IonSlides;
   agrupacion:string;
   activeIndex: number = 0;
-  
+
   constructor(private actionSheetController: ActionSheetController, private alertController: AlertController) { }
 
   ngOnInit() {
+   
   }
+
 
   slideOpts = {
     initialSlide: 0,

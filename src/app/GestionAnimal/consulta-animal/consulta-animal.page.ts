@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { ActionSheetController, AlertController, ToastController } from '@ionic/angular';
+import { ActionSheetController, AlertController, NavController, ToastController } from '@ionic/angular';
 import { Animal } from 'src/app/models/animal/animal';
 
 @Component({
@@ -12,7 +12,7 @@ export class ConsultaAnimalPage implements OnInit {
   animal: Animal;
   constructor(private actionSheetController: ActionSheetController
     , private alertController: AlertController, private router:Router
-    , private toastController:ToastController) { }
+    , private toastController:ToastController, private navCtrl:NavController) { }
 
   animales: Animal[] = [{
     identificacion:"123456",
@@ -42,6 +42,10 @@ export class ConsultaAnimalPage implements OnInit {
 
   ngOnInit() {
     this.animal = new Animal();
+  }
+
+  redirectTo(){
+    this.navCtrl.navigateForward('/registro-animal');
   }
 
   opciones(animal :Animal) {

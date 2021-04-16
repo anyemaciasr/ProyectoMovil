@@ -79,13 +79,14 @@ export class SqlServiceService {
 
   }
 
-  validarCliente(clienteBuscar:Cliente):boolean{
+  validarCliente(clienteBuscar:string):boolean{
+    var encontrado = false;
     this.clientes.forEach(cliente =>{
-      if(cliente.identificacion == clienteBuscar.identificacion){
-        return true;
+      if(cliente.identificacion == clienteBuscar){
+        encontrado = true;
       }
     })
-    return false;
+    return encontrado;
   }
 
   eliminar(id: string) {

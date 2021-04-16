@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { AbstractControl, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ToastController } from '@ionic/angular';
 import { Cliente } from 'src/app/models/cliente/cliente';
 import { SqlServiceService } from 'src/app/services/sql-service.service';
@@ -36,6 +36,7 @@ export class RegistoClientePage implements OnInit {
       correo: [this.cliente.correo, [Validators.required, Validators.email]]
     })
   }
+
   get control() {
     return this.formGroup.controls;
   }
@@ -51,7 +52,7 @@ export class RegistoClientePage implements OnInit {
 
   guardarCliente() {
     this.cliente = this.formGroup.value;
-    if (this.sqlService.validarCliente(this.cliente)) {
+    if (this.sqlService.validarCliente(this.cliente.identificacion)) {
       this.presentToast('El cliente ya se encuentra registrado');
       return;
     } else {
