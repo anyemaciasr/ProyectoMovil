@@ -10,7 +10,10 @@ import { Cliente } from '../models/cliente/cliente';
 export class SqlServiceService {
   baseDatos: SQLiteObject;
   clientes: Cliente[] = [];
-  constructor(private sqlite: SQLite, private platform: Platform) { this.abrirBaseDeDatos(); }
+  constructor(private sqlite: SQLite, private platform: Platform) 
+  { 
+    //this.abrirBaseDeDatos(); 
+  }
 
   abrirBaseDeDatos() {
     this.platform.ready().then(() => {

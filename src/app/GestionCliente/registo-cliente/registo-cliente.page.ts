@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { AbstractControl, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { ToastController } from '@ionic/angular';
 import { Cliente } from 'src/app/models/cliente/cliente';
+import { GestionClientesService } from 'src/app/services/gestion-clientes.service';
 import { SqlServiceService } from 'src/app/services/sql-service.service';
 
 @Component({
@@ -13,7 +15,12 @@ export class RegistoClientePage implements OnInit {
   cliente: Cliente;
   clientes: Cliente[] = [];
   formGroup: FormGroup;
-  constructor(private formBuilder: FormBuilder, private sqlService: SqlServiceService, private toastController: ToastController) { }
+  constructor(private formBuilder: FormBuilder
+    , private sqlService: SqlServiceService
+    , private toastController: ToastController
+    , private gestionClienteService:GestionClientesService
+    , private router:Router
+    ) { }
 
   ngOnInit() {
     this.cliente = new Cliente();
@@ -52,6 +59,11 @@ export class RegistoClientePage implements OnInit {
 
   guardarCliente() {
     this.cliente = this.formGroup.value;
+    this.gestionClienteService.guardar(this.cliente).subscribe(c => this.cliente = c);
+    this.formGroup.reset();
+    this.presentToast('Cliente guardado exitosamente');
+    this.router.navigate(['/consulta-cliente']);
+   /* this.cliente = this.formGroup.value;
     if (this.sqlService.validarCliente(this.cliente.identificacion)) {
       this.presentToast('El cliente ya se encuentra registrado');
       return;
@@ -62,7 +74,7 @@ export class RegistoClientePage implements OnInit {
       });
       this.consultarCliente();
       this.formGroup.reset();
-    }
+    }*/
 
   }
   consultarCliente() {
