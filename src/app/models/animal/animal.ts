@@ -1,7 +1,9 @@
 export class Animal {
     identificacion:string;
+    nombre:string;
     agrupacion:string;
-    fechaNacimiento:string;
+    cantidad:number;
+    fechaNacimiento:Date;
     origen:string;
     padre:string;
     madre:string;

@@ -1,15 +1,30 @@
 <app-header titulo="Gestión Animal"> </app-header>
 
 <ion-content>
+
+  <!-- Searchbar with cancel button shown on focus -->
+  <ion-searchbar [(ngModel)]="textoABuscar" showCancelButton="focus"></ion-searchbar>
+
+    <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
+      <ion-refresher-content
+        pullingIcon="chevron-down-circle-outline"
+        pullingText="Tire para actualizar "
+        refreshingSpinner="circles"
+        refreshingText="Actulizando...">
+      </ion-refresher-content>
+    </ion-refresher>
+
+
+
   <ion-list>
     <ion-grid fixed>
       <ion-row class="ion-justify-content-center ion-text-center">
         <ion-col size="12" size-md="12" size-lg="12">
           <ion-list>
-            <ion-item-sliding *ngFor="let animal of animales ; let i = index;">
+            <ion-item-sliding *ngFor="let animal of animales | filtroAnimal:textoABuscar ; let i = index;">
 
               <ion-item-options side="start">
-                <ion-item-option (click)="favorite(item)">Nuevo control</ion-item-option>
+                <ion-item-option routerLink="/registro"  >Nuevo control</ion-item-option>
               
               </ion-item-options>
               <ion-item (click)="opciones(animal)" >
@@ -21,7 +36,7 @@
                 </ion-avatar>
                 <ion-label>
                   <h3 class="negrita">{{animal.identificacion}}</h3>
-                  <h4>{{animal.origen}}</h4>
+                  <h4>{{animal.nombre}}</h4>
                   <h4>{{animal.tipoGanado}}</h4>
                 </ion-label>
               </ion-item>

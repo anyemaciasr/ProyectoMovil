@@ -1,9 +1,53 @@
-<ion-header>
-  <ion-toolbar>
-    <ion-title>Consulta</ion-title>
-  </ion-toolbar>
-</ion-header>
+<app-header titulo="Fitosanitario"> </app-header>
 
 <ion-content>
 
+
+<!-- Searchbar with cancel button shown on focus -->
+<ion-searchbar [(ngModel)]="textoABuscar" showCancelButton="focus"></ion-searchbar>
+
+<ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
+  <ion-refresher-content
+    pullingIcon="chevron-down-circle-outline"
+    pullingText="Tire para actualizar "
+    refreshingSpinner="circles"
+    refreshingText="Actulizando...">
+  </ion-refresher-content>
+</ion-refresher>
+
+
+  <ion-list>
+    <ion-grid fixed>
+      <ion-row class="ion-justify-content-center ion-text-center">
+        <ion-col size="12" size-md="12" size-lg="12">
+          <ion-list>
+            <ion-item-sliding *ngFor="let fitosanitario of fitosanitarios | filtroFitosanitario:textoABuscar ; let i = index;">
+
+              <ion-item (click)="opciones(fitosanitario)" >
+                <ion-avatar slot="start">
+                  <ion-text color="primary">
+                    <ngx-avatar src="assets/fitosanitario.png" value="28%" size="40" textSizeRatio="2.5" [round]="true">
+                    </ngx-avatar>
+                  </ion-text>
+                </ion-avatar>
+                <ion-label>
+                  <h3 class="negrita">{{fitosanitario.animalTratado}}</h3>
+                  <h4>{{fitosanitario.nombreMedicamento}}</h4>
+                  <h4>{{fitosanitario.tipoMedicamento}}</h4>
+                </ion-label>
+              </ion-item>
+            </ion-item-sliding>
+          </ion-list>
+
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+
+  </ion-list>
 </ion-content>
+
+<ion-fab vertical="bottom" horizontal="end" slot="fixed">
+  <ion-fab-button routerLink="/registro" routerDirection="forward">
+    <ion-icon name="add"></ion-icon>
+  </ion-fab-button>
+</ion-fab>

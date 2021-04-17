@@ -9,6 +9,7 @@ import { Animal } from 'src/app/models/animal/animal';
   styleUrls: ['./consulta-animal.page.scss'],
 })
 export class ConsultaAnimalPage implements OnInit {
+  textoABuscar:string;
   animal: Animal;
   constructor(private actionSheetController: ActionSheetController
     , private alertController: AlertController, private router:Router
@@ -16,20 +17,24 @@ export class ConsultaAnimalPage implements OnInit {
 
   animales: Animal[] = [{
     identificacion:"123456",
+    nombre:"yo",
     agrupacion:"lote",
-    fechaNacimiento:"ff",
+    cantidad:20,
+    fechaNacimiento:new Date(),
     origen:"valledupar",
-    padre:"string",
+    padre:"kk",
     madre:"string",
     pesoInicial:20,
     pesoFinal:30,
-    tipoGanado:"vaca"
+    tipoGanado:"loro"
 
   },
   {
-    identificacion:"1238856",
+    identificacion:"5555",
+    nombre:"hola",
     agrupacion:"unidad",
-    fechaNacimiento:"ff",
+    cantidad:20,
+    fechaNacimiento:new Date(),
     origen:"valledupar",
     padre:"string",
     madre:"string",
@@ -44,6 +49,11 @@ export class ConsultaAnimalPage implements OnInit {
     this.animal = new Animal();
   }
 
+  doRefresh(event) {
+    event.target.complete();
+  }
+
+
   redirectTo(){
     this.navCtrl.navigateForward('/registro-animal');
   }
@@ -52,10 +62,6 @@ export class ConsultaAnimalPage implements OnInit {
     this.presentActionSheet(animal);
   }
 
-  fitosanitario(animal :Animal){
-    this.Alertfitosanitario(animal);
-
-  }
 
   async presentActionSheet(animal :Animal) {
     const actionSheet = await this.actionSheetController.create({
@@ -148,39 +154,4 @@ export class ConsultaAnimalPage implements OnInit {
     await alert.present();
   }
   
-
-
-
-
-  async Alertfitosanitario(animal:Animal) {
-    const alert = await this.alertController.create({
-      cssClass: 'my-custom-class ',
-      header: 'Gestion Fitosanitaria',
-      subHeader: '',
-      message: 'Selecione una opcion',
-      buttons: [
-        {
-          text: 'Registrar',
-          handler: () => {
-            this.router.navigate(['/registro']);
-          }
-        },
-        {
-          text: 'Consultar',
-          handler: () => {
-            this.router.navigate(['/registrar']);
-          }
-        },
-        {
-          text: 'Editar',
-          handler: () => {
-            this.router.navigate(['/registrar']);
-          }
-        },
-        
-      ],
-    });
-
-    await alert.present();
-  }
 }

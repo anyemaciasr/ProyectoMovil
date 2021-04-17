@@ -1,19 +1,19 @@
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { IonicModule } from '@ionic/angular';
 
-import { FormularioClienteComponent } from './formulario-cliente.component';
+import { HeaderModalComponent } from './header-modal.component';
 
-describe('FormularioClienteComponent', () => {
-  let component: FormularioClienteComponent;
-  let fixture: ComponentFixture<FormularioClienteComponent>;
+describe('HeaderModalComponent', () => {
+  let component: HeaderModalComponent;
+  let fixture: ComponentFixture<HeaderModalComponent>;
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [ FormularioClienteComponent ],
+      declarations: [ HeaderModalComponent ],
       imports: [IonicModule.forRoot()]
     }).compileComponents();
 
-    fixture = TestBed.createComponent(FormularioClienteComponent);
+    fixture = TestBed.createComponent(HeaderModalComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   }));

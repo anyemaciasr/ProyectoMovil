@@ -1,16 +1,6 @@
-<ion-header translucent>
-  <ion-toolbar color="primary">
-    <ion-title slot="start" class="ion-text-capitalize">
-     registro
-    </ion-title>
-    <ion-buttons slot="end" [routerLink]="['/consulta-animal']" routerLinkActive="router-link-active"  routerDirection="back">
-      <ion-button >
-        <ion-icon  name="close"></ion-icon>
-      </ion-button>
-    </ion-buttons>
-    
-  </ion-toolbar>
-</ion-header>
+<app-header-modal titulo="Registro" ruta="/consulta-animal">
+</app-header-modal>
+
 
 <ion-content>
   <ion-slides #slides (ionSlideDidChange)="slideChanged()" pager="true" [options]="slideOpts">
