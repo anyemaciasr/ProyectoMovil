@@ -20,6 +20,10 @@ export class ConsultaProductoPage implements OnInit {
   }
 
 
+
+
+  
+
   productos: Producto[] = [{
     codigo:"1234",
     nombre:"carne",
