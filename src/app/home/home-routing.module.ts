@@ -21,10 +21,6 @@ const routes: Routes = [
         loadChildren: () => import('../GestionCliente/editar-cliente/editar-cliente.module').then(m => m.EditarClientePageModule)
       },
       {
-        path: 'eliminarCliente',
-        loadChildren: () => import('../GestionCliente/eliminar-cliente/eliminar-cliente.module').then(m => m.EliminarClientePageModule)
-      },
-      {
         path: 'registroAnimal',
         loadChildren: () => import('../GestionAnimal/registro-animal/registro-animal.module').then(m => m.RegistroAnimalPageModule)
       },
@@ -35,10 +31,6 @@ const routes: Routes = [
       {
         path: 'editarAnimal',
         loadChildren: () => import('../GestionAnimal/editar-animal/editar-animal.module').then(m => m.EditarAnimalPageModule)
-      },
-      {
-        path: 'eliminarAnimal',
-        loadChildren: () => import('../GestionAnimal/eliminar-animal/eliminar-animal.module').then(m => m.EliminarAnimalPageModule)
       },
       {
         path: 'registro',
@@ -53,10 +45,6 @@ const routes: Routes = [
         loadChildren: () => import('../ControlFitosanitario/editar/editar.module').then(m => m.EditarPageModule)
       },
       {
-        path: 'eliminar',
-        loadChildren: () => import('../ControlFitosanitario/eliminar/eliminar.module').then(m => m.EliminarPageModule)
-      },
-      {
         path: 'registroProducto',
         loadChildren: () => import('../GestionProducto/registro-producto/registro-producto.module').then(m => m.RegistroProductoPageModule)
       },
@@ -67,10 +55,6 @@ const routes: Routes = [
       {
         path: 'editarProducto',
         loadChildren: () => import('../GestionProducto/editar-producto/editar-producto.module').then(m => m.EditarProductoPageModule)
-      },
-      {
-        path: 'eliminarProducto',
-        loadChildren: () => import('../GestionProducto/eliminar-producto/eliminar-producto.module').then(m => m.EliminarProductoPageModule)
       },
       {
         path: 'registroVenta',

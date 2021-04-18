@@ -14,7 +14,7 @@
         <ion-row  class="ion-justify-content-center ion-text-center">
           <ion-col size="12" size-md="6" size-lg="4">
             <ion-item>
-              <ion-label  position="floating" >Identificacion <ion-text color="danger">*</ion-text>
+              <ion-label  position="floating" >Identificacion <ion-text color="danger"></ion-text>
               </ion-label>
               <ion-input  type="text"name="identificacion" formControlName="identificacion" ></ion-input>          
             </ion-item>
@@ -23,7 +23,7 @@
           </ion-col>
           <ion-col size="12" size-md="6" size-lg="4">
             <ion-item>
-              <ion-label position="floating">Nombres <ion-text color="danger">*</ion-text>
+              <ion-label position="floating">Nombres <ion-text color="danger"></ion-text>
               </ion-label>
               <ion-input type="text" name="nombres" formControlName="nombres"></ion-input>
             </ion-item>
@@ -34,7 +34,7 @@
         <ion-row  class="ion-justify-content-center ion-text-center">
           <ion-col size="12" size-md="6" size-lg="4">
             <ion-item>
-              <ion-label position="floating">Apellidos <ion-text color="danger">*</ion-text>
+              <ion-label position="floating">Apellidos <ion-text color="danger"></ion-text>
               </ion-label>
               <ion-input type="text" name="apellidos" formControlName="apellidos"></ion-input>
             </ion-item>
@@ -42,7 +42,7 @@
           </ion-col>
           <ion-col size="12" size-md="6" size-lg="4">
             <ion-item>
-              <ion-label position="floating">Telefono <ion-text color="danger">*</ion-text>
+              <ion-label position="floating">Telefono <ion-text color="danger"></ion-text>
               </ion-label>
               <ion-input name="telefono" formControlName="telefono" type="tel"></ion-input>
             </ion-item>
@@ -52,7 +52,7 @@
         <ion-row class="ion-justify-content-center ion-text-center">
           <ion-col size="12" size-md="6" size-lg="4">
             <ion-item>
-              <ion-label position="floating">Correo<ion-text color="danger">*</ion-text>
+              <ion-label position="floating">Correo<ion-text color="danger"></ion-text>
               </ion-label>
               <ion-input name="correo" formControlName="correo" type="email"></ion-input>
             </ion-item>
@@ -60,6 +60,10 @@
             <ion-label class="ion-text-left" color="danger" *ngIf="formGroup.controls.correo.errors?.email && (formGroup.controls.correo.touched || formGroup.controls.correo.dirty)">* El correo no es valido </ion-label>
             
           </ion-col>
+          <br>
+          <br>
+          <br>
+          <br>
           <br>
           <br>
           <ion-col size="12" size-md="6" size-lg="4">

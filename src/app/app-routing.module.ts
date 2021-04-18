@@ -23,10 +23,7 @@ const routes: Routes = [
     path: 'editar-cliente/:id',
     loadChildren: () => import('./GestionCliente/editar-cliente/editar-cliente.module').then( m => m.EditarClientePageModule)
   },
-  {
-    path: 'eliminar-cliente',
-    loadChildren: () => import('./GestionCliente/eliminar-cliente/eliminar-cliente.module').then( m => m.EliminarClientePageModule)
-  },
+  
   {
     path: 'registro-venta',
     loadChildren: () => import('./GestionVenta/registro-venta/registro-venta.module').then( m => m.RegistroVentaPageModule)
@@ -52,10 +49,6 @@ const routes: Routes = [
     loadChildren: () => import('./GestionAnimal/editar-animal/editar-animal.module').then( m => m.EditarAnimalPageModule)
   },
   {
-    path: 'eliminar-animal',
-    loadChildren: () => import('./GestionAnimal/eliminar-animal/eliminar-animal.module').then( m => m.EliminarAnimalPageModule)
-  },
-  {
     path: 'registro',
     loadChildren: () => import('./ControlFitosanitario/registro/registro.module').then( m => m.RegistroPageModule)
   },
@@ -68,10 +61,6 @@ const routes: Routes = [
     loadChildren: () => import('./ControlFitosanitario/editar/editar.module').then( m => m.EditarPageModule)
   },
   {
-    path: 'eliminar',
-    loadChildren: () => import('./ControlFitosanitario/eliminar/eliminar.module').then( m => m.EliminarPageModule)
-  },
-  {
     path: 'registro-producto',
     loadChildren: () => import('./GestionProducto/registro-producto/registro-producto.module').then( m => m.RegistroProductoPageModule)
   },
@@ -82,10 +71,6 @@ const routes: Routes = [
   {
     path: 'editar-producto',
     loadChildren: () => import('./GestionProducto/editar-producto/editar-producto.module').then( m => m.EditarProductoPageModule)
-  },
-  {
-    path: 'eliminar-producto',
-    loadChildren: () => import('./GestionProducto/eliminar-producto/eliminar-producto.module').then( m => m.EliminarProductoPageModule)
   },
   {
     path: 'login',

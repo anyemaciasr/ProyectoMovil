@@ -1,9 +1,77 @@
-<ion-header>
-  <ion-toolbar>
-    <ion-title>RegistroProducto</ion-title>
-  </ion-toolbar>
-</ion-header>
+<app-header-modal titulo="Registro" ruta="/consulta-producto">
+</app-header-modal>
 
-<ion-content>
+<ion-content class="ion-paddin">
+
+  <ion-list>
+    <form >
+      <ion-grid>
+        <ion-row class="ion-justify-content-center ion-text-center">
+          <ion-col size="12" size-md="6" size-lg="4">
+            <h3>Registro Producto</h3>
+          </ion-col>
+        </ion-row>
+        <ion-row class="ion-justify-content-center ion-text-center">
+          <ion-col size="12" size-md="6" size-lg="4">
+            <ion-item>
+              <ion-label position="floating">Codigo <ion-text color="danger"></ion-text>
+              </ion-label>
+              <ion-input type="text" name="codigo"  ></ion-input>
+            </ion-item>
+
+          </ion-col>
+          <ion-col size="12" size-md="6" size-lg="4">
+            <ion-item>
+              <ion-label position="floating">Nombre <ion-text color="danger"></ion-text>
+              </ion-label>
+              <ion-input type="text" name="nombre"></ion-input>
+            </ion-item>
+
+          </ion-col>
+        </ion-row>
+
+        <ion-row class="ion-justify-content-center ion-text-center">
+          <ion-col size="12" size-md="6" size-lg="4">
+            <ion-item>
+              <ion-label position="floating">Precio <ion-text color="danger"></ion-text>
+              </ion-label>
+              <ion-input type="number" name="precio"></ion-input>
+            </ion-item>
+          </ion-col>
+          <ion-col size="12" size-md="6" size-lg="4">
+            <ion-item>
+              <ion-label>Categoria</ion-label>
+              <ion-select interface="popover">
+                <ion-select-option value="Lote">lacteos</ion-select-option>
+                <ion-select-option value="Unidad">otro</ion-select-option>
+              </ion-select>
+            </ion-item>
+          </ion-col>
+        </ion-row>
+        <ion-row class="ion-justify-content-center ion-text-center">
+          <ion-col size="12" size-md="6" size-lg="4">
+            <ion-item>
+              <ion-label position="floating">Descripcion <ion-text color="danger"></ion-text>
+              </ion-label>
+              <ion-textarea name="descripcion"></ion-textarea>
+            </ion-item>
+          </ion-col>
+          <br>
+          <br>
+          <br>
+          <br>
+          <br>
+          <br>
+          <ion-col size="12" size-md="6" size-lg="4">
+            <ion-button id="boton" size=" undefined" class="shadow-red" shape="round">Registrar</ion-button>
+          </ion-col>
+        </ion-row>
+
+      </ion-grid>
+
+
+    </form>
+  </ion-list>
+
 
 </ion-content>

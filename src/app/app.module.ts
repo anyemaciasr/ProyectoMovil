@@ -10,11 +10,12 @@ import { ComponentsModule } from './components/components.module';
 import { SQLite } from '@ionic-native/sqlite/ngx';
 import { HttpClientModule } from '@angular/common/http';
 import { FiltroFitosanitarioPipe } from './pipes/filtro-fitosanitario.pipe';
+import { FiltroProductoPipe } from './pipes/filtro-producto.pipe';
 
 
 
 @NgModule({
-  declarations: [AppComponent, FiltroFitosanitarioPipe],
+  declarations: [AppComponent],
   entryComponents: [],
   imports: [
     ComponentsModule,
