@@ -7,9 +7,11 @@ import { IonicModule } from '@ionic/angular';
 import { RegistroVentaPageRoutingModule } from './registro-venta-routing.module';
 
 import { RegistroVentaPage } from './registro-venta.page';
+import { ComponentsModule } from 'src/app/components/components.module';
 
 @NgModule({
   imports: [
+    ComponentsModule,
     CommonModule,
     FormsModule,
     IonicModule,

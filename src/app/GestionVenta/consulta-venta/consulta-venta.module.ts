@@ -7,9 +7,13 @@ import { IonicModule } from '@ionic/angular';
 import { ConsultaVentaPageRoutingModule } from './consulta-venta-routing.module';
 
 import { ConsultaVentaPage } from './consulta-venta.page';
+import { ComponentsModule } from 'src/app/components/components.module';
+import { AvatarModule } from 'ngx-avatar';
 
 @NgModule({
   imports: [
+    ComponentsModule,
+    AvatarModule,
     CommonModule,
     FormsModule,
     IonicModule,

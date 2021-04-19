@@ -19,11 +19,6 @@ export class ConsultaProductoPage implements OnInit {
     this.producto = new Producto();
   }
 
-
-
-
-  
-
   productos: Producto[] = [{
     codigo:"1234",
     nombre:"carne",
