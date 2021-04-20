@@ -79,7 +79,12 @@ const routes: Routes = [
   {
     path: 'registrar',
     loadChildren: () => import('./Login/registrar/registrar.module').then( m => m.RegistrarPageModule)
+  },
+  {
+    path: 'modal-productos',
+    loadChildren: () => import('./pages/modal-productos/modal-productos.module').then( m => m.ModalProductosPageModule)
   }
+
 ];
 
 @NgModule({

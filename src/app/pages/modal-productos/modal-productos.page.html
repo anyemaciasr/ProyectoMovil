@@ -1,0 +1,40 @@
+<ion-button (click)="dismiss()" expand="block" fill="clear" shape="round">
+  cerrar
+  </ion-button>
+  <ion-content>
+    <ion-list>
+      <ion-grid fixed>
+        <ion-row class="ion-justify-content-center ion-text-center">
+          <ion-col size="12" size-md="12" size-lg="12">
+            <ion-list>
+  
+                <ion-item  mode="ios" *ngFor="let producto of productos" >
+                  <ion-icon slot="end" name="add"></ion-icon>
+                  <ion-label class="item">
+                    <h4 class="item" >{{producto.descripcion}}</h4>
+                    <h4 class="item">precio: ${{producto.precio}}</h4>
+                    <ion-item class="alinear" lines="none" mode="ios">
+                      <ion-label  class="item" position="fixed">Cantidad</ion-label>
+                      <ion-input class="alinear" class="item" placeholder="0"></ion-input>
+                    </ion-item>
+
+                    
+                  </ion-label>
+                </ion-item>
+  
+            </ion-list>
+    
+          </ion-col>
+        </ion-row>
+        <ion-row class="ion-justify-content-center ion-text-center">
+          <ion-col size="12">
+            <ion-button class="text" (click)="onClick()" expand="block" fill="clear" shape="round">
+              Carrito
+            </ion-button>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    
+    </ion-list>
+  </ion-content>
+  

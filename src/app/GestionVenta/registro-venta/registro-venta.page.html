@@ -45,10 +45,11 @@
           <ion-card mode="ios">
             <ion-item mode="ios" detail="false">
               <ion-card-subtitle>Detalle de factura</ion-card-subtitle>
-              <ion-button  slot="end">
+              <ion-button (click)="presentModal()" slot="end">
                 <ion-icon name="bag-add"></ion-icon>
               </ion-button>
             </ion-item>
+            
 
             <!-- <ion-card-content>
               <ion-list>
