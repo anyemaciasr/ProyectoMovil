@@ -17,33 +17,27 @@
       </ion-row>-->
       <ion-row class="ion-justify-content-center ion-text-center">
         <ion-col>
-          <ion-label class="text">Fecha :{{factura1.fecha}}</ion-label>
+          <ion-label class="text">Fecha :{{factura1.fecha| date: 'short'}}</ion-label>
         </ion-col>
         <ion-col>
           <ion-label class="texto">No :{{factura1.idFactura}}</ion-label>
         </ion-col>
       </ion-row>
-      <ion-row class="ion-justify-content-center ion-text-center">
+      <ion-row >
         <ion-col size="12" size-md="6" size-lg="4">
-          <ion-item>
-            <ion-label position="floating">Idetificacion</ion-label>
-            <ion-input type="text" name="idetificacion"></ion-input>
-          </ion-item>
-
+      
+            <ion-searchbar showCancelButton="focus" placeholder="Identificacion"></ion-searchbar>
+      
         </ion-col>
         <ion-col size="12" size-md="6" size-lg="4">
-          <ion-item>
-            <ion-label position="floating">Nombre </ion-label>
-            <ion-input type="text" name="nombre"></ion-input>
-          </ion-item>
-
+          <ion-searchbar showCancelButton="focus" placeholder="Nombre"></ion-searchbar>
         </ion-col>
       </ion-row>
       <ion-row class="ion-justify-content-center ion-text-center">
         <ion-col size="12" size-md="6" size-lg="4">
 
           <ion-card mode="ios">
-            <ion-item mode="ios" detail="false">
+            <ion-item mode="ios" lines="none">
               <ion-card-subtitle>Detalle de factura</ion-card-subtitle>
               <ion-button (click)="presentModal()" slot="end">
                 <ion-icon name="bag-add"></ion-icon>
@@ -51,20 +45,20 @@
             </ion-item>
             
 
-            <!-- <ion-card-content>
+          <ion-card-content>
               <ion-list>
                 <ion-grid fixed>
                   <ion-row class="ion-justify-content-center ion-text-center">
                     <ion-col size="12" size-md="12" size-lg="12">
                       <ion-list>
-                        <ion-item-sliding *ngFor="let producto of productos  ; let i = index;">
-                          <ion-item (click)="opciones(producto)">
+                        <ion-item-sliding *ngFor="let detalle of detallesDeFactura  ; let i = index;">
+                          <ion-item (click)="opciones(detalle)">
                             <ion-icon slot="end" name="add"></ion-icon>
                             <ion-icon slot="end" name="remove"></ion-icon>
                             <ion-label>
-                              <h4 class="negrita">{{producto.descripcion}}</h4>
-                              <h4 class="negrita">Precio:{{producto.precio}}</h4>
-                              <h4 class="negrita">Cantidad:1</h4>
+                              <h4 class="negrita">{{detalle.producto.descripcion}}</h4>
+                              <h4 class="negrita">Precio:{{detalle.producto.precio}}</h4>
+                              <h4 class="negrita">Cantidad:{{datalle.cantidad}}</h4>
                             </ion-label>
                           </ion-item>
                         </ion-item-sliding>
@@ -72,17 +66,10 @@
 
                     </ion-col>
                   </ion-row>
-                  <ion-row class="ion-justify-content-center ion-text-center">
-                    <ion-col size="12">
-                      <ion-button class="text" (click)="onClick()" expand="block" fill="clear" shape="round">
-                        Agregar
-                      </ion-button>
-                    </ion-col>
-                  </ion-row>
                 </ion-grid>
 
               </ion-list>
-            </ion-card-content>-->
+            </ion-card-content>
           </ion-card>
 
 

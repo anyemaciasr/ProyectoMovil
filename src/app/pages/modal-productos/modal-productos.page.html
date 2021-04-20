@@ -1,40 +1,47 @@
-<ion-button (click)="dismiss()" expand="block" fill="clear" shape="round">
-  cerrar
-  </ion-button>
-  <ion-content>
-    <ion-list>
-      <ion-grid fixed>
-        <ion-row class="ion-justify-content-center ion-text-center">
-          <ion-col size="12" size-md="12" size-lg="12">
-            <ion-list>
-  
-                <ion-item  mode="ios" *ngFor="let producto of productos" >
-                  <ion-icon slot="end" name="add"></ion-icon>
-                  <ion-label class="item">
-                    <h4 class="item" >{{producto.descripcion}}</h4>
-                    <h4 class="item">precio: ${{producto.precio}}</h4>
-                    <ion-item class="alinear" lines="none" mode="ios">
-                      <ion-label  class="item" position="fixed">Cantidad</ion-label>
-                      <ion-input class="alinear" class="item" placeholder="0"></ion-input>
-                    </ion-item>
+<ion-content>
+  <ion-searchbar showCancelButton="focus" placeholder="Buscar producto"></ion-searchbar>
 
-                    
-                  </ion-label>
-                </ion-item>
-  
-            </ion-list>
-    
-          </ion-col>
-        </ion-row>
-        <ion-row class="ion-justify-content-center ion-text-center">
-          <ion-col size="12">
-            <ion-button class="text" (click)="onClick()" expand="block" fill="clear" shape="round">
-              Carrito
-            </ion-button>
-          </ion-col>
-        </ion-row>
-      </ion-grid>
-    
-    </ion-list>
-  </ion-content>
-  
+  <ion-list>
+    <ion-grid fixed>
+      <ion-row class="ion-justify-content-center ion-text-center">
+        <ion-col size="12" size-md="12" size-lg="12">
+          <ion-list>
+
+            <ion-item ng-click="focusInput=true" mode="ios" *ngFor="let producto of productosTemp">
+
+              <ion-label class="item">
+                <h3 class="item" class="negrita">{{producto.descripcion}}</h3>
+                <h4 class="item">precio: ${{producto.precio}}</h4>
+                Cantidad
+                <input focus-me="focusInput" class="INPUT" type="number" placeholder="0">
+
+              </ion-label>
+              <ion-icon slot="end" (click)="agregar(producto)" *ngIf="producto.agregado===false" name="add"></ion-icon>
+              <ion-icon slot="end" (click)="quitar()" *ngIf="producto.agregado" color="danger" name="remove-outline"></ion-icon>
+            </ion-item>
+
+          </ion-list>
+
+        </ion-col>
+      </ion-row>
+
+    </ion-grid>
+
+  </ion-list>
+</ion-content>
+
+<ion-footer translucent>
+  <ion-toolbar>
+
+    <ion-buttons slot="start">
+
+      <ion-button (click)="dismiss()">
+        <ion-icon name="arrow-back"></ion-icon>
+        Cerrar
+      </ion-button>
+    </ion-buttons>
+    <ion-buttons slot="end">
+      <ion-button color="primary" (click)="confirmarProductos()">Confirmar productos</ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-footer>

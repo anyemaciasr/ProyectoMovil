@@ -5,3 +5,7 @@ export class Producto {
     precio:number;
     descripcion:string;
 }
+
+export class ProductoTemporal extends Producto{
+    agregado:boolean;
+}
