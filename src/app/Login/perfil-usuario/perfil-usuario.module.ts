@@ -4,9 +4,9 @@ import { FormsModule } from '@angular/forms';
 
 import { IonicModule } from '@ionic/angular';
 
-import { RegistrarPageRoutingModule } from './registrar-routing.module';
+import { PerfilUsuarioPageRoutingModule } from './perfil-usuario-routing.module';
 
-import { RegistrarPage } from './registrar.page';
+import { PerfilUsuarioPage } from './perfil-usuario.page';
 import { ComponentsModule } from 'src/app/components/components.module';
 
 @NgModule({
@@ -15,8 +15,8 @@ import { ComponentsModule } from 'src/app/components/components.module';
     CommonModule,
     FormsModule,
     IonicModule,
-    RegistrarPageRoutingModule
+    PerfilUsuarioPageRoutingModule
   ],
-  declarations: [RegistrarPage]
+  declarations: [PerfilUsuarioPage]
 })
-export class RegistrarPageModule {}
+export class PerfilUsuarioPageModule {}

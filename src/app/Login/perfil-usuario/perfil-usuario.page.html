@@ -1,0 +1,49 @@
+<app-header-modal titulo="Perfil" ruta="/home">
+</app-header-modal>
+
+<ion-content>
+  <ion-list>
+    <ion-grid fixed>
+      <ion-row >
+        <ion-col class="ion-justify-content-center ion-text-center" size="12" size-md="6" size-lg="4">
+          <img class="perfil" src="assets/login.svg" > 
+          <ng-template #imagen>
+            <img class="perfil" [src]=""  > 
+          </ng-template>
+          <ion-fab-button color="secondary" class="btnPerfil"><ion-icon name="camera-outline"></ion-icon></ion-fab-button>
+        </ion-col>
+        <ion-col size="12" size-md="6" size-lg="4">
+          <ion-item>
+            <ion-icon name="person-outline" class="animate__animated animate__swing"></ion-icon>
+            <p class="items">Nombre: Anyelyn macias</p>
+          </ion-item>
+        </ion-col>
+        <ion-row>
+          <ion-col size="12" size-md="6" size-lg="4">
+            <ion-item>
+              <ion-icon name="at-outline" class="animate__animated animate__swing"></ion-icon>
+              <p class="items">Correo: angelynmacias@gmail.com </p>
+            </ion-item>
+          </ion-col>
+          <ion-col size="12" size-md="6" size-lg="4">
+            <ion-item>
+              <ion-icon name="pencil-outline" class="animate__animated animate__swing"></ion-icon>
+              <p class="items" (click)="onClick()">Editar perfil</p>
+            </ion-item>
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col size="12" size-md="6" size-lg="4">
+            <ion-item>
+              <ion-icon name="log-in-outline" class="animate__animated animate__swing"></ion-icon>
+              <p class="items" (click)="onClick()">Cerrar sesión</p>
+            </ion-item>
+          </ion-col>
+        </ion-row>
+      </ion-row>
+    </ion-grid>
+  </ion-list>
+
+
+
+</ion-content>

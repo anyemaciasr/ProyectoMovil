@@ -1,9 +1,12 @@
 import { Producto } from "../producto/producto";
+import { Factura } from "./factura";
 
 export class DetalleFactura {
-    idFactura:string;
     idDetalle:string;
+    factura:Factura;
+    descripcion:string;
     cantidad:number;
     subTotal:number;
+    valorUnitario:number;
     producto:Producto;
 }

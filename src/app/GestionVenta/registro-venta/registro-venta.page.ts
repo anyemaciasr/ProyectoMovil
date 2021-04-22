@@ -13,13 +13,6 @@ import { ModalProductosPage } from 'src/app/pages/modal-productos/modal-producto
 })
 export class RegistroVentaPage implements OnInit {
 
-  factura1: Factura = {
-    idFactura: "2020",
-    fecha: new Date(),
-    total: 50000,
-    descuento: 2000,
-    
-  }
 
   detallesDeFactura:DetalleFactura[]=[];
 

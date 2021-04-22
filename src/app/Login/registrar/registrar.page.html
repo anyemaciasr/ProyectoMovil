@@ -1,9 +1,69 @@
-<ion-header>
-  <ion-toolbar>
-    <ion-title>registrar</ion-title>
-  </ion-toolbar>
-</ion-header>
+<app-header-modal titulo=" " ruta="/login">
+</app-header-modal>
+<ion-content class="ion-paddin">
+  <ion-list>
+    <form>
+      <ion-grid>
+        <ion-row class="ion-justify-content-center ion-text-center">
+          <ion-col size="12" size-md="6" size-lg="4">
+            <h3>Registro usuario</h3>
+          </ion-col>
+        </ion-row>
+        <ion-row class="ion-justify-content-center ion-text-center">
+          <ion-col size="12" size-md="6" size-lg="4">
+            <ion-item>
+              <ion-label position="floating">Identificacion <ion-text color="danger"></ion-text>
+              </ion-label>
+              <ion-input type="text" name="identificacion"  ></ion-input>
+            </ion-item>
+          </ion-col>
+          <ion-col size="12" size-md="6" size-lg="4">
+            <ion-item>
+              <ion-label position="floating">Nombres <ion-text color="danger"></ion-text>
+              </ion-label>
+              <ion-input type="text" name="nombres"></ion-input>
+            </ion-item>
+          </ion-col>
+        </ion-row>
 
-<ion-content>
-<p>hola si</p>
+        <ion-row class="ion-justify-content-center ion-text-center">
+          <ion-col size="12" size-md="6" size-lg="4">
+            <ion-item>
+              <ion-label position="floating">Apellidos <ion-text color="danger"></ion-text>
+              </ion-label>
+              <ion-input type="number" name="apellidos"></ion-input>
+            </ion-item>
+          </ion-col>
+          <ion-col size="12" size-md="6" size-lg="4">
+            <ion-item>
+              <ion-label position="floating">Correo <ion-text color="danger"></ion-text>
+              </ion-label>
+              <ion-input type="email" name="correo"></ion-input>
+            </ion-item>
+          </ion-col>
+        </ion-row>
+        <ion-row class="ion-justify-content-center ion-text-center">
+          <ion-col size="12" size-md="6" size-lg="4">
+            <ion-item>
+              <ion-label position="floating">Usuario <ion-text color="danger"></ion-text>
+              </ion-label>
+              <ion-input type="text" name="usuario"></ion-input>
+            </ion-item>
+          </ion-col>
+          <ion-col size="12" size-md="6" size-lg="4">
+            <ion-item>
+              <ion-label position="floating">Clave <ion-text color="danger"></ion-text>
+              </ion-label>
+              <ion-input type="text" name="clave"></ion-input>
+            </ion-item>
+          </ion-col>
+        </ion-row>
+        <ion-row class="ion-justify-content-center ion-text-center">
+          <ion-col size="12" size-md="6" size-lg="4">
+            <ion-button id="boton" size=" undefined" class="shadow-red" shape="round">Registrar</ion-button>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </form>
+  </ion-list>
 </ion-content>

@@ -1,4 +1,4 @@
-
+import { Cliente } from "../cliente/cliente";
 import { DetalleFactura } from "./detalleFactura";
 
 export class Factura {
@@ -6,5 +6,8 @@ export class Factura {
     fecha:Date;
     total:number;
     descuento:number;
+    subTotal:number;
+    cliente:Cliente;
+    detalleFactura:DetalleFactura[];
    
 }

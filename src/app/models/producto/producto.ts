@@ -4,6 +4,7 @@ export class Producto {
     categoria:string;
     precio:number;
     descripcion:string;
+
 }
 
 export class ProductoTemporal extends Producto{
