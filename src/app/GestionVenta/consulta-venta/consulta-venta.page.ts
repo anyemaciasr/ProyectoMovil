@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { ActionSheetController, AlertController, NavController, ToastController } from '@ionic/angular';
+import { ActionSheetController, AlertController, LoadingController, NavController, ToastController } from '@ionic/angular';
 import { Factura } from 'src/app/models/factura/factura';
+import { GestionFacturaService } from 'src/app/services/gestion-factura.service';
 
 @Component({
   selector: 'app-consulta-venta',
@@ -10,18 +11,47 @@ import { Factura } from 'src/app/models/factura/factura';
 })
 export class ConsultaVentaPage implements OnInit {
   factura: Factura;
+  facturas: Factura[] = [];
+  loading: any;
   constructor(private actionSheetController: ActionSheetController
     , private alertController: AlertController, private router: Router
-    , private toastController: ToastController, private navCtrl: NavController) { }
+    , private toastController: ToastController, private navCtrl: NavController
+    , private loadingController: LoadingController, private gestionFacturaService: GestionFacturaService) { }
 
   ngOnInit() {
+    this.presentLoading();
+  }
+
+  routerLink(){
+    this.router.navigate(['/registro-venta', this.facturas.length]);
   }
 
   doRefresh(event) {
+    this.consultar();
     event.target.complete();
   }
 
+  async presentLoading() {
+    this.loading = await this.loadingController.create({
+      cssClass: 'my-custom-class',
+      message: 'Cargando lista de clientes',
+      spinner: "crescent"
+    });
+    await this.loading.present();
+    this.consultar();
+    await this.loading.dismiss();
+  }
 
+  consultar() {
+    this.gestionFacturaService.consultar().subscribe(
+      datos => {
+        console.log(datos);
+        this.facturas = datos;
+        console.log("Datos de servidor recividos");
+        console.log("Factura objeto ", this.facturas);
+      }
+    );
+  }
   redirectTo() {
     this.navCtrl.navigateForward('/registro-venta');
   }

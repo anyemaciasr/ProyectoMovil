@@ -48,8 +48,9 @@ export class ModalProductosPage implements OnInit {
   agregar(producto: Producto) {
 
     var detalleFactura = new DetalleFactura();
-    detalleFactura.producto = producto;
+    detalleFactura.nombre = producto.nombre;
     detalleFactura.cantidad = 2;
+    detalleFactura.valorUnitario = producto.precio;
     detalleFactura.subTotal = 2*producto.precio;
 
     this.productosTemp.map(function (dato) {

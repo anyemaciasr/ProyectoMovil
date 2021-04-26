@@ -25,7 +25,7 @@ const routes: Routes = [
   },
   
   {
-    path: 'registro-venta',
+    path: 'registro-venta/:id',
     loadChildren: () => import('./GestionVenta/registro-venta/registro-venta.module').then( m => m.RegistroVentaPageModule)
   },
   {
@@ -83,10 +83,15 @@ const routes: Routes = [
   {
     path: 'modal-productos',
     loadChildren: () => import('./pages/modal-productos/modal-productos.module').then( m => m.ModalProductosPageModule)
-  },  {
+  },
+  {
     path: 'perfil-usuario',
     loadChildren: () => import('./login/perfil-usuario/perfil-usuario.module').then( m => m.PerfilUsuarioPageModule)
+  },  {
+    path: 'modal-clientes',
+    loadChildren: () => import('./pages/modal-clientes/modal-clientes.module').then( m => m.ModalClientesPageModule)
   }
+
 
 
 ];

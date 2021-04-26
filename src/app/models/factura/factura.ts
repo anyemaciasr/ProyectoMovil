@@ -8,6 +8,6 @@ export class Factura {
     descuento:number;
     subTotal:number;
     cliente:Cliente;
-    detalleFactura:DetalleFactura[];
+    detallesFactura:DetalleFactura[];
    
 }

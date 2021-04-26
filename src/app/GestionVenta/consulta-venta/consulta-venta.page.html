@@ -25,9 +25,9 @@
                   </ion-text>
                 </ion-avatar>
                 <ion-label>
-                  <h3 class="negrita">Alex Macias</h3>
-                  <h4>{{factura.idFactura}}</h4>
-                  <h4>{{factura.total}}</h4>
+                  <h3 class="negrita">{{factura.nombreCliente}}</h3>
+                  <h4>id: {{factura.idFactura}}</h4>
+                  <h4>Total: {{factura.total}}</h4>
                 </ion-label>
               </ion-item>
             </ion-item-sliding>
@@ -41,7 +41,7 @@
 
 </ion-content>
 <ion-fab vertical="bottom" horizontal="end" slot="fixed">
-  <ion-fab-button routerLink="/registro-venta" routerDirection="forward">
+  <ion-fab-button (click)="routerLink()" routerDirection="forward">
     <ion-icon name="add"></ion-icon>
   </ion-fab-button>
 </ion-fab>

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { ActionSheetController, AlertController, ToastController, ViewDidEnter } from '@ionic/angular';
+import { ActionSheetController, AlertController, LoadingController, ToastController, ViewDidEnter } from '@ionic/angular';
 import { Cliente } from 'src/app/models/cliente/cliente';
 import { GestionClientesService } from 'src/app/services/gestion-clientes.service';
 import { SqlServiceService } from 'src/app/services/sql-service.service';
@@ -14,15 +14,17 @@ export class ConsutaClientePage implements OnInit {
   cliente: Cliente;
   textoABuscar:string;
   clientes: Cliente[] = [];
+  loading:any;
   constructor(private sqlService: SqlServiceService
     , private actionSheetController: ActionSheetController
     , private alertController: AlertController
     , private router: Router
     , private toastController: ToastController
-    , private gestionClientesService: GestionClientesService) {}
+    , private gestionClientesService: GestionClientesService
+    , private loadingController:LoadingController) {}
 
   ngOnInit() {
-    this.consultar();
+    this.presentLoading();
   }
 
   doRefresh(event) {
@@ -38,8 +40,19 @@ export class ConsutaClientePage implements OnInit {
         console.log("Datos de servidor recividos");
       }
     );
-
+    
   }
+  async presentLoading() {
+    this.loading = await this.loadingController.create({
+      cssClass: 'my-custom-class',
+      message: 'Cargando lista de clientes',
+      spinner:"crescent" 
+    });
+    await this.loading.present();
+    this.consultar();
+    await this.loading.dismiss();
+  }
+
 
   opciones(cliente: Cliente) {
     this.presentActionSheet(cliente);
