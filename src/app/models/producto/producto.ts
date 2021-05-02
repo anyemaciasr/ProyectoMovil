@@ -9,4 +9,6 @@ export class Producto {
 
 export class ProductoTemporal extends Producto{
     agregado:boolean;
+    cantidad:number;
+    color:string;
 }

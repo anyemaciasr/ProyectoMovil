@@ -7,17 +7,16 @@
         <ion-col size="12" size-md="12" size-lg="12">
           <ion-list>
 
-            <ion-item ng-click="focusInput=true" mode="ios" *ngFor="let producto of productosTemp">
+            <ion-item [color]="producto.color" ng-click="focusInput=true" mode="ios" *ngFor="let producto of productosTemp; let i = index;">
 
               <ion-label class="item">
                 <h3 class="item" class="negrita">{{producto.descripcion}}</h3>
-                <h4 class="item">precio: ${{producto.precio}}</h4>
-                Cantidad
-                <input focus-me="focusInput" class="INPUT" type="number" placeholder="0">
-
+                <h4 class="item">Precio: ${{producto.precio}}</h4>
+                <h4 class="item">Cantidad: {{producto.cantidad}}</h4>
+                            
               </ion-label>
               <ion-icon slot="end" (click)="agregar(producto)" *ngIf="producto.agregado===false" name="add"></ion-icon>
-              <ion-icon slot="end" (click)="quitar()" *ngIf="producto.agregado" color="danger" name="remove-outline"></ion-icon>
+              <ion-icon slot="end" (click)="quitar(producto)" *ngIf="producto.agregado===true" color="danger" name="remove-outline"></ion-icon>
             </ion-item>
 
           </ion-list>

@@ -11,6 +11,7 @@ import { Producto, ProductoTemporal } from 'src/app/models/producto/producto';
 export class ModalProductosPage implements OnInit {
   agregado: boolean = false;
   cantidad: number;
+  color: string = 'Default';
   constructor(private modalController: ModalController, private alertController: AlertController) { }
   productos: Producto[] = [{
     codigo: "1234",
@@ -41,28 +42,44 @@ export class ModalProductosPage implements OnInit {
       productoTemp.precio = producto.precio;
       productoTemp.descripcion = producto.descripcion;
       productoTemp.agregado = false;
+      productoTemp.color = "Default";
       this.productosTemp.push(productoTemp);
     });
   }
 
-  agregar(producto: Producto) {
-
+  agregarDetalle(producto: Producto, cantidad: number) {
     var detalleFactura = new DetalleFactura();
+    detalleFactura.idDetalle = producto.codigo;
     detalleFactura.nombre = producto.nombre;
-    detalleFactura.cantidad = 2;
+    detalleFactura.cantidad = cantidad;
     detalleFactura.valorUnitario = producto.precio;
-    detalleFactura.subTotal = 2*producto.precio;
+    detalleFactura.subTotal = detalleFactura.cantidad * producto.precio;
 
     this.productosTemp.map(function (dato) {
       if (dato.codigo == producto.codigo) {
         dato.agregado = true;
+        dato.cantidad = cantidad;
+        dato.color = "success"
       }
       return dato;
     });
     this.detallesFactura.push(detalleFactura);
   }
-  quitar() {
-    this.agregado = false;
+
+  quitar(producto: Producto) {
+
+    this.productosTemp.map(function (item) {
+
+      if (item.codigo == producto.codigo) {
+        item.agregado = false;
+        item.cantidad = 0;
+        item.color = "Default"
+      }
+
+      return item;
+    });
+    var index = this.detallesFactura.findIndex(p => p.idDetalle === producto.codigo);
+    this.detallesFactura.splice(index,1);
   }
 
   confirmarProductos() {
@@ -79,29 +96,31 @@ export class ModalProductosPage implements OnInit {
   }
 
 
-  async presentAlertPrompt() {
+  async agregar(producto: Producto) {
     const alert = await this.alertController.create({
       cssClass: 'my-custom-class',
       header: 'Cantidad',
+      backdropDismiss: true,
       inputs: [
         {
-          name: 'name1',
+          name: 'cantidad',
           type: 'number',
+
           placeholder: 'Ingrese la cantidad'
         },
       ],
       buttons: [
         {
-          text: 'Cancel',
+          text: 'Cancelar',
           role: 'cancel',
           cssClass: 'secondary',
           handler: () => {
             console.log('Confirm Cancel');
           }
         }, {
-          text: 'Ok',
+          text: 'Agregar',
           handler: (data: any) => {
-            console.log(data);
+            this.agregarDetalle(producto, Number(data.cantidad));
           }
         }
       ]
@@ -109,4 +128,6 @@ export class ModalProductosPage implements OnInit {
 
     await alert.present();
   }
+
+
 }

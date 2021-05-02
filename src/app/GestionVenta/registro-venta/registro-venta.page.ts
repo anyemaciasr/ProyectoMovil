@@ -44,6 +44,11 @@ export class RegistroVentaPage implements OnInit {
     const { data } = await modal.onDidDismiss();
 
     this.factura.detallesFactura = data;
+    var total=0;
+    this.factura.detallesFactura.forEach(element => {
+      total+=element.subTotal
+    });
+    this.factura.total = total;
   }
 
   async presentModalClientes(){
