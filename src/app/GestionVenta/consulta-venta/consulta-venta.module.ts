@@ -13,11 +13,11 @@ import { AvatarModule } from 'ngx-avatar';
 @NgModule({
   imports: [
     ComponentsModule,
-    AvatarModule,
     CommonModule,
     FormsModule,
     IonicModule,
-    ConsultaVentaPageRoutingModule
+    ConsultaVentaPageRoutingModule,
+    AvatarModule
   ],
   declarations: [ConsultaVentaPage]
 })
