@@ -1,6 +1,9 @@
 import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
+import { analyzeAndValidateNgModules } from '@angular/compiler';
 import { Injectable } from '@angular/core';
 import { Observable, throwError } from 'rxjs';
+import { catchError, tap } from 'rxjs/operators';
+import { DetalleFactura } from '../models/factura/detalleFactura';
 import { Factura } from '../models/factura/factura';
 
 @Injectable({
@@ -22,7 +25,7 @@ export class GestionFacturaService {
     }else{
       console.error(
         `Backend returned code ${error.status}`+
-        ` Body was: ${error.error}`
+        ` Body was: ${error.message}`
       );
     }
     return throwError('Something bad happened; please try again later');
@@ -32,4 +35,26 @@ export class GestionFacturaService {
     return this.http.get<Factura[]>(this.url);
   }
 
+  
+  guardar(factura:Factura):Observable<any>{
+    
+    var facturaApi = new FacturaApi();
+    facturaApi.fecha = factura.fecha;
+    facturaApi.descuento = factura.descuento;
+    facturaApi.idCliente = factura.cliente.identificacion;
+    facturaApi.detallesDeFactura = factura.detallesFactura;
+ 
+   return this.http.post(this.url, JSON.stringify(facturaApi), this.httpOptions)
+    .pipe(
+      tap(_ => console.log("Factura Guardada")),
+      catchError(this.handleError)
+    );
+  }
+
+}
+export class FacturaApi {
+  fecha:Date;
+  descuento:number;
+  idCliente:string;
+  detallesDeFactura:DetalleFactura[];
 }

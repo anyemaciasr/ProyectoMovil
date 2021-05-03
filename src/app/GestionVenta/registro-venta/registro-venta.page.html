@@ -24,12 +24,12 @@
         </ion-col>
       </ion-row>
       <ion-row >
-        <ion-item-divider>
+        <ion-item-divider (click)="presentModalClientes()">
           <ion-label>
             Cliente
           </ion-label>
           <ion-buttons slot="end">
-            <ion-button (click)="presentModalClientes()">
+            <ion-button>
               <ion-icon slot="start" name="search"></ion-icon>
             </ion-button>
           </ion-buttons>
@@ -83,12 +83,25 @@
       </ion-row>
       <ion-row>
         <ion-col>
+          <p style="font-size: xx-small;">Escriba el porcentaje del descuento [0-100]</p>
           <ion-item>
-            <ion-label class="text">Descuento: $</ion-label>
+
+            <ion-label  class="text">Descuento %</ion-label>
+            <ion-input (ionChange)="calcularDescuento()" [(ngModel)]="descuento" type="number" placeholder="10%"></ion-input>
           </ion-item>
           <ion-item>
-            <ion-label class="text">Total: ${{factura.total}}</ion-label>
+            <ion-label class="text">Sub total: {{factura.subTotal| currency}}</ion-label>
           </ion-item>
+          <ion-item>
+            <ion-label class="text">total: {{factura.total| currency}}</ion-label>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col size="12">
+          <ion-button (click)="facturar()" expand="block" fill="clear" shape="round">
+            Facturar
+          </ion-button>
         </ion-col>
       </ion-row>
     </ion-grid>

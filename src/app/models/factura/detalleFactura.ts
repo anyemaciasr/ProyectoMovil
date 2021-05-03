@@ -5,6 +5,6 @@ export class DetalleFactura {
     idDetalle:string;
     nombre:string;
     cantidad:number;
-    subTotal:number;
     valorUnitario:number;
+    subTotal:number;  
 }

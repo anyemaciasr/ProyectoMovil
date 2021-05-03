@@ -1,13 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { ModalController } from '@ionic/angular';
-import { DetalleFactura } from 'src/app/models/factura/detalleFactura';
 import {  Factura } from 'src/app/models/factura/factura';
-import { Producto } from 'src/app/models/producto/producto';
 import { ModalProductosPage } from 'src/app/pages/modal-productos/modal-productos.page';
 import {Cliente} from 'src/app/models/cliente/cliente';
-import { ConsutaClientePage } from 'src/app/GestionCliente/consuta-cliente/consuta-cliente.page';
 import { ActivatedRoute } from '@angular/router';
 import { ModalClientesPage } from 'src/app/pages/modal-clientes/modal-clientes.page';
+import { GestionFacturaService } from 'src/app/services/gestion-factura.service';
+
 
 @Component({
   selector: 'app-registro-venta',
@@ -19,10 +18,12 @@ export class RegistroVentaPage implements OnInit {
 
   factura:Factura;
   cliente:Cliente;
-  constructor(private modalController: ModalController,private route: ActivatedRoute) { }
+  descuento:string="";
+  constructor(private modalController: ModalController,private route: ActivatedRoute,private gestionFacturaService:GestionFacturaService) { }
 
   ngOnInit() {
     this.construirFactura();
+  
   }
 
   construirFactura(){
@@ -32,6 +33,21 @@ export class RegistroVentaPage implements OnInit {
     this.factura.fecha = new Date();
     this.factura.detallesFactura = [];
     this.factura.cliente = new Cliente();
+    
+  }
+  calcularDescuento(){
+    if(this.descuento == ""){
+      this.descuento = "0";
+      this.factura.descuento = Number(this.descuento);
+      this.factura.total = this.factura.subTotal - this.factura.descuento;
+      return;
+    }
+    if(Number(this.descuento)<100){
+      this.factura.descuento = (this.factura.subTotal * Number(this.descuento))/100
+    this.factura.total = this.factura.subTotal - this.factura.descuento;
+    }else{
+      this.descuento = "Rango mayor 100%"
+    }
     
   }
   async presentModalProductos() {
@@ -48,7 +64,8 @@ export class RegistroVentaPage implements OnInit {
     this.factura.detallesFactura.forEach(element => {
       total+=element.subTotal
     });
-    this.factura.total = total;
+    this.factura.subTotal = total;
+    this.calcularDescuento();
   }
 
   async presentModalClientes(){
@@ -60,6 +77,21 @@ export class RegistroVentaPage implements OnInit {
 
     const { data } = await modal.onDidDismiss();
     this.factura.cliente = data;
+  }
+
+  generarId(){
+    var id = new Date();
+    this.factura.detallesFactura.map(function (item) { 
+     item.idDetalle = item.idDetalle + id.getFullYear().toString() + id.getMonth().toString() + id.getDay().toString() + id.getHours().toString() + id.getMinutes().toString() + id.getSeconds().toString();
+      return item;
+    });
+  }
+  fac:any;
+  facturar(){
+    this.generarId();   
+    this.gestionFacturaService.guardar(this.factura).subscribe(f => {
+      console.log(f);
+    });
   }
 
 }

@@ -47,6 +47,7 @@ export class ModalProductosPage implements OnInit {
     });
   }
 
+ 
   agregarDetalle(producto: Producto, cantidad: number) {
     var detalleFactura = new DetalleFactura();
     detalleFactura.idDetalle = producto.codigo;
@@ -86,15 +87,34 @@ export class ModalProductosPage implements OnInit {
     this.modalController.dismiss(
       this.detallesFactura
     );
-    this.modalController.dismiss();
   }
 
   dismiss() {
     // using the injected ModalController this page
     // can "dismiss" itself and optionally pass back data
-    this.modalController.dismiss();
+    var lisNone=[];
+    this.modalController.dismiss(lisNone);
   }
 
+  async Mensaje() {
+    const alert = await this.alertController.create({
+      cssClass: 'my-custom-class',
+      header: 'Cerrar sin agregar',
+      backdropDismiss: true,
+      message:"Los productos no se agregaran a la factura",
+      buttons: [
+        {
+          text: 'Entendito',
+          cssClass: 'secondary',
+          handler: () => {
+            this.dismiss();
+          }
+        }
+      ]
+    });
+
+    await alert.present();
+  }
 
   async agregar(producto: Producto) {
     const alert = await this.alertController.create({
