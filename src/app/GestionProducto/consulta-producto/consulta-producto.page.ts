@@ -22,6 +22,7 @@ export class ConsultaProductoPage implements OnInit {
 
   ngOnInit() {
     this.producto = new Producto();
+    this.presentLoading();
   }
 
   

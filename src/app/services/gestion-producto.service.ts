@@ -43,8 +43,8 @@ export class GestionProductoService {
       );
   }
 
-  guardar(producto: Producto): Observable<Producto> {
-    return this.http.post<Producto>(this.url, JSON.stringify(producto), this.httpOptions)
+  guardar(producto: Producto): Observable<any> {
+    return this.http.post(this.url, JSON.stringify(producto), this.httpOptions)
       .pipe(
         tap(_ => console.log("Datos enviados")),
         catchError(this.handleError)

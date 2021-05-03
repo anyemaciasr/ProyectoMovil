@@ -30,14 +30,12 @@ export class RegistroProductoPage implements OnInit {
 
   buildForm() {
     this.producto = new Producto();
-    this.producto.codigo = "";
     this.producto.nombre = "";
     this.producto.categoria = "";
     this.producto.precio = 0;
     this.producto.descripcion = "";
 
     this.formGroup = this.formBuilder.group({
-      codigo: [this.producto.codigo, Validators.required],
       nombre: [this.producto.nombre, Validators.required],
       categoria: [this.producto.categoria, Validators.required],
       precio: [this.producto.precio, Validators.required],
