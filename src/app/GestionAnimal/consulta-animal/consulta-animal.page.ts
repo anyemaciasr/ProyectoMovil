@@ -28,7 +28,7 @@ export class ConsultaAnimalPage implements OnInit {
   async presentLoading() {
     this.loading = await this.loadingController.create({
       cssClass: 'my-custom-class',
-      message: 'Cargando lista de clientes',
+      message: 'Cargando lista de animales',
       spinner: "crescent"
     });
     await this.loading.present();

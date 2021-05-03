@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { ActionSheetController, AlertController, NavController, ToastController } from '@ionic/angular';
+import { ActionSheetController, AlertController, LoadingController, NavController, ToastController } from '@ionic/angular';
 import { Producto } from 'src/app/models/producto/producto';
+import { GestionProductoService } from 'src/app/services/gestion-producto.service';
 
 @Component({
   selector: 'app-consulta-producto',
@@ -11,36 +12,44 @@ import { Producto } from 'src/app/models/producto/producto';
 export class ConsultaProductoPage implements OnInit {
   textoABuscar:string;
   producto: Producto;
+  productos: Producto[] = [];
+  loading:any;
   constructor(private actionSheetController: ActionSheetController
     , private alertController: AlertController, private router:Router
+    ,private loadingController:LoadingController
+    , private gestionProductoService: GestionProductoService
     , private toastController:ToastController, private navCtrl:NavController) { }
 
   ngOnInit() {
     this.producto = new Producto();
   }
 
-  productos: Producto[] = [{
-    codigo:"1234",
-    nombre:"carne",
-    categoria:"red",
-    precio:50000,
-    descripcion:"carne roja",
-
-  },
-  {
-    codigo:"5050",
-    nombre:"leche",
-    categoria:"lacteos",
-    precio:100000,
-    descripcion:"leche entera",
-
-  },
-  ];
+  
 
   doRefresh(event) {
     event.target.complete();
   }
+  async presentLoading() {
+    this.loading = await this.loadingController.create({
+      cssClass: 'my-custom-class',
+      message: 'Cargando lista de clientes',
+      spinner:"crescent" 
+    });
+    await this.loading.present();
+    this.consultar();
+    await this.loading.dismiss();
+  }
 
+  consultar() {
+    this.gestionProductoService.consultar().subscribe(
+      datos => {
+        console.log(datos);
+        this.productos = datos;
+        console.log("Datos de servidor recividos");
+      }
+    );
+    
+  }
 
   redirectTo(){
     this.navCtrl.navigateForward('/registro-producto');
@@ -136,4 +145,11 @@ export class ConsultaProductoPage implements OnInit {
     await alert.present();
   }
   
+  async presentToast() {
+    const toast = await this.toastController.create({
+      message: 'Producto eliminado exitosamente',
+      duration: 2000
+    });
+    toast.present();
+  }
 }

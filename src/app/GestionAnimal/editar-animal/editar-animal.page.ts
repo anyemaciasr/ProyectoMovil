@@ -15,6 +15,7 @@ export class EditarAnimalPage implements OnInit {
   constructor(private actionSheetController: ActionSheetController, private alertController: AlertController) { }
 
   ngOnInit() {
+    
   }
   slideOpts = {
     initialSlide: 0,
