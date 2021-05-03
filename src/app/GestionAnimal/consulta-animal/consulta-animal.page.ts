@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { ActionSheetController, AlertController, NavController, ToastController } from '@ionic/angular';
+import { ActionSheetController, AlertController, LoadingController, NavController, ToastController } from '@ionic/angular';
 import { Animal } from 'src/app/models/animal/animal';
+import { GestionAnimalService } from 'src/app/services/gestion-animal.service';
 
 @Component({
   selector: 'app-consulta-animal',
@@ -11,48 +12,41 @@ import { Animal } from 'src/app/models/animal/animal';
 export class ConsultaAnimalPage implements OnInit {
   textoABuscar:string;
   animal: Animal;
+  loading:any;
   constructor(private actionSheetController: ActionSheetController
     , private alertController: AlertController, private router:Router
-    , private toastController:ToastController, private navCtrl:NavController) { }
+    , private toastController:ToastController, private navCtrl:NavController
+    ,private gestionAnimalService:GestionAnimalService
+    ,private loadingController:LoadingController) { }
 
-  animales: Animal[] = [{
-    identificacion:"123456",
-    nombre:"yo",
-    agrupacion:"lote",
-    cantidad:20,
-    fechaNacimiento:new Date(),
-    origen:"valledupar",
-    padre:"kk",
-    madre:"string",
-    pesoInicial:20,
-    pesoFinal:30,
-    tipoGanado:"loro"
-
-  },
-  {
-    identificacion:"5555",
-    nombre:"hola",
-    agrupacion:"unidad",
-    cantidad:20,
-    fechaNacimiento:new Date(),
-    origen:"valledupar",
-    padre:"string",
-    madre:"string",
-    pesoInicial:20,
-    pesoFinal:30,
-    tipoGanado:"vaca"
-
-  },
-  ];
+  animales: Animal[] = [];
 
   ngOnInit() {
     this.animal = new Animal();
+   this.presentLoading();
+  }
+  async presentLoading() {
+    this.loading = await this.loadingController.create({
+      cssClass: 'my-custom-class',
+      message: 'Cargando lista de clientes',
+      spinner: "crescent"
+    });
+    await this.loading.present();
+    this.consultar();
+    await this.loading.dismiss();
   }
 
   doRefresh(event) {
+    this.consultar();
     event.target.complete();
   }
 
+  consultar(){
+    this.gestionAnimalService.consultar().subscribe(a => {
+      this.animales = a
+      console.log('Datos Recibidos', a);
+    });
+  }
 
   redirectTo(){
     this.navCtrl.navigateForward('/registro-animal');

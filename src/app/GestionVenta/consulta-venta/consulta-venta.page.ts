@@ -86,12 +86,12 @@ export class ConsultaVentaPage implements OnInit {
     });
     await actionSheet.present();
   }
-  async AlerConsulta(factura: Factura) {
+  async AlerConsulta(factura) {
     const alert = await this.alertController.create({
       cssClass: 'my-custom-class ',
       header: 'Datos de la factura',
       message: 'Codigo: ' + factura.idFactura
-        + '<br>Cliente: jolo ' + factura.idFactura
+        + '<br>Cliente:' + factura.nombreCliente
         + '<br>Fecha: ' + factura.fecha + '<br>subTotal: ' + factura.subTotal
         + '<br>Descuento: ' + factura.descuento + '<br>Total: ' + factura.total,
       buttons: ['OK']

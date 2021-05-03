@@ -9,7 +9,7 @@ import { Animal } from '../models/animal/animal';
 })
 export class GestionAnimalService {
 
-  url="https://localhost:5001/Cliente";
+  url="https://localhost:5001/Animal";
   constructor(public http: HttpClient) { }
 
   httpOptions = {
