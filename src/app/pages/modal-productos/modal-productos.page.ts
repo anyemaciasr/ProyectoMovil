@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { AlertController, ModalController } from '@ionic/angular';
+import { AlertController, LoadingController, ModalController } from '@ionic/angular';
 import { DetalleFactura } from 'src/app/models/factura/detalleFactura';
 import { Producto, ProductoTemporal } from 'src/app/models/producto/producto';
+import { GestionProductoService } from 'src/app/services/gestion-producto.service';
 
 @Component({
   selector: 'app-modal-productos',
@@ -12,28 +13,20 @@ export class ModalProductosPage implements OnInit {
   agregado: boolean = false;
   cantidad: number;
   color: string = 'Default';
-  constructor(private modalController: ModalController, private alertController: AlertController) { }
-  productos: Producto[] = [{
-    codigo: "1234",
-    nombre: "carne",
-    categoria: "red",
-    precio: 50000,
-    descripcion: "carne roja",
-
-  },
-  {
-    codigo: "5050",
-    nombre: "leche",
-    categoria: "lacteos",
-    precio: 100000,
-    descripcion: "leche entera",
-
-  },
-  ];
+  loading:any;
+  constructor(private modalController: ModalController
+    , private alertController: AlertController
+    , private gestionProductoService:GestionProductoService
+    , private loadingController:LoadingController) { }
+  productos: Producto[] = [];
   productosTemp: ProductoTemporal[] = [];
   detallesFactura: DetalleFactura[] = [];
 
   ngOnInit() {
+    this.presentLoading();
+    
+  }
+  contruirLista(){
     this.productos.forEach(producto => {
       var productoTemp = new ProductoTemporal();
       productoTemp.codigo = producto.codigo;
@@ -47,6 +40,32 @@ export class ModalProductosPage implements OnInit {
     });
   }
 
+  doRefresh(event) {
+    this.consultar();
+    event.target.complete();
+  }
+  async presentLoading() {
+    this.loading = await this.loadingController.create({
+      cssClass: 'my-custom-class',
+      message: 'Cargando lista de clientes',
+      spinner:"crescent" 
+    });
+    await this.loading.present();
+    this.consultar();
+    await this.loading.dismiss();
+  }
+
+  consultar() {
+    this.gestionProductoService.consultar().subscribe(
+      datos => {
+        console.log(datos);
+        this.productos = datos;
+        this.contruirLista();
+        console.log("Datos de servidor recividos");
+      }
+    );
+    
+  }
  
   agregarDetalle(producto: Producto, cantidad: number) {
     var detalleFactura = new DetalleFactura();

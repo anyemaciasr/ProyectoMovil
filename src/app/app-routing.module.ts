@@ -45,7 +45,7 @@ const routes: Routes = [
     loadChildren: () => import('./GestionAnimal/consulta-animal/consulta-animal.module').then( m => m.ConsultaAnimalPageModule)
   },
   {
-    path: 'editar-animal',
+    path: 'editar-animal/:id',
     loadChildren: () => import('./GestionAnimal/editar-animal/editar-animal.module').then( m => m.EditarAnimalPageModule)
   },
   {
@@ -69,7 +69,7 @@ const routes: Routes = [
     loadChildren: () => import('./GestionProducto/consulta-producto/consulta-producto.module').then( m => m.ConsultaProductoPageModule)
   },
   {
-    path: 'editar-producto',
+    path: 'editar-producto/:id',
     loadChildren: () => import('./GestionProducto/editar-producto/editar-producto.module').then( m => m.EditarProductoPageModule)
   },
   {
@@ -87,7 +87,8 @@ const routes: Routes = [
   {
     path: 'perfil-usuario',
     loadChildren: () => import('./login/perfil-usuario/perfil-usuario.module').then( m => m.PerfilUsuarioPageModule)
-  },  {
+  },
+  {
     path: 'modal-clientes',
     loadChildren: () => import('./pages/modal-clientes/modal-clientes.module').then( m => m.ModalClientesPageModule)
   }

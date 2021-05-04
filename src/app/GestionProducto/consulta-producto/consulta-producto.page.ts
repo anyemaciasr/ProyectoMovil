@@ -28,6 +28,7 @@ export class ConsultaProductoPage implements OnInit {
   
 
   doRefresh(event) {
+    this.consultar();
     event.target.complete();
   }
   async presentLoading() {
@@ -79,7 +80,7 @@ export class ConsultaProductoPage implements OnInit {
           icon: 'pencil',
           cssClass: "gris",
           handler: () => {
-            this.router.navigate(['/editar-producto']);
+            this.router.navigate(['/editar-producto',producto.codigo]);
           }
         },
         {
@@ -122,7 +123,7 @@ export class ConsultaProductoPage implements OnInit {
           text: "Eliminar",
           cssClass: "rojo",
           handler: () => {
-
+           this.gestionProductoService.eliminar(Number(producto.codigo)).subscribe(p => console.log("Producto eliminado"));
           },
 
         }

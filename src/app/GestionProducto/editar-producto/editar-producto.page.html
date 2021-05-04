@@ -4,29 +4,21 @@
 <ion-content class="ion-paddin">
 
   <ion-list>
-    <form >
+    <form [formGroup]="formGroup">
       <ion-grid>
         <ion-row class="ion-justify-content-center ion-text-center">
           <ion-col size="12" size-md="6" size-lg="4">
-            <h3>Editar Producto</h3>
+            <h3>Registro Producto</h3>
           </ion-col>
         </ion-row>
         <ion-row class="ion-justify-content-center ion-text-center">
           <ion-col size="12" size-md="6" size-lg="4">
             <ion-item>
-              <ion-label position="floating">Codigo <ion-text color="danger"></ion-text>
-              </ion-label>
-              <ion-input type="text" name="codigo"  ></ion-input>
-            </ion-item>
-
-          </ion-col>
-          <ion-col size="12" size-md="6" size-lg="4">
-            <ion-item>
               <ion-label position="floating">Nombre <ion-text color="danger"></ion-text>
               </ion-label>
-              <ion-input type="text" name="nombre"></ion-input>
+              <ion-input type="text" name="nombre" formControlName="nombre"></ion-input>
             </ion-item>
-
+            <ion-label class="ion-text-left" color="danger" *ngIf="formGroup.controls.nombre.errors?.required && (formGroup.controls.nombre.touched || formGroup.controls.nombre.dirty)">* El nombre es requerido </ion-label>
           </ion-col>
         </ion-row>
 
@@ -35,17 +27,19 @@
             <ion-item>
               <ion-label position="floating">Precio <ion-text color="danger"></ion-text>
               </ion-label>
-              <ion-input type="number" name="precio"></ion-input>
+              <ion-input type="number"  name="precio" formControlName="precio"></ion-input>
             </ion-item>
+            <ion-label class="ion-text-left" color="danger" *ngIf="formGroup.controls.precio.errors?.required && (formGroup.controls.precio.touched || formGroup.controls.precio.dirty)">* El precio es requerido </ion-label>
           </ion-col>
           <ion-col size="12" size-md="6" size-lg="4">
             <ion-item>
               <ion-label>Categoria</ion-label>
-              <ion-select interface="popover">
-                <ion-select-option value="Lote">lacteos</ion-select-option>
-                <ion-select-option value="Unidad">otro</ion-select-option>
+              <ion-select name="categoria" formControlName="categoria" interface="popover">
+                <ion-select-option value="lacteos">lacteos</ion-select-option>
+                <ion-select-option value="otro">otro</ion-select-option>
               </ion-select>
             </ion-item>
+            <ion-label class="ion-text-left" color="danger" *ngIf="formGroup.controls.categoria.errors?.required && (formGroup.controls.categoria.touched || formGroup.controls.categoria.dirty)">* La categoria es requerida </ion-label>
           </ion-col>
         </ion-row>
         <ion-row class="ion-justify-content-center ion-text-center">
@@ -53,20 +47,18 @@
             <ion-item>
               <ion-label position="floating">Descripcion <ion-text color="danger"></ion-text>
               </ion-label>
-              <ion-textarea name="descripcion"></ion-textarea>
+              <ion-textarea name="descripcion" formControlName="descripcion"></ion-textarea>
             </ion-item>
+            <ion-label class="ion-text-left" color="danger" *ngIf="formGroup.controls.descripcion.errors?.required && (formGroup.controls.descripcion.touched || formGroup.controls.descripcion.dirty)">* La descripcion es requerida </ion-label>
           </ion-col>
           <br>
           <br>
           <br>
-
-
-          
           <br>
           <br>
           <br>
           <ion-col size="12" size-md="6" size-lg="4">
-            <ion-button id="boton" size=" undefined" class="shadow-red" shape="round">Editar</ion-button>
+            <ion-button id="boton" size=" undefined" (click)="onSubmit()" [disabled]="formGroup.invalid" class="shadow-red" shape="round">Editar</ion-button>
           </ion-col>
         </ion-row>
 

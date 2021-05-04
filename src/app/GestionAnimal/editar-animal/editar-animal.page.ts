@@ -1,5 +1,9 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { ActionSheetController, AlertController, IonSlides } from '@ionic/angular';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { ActivatedRoute, Router } from '@angular/router';
+import { ActionSheetController, AlertController, IonSlides, ToastController } from '@ionic/angular';
+import { Animal } from 'src/app/models/animal/animal';
+import { GestionAnimalService } from 'src/app/services/gestion-animal.service';
 
 @Component({
   selector: 'app-editar-animal',
@@ -10,13 +14,32 @@ export class EditarAnimalPage implements OnInit {
   @ViewChild('slides', { static: true }) slides: IonSlides;
   agrupacion:string;
   activeIndex: number = 0;
+  animal: Animal;
+  animales: Animal[] = [];
+  formGroup: FormGroup;
 
-
-  constructor(private actionSheetController: ActionSheetController, private alertController: AlertController) { }
+  constructor(private actionSheetController: ActionSheetController
+    , private alertController: AlertController
+    , private toastController: ToastController
+    , private gestionAnimalService:GestionAnimalService
+    , private router:Router
+    ,private formBuilder:FormBuilder
+    ,private route:ActivatedRoute
+    ) { }
 
   ngOnInit() {
-    
+    this.animal = new Animal();
+    this.consultarAnimal();
   }
+
+  consultarAnimal(){
+    var id = this.route.snapshot.paramMap.get("id");
+    this.gestionAnimalService.buscarAnimal(id).subscribe(
+      a => this.animal = a
+    );
+    this.buildForm(this.animal);
+  }
+
   slideOpts = {
     initialSlide: 0,
     speed: 400,
@@ -79,4 +102,51 @@ export class EditarAnimalPage implements OnInit {
 
     await alert.present();
   }
+
+  buildForm(animalEncontrado:Animal) {
+    this.animal = animalEncontrado;
+   
+    this.formGroup = this.formBuilder.group({
+      identificacion: [this.animal.identificacion, [Validators.required, Validators.minLength(6)]],
+      nombre: [this.animal.nombre, Validators.required],
+      agrupacion: [this.animal.agrupacion, Validators.required],
+      cantidad: [this.animal.cantidad, Validators.required],
+      fechaNacimiento: [this.animal.fechaNacimiento, [Validators.required]],
+      origen: [this.animal.origen, Validators.required],
+      padre: [this.animal.padre, Validators.required],
+      madre: [this.animal.madre, Validators.required],
+      pesoInicial: [this.animal.pesoInicial, Validators.required],
+      pesoFinal: [this.animal.pesoFinal, Validators.required],
+      tipoGanado: [this.animal.tipoGanado, Validators.required]
+    })
+  }
+
+  get control() {
+    return this.formGroup.controls;
+  }
+
+  onSubmit() {
+    if (this.formGroup.invalid) {
+      this.presentToast('Por favor complete el formulario');
+      return;
+    }
+    this.editar();
+  }
+
+  editar() {
+    this.animal = this.formGroup.value;
+    this.gestionAnimalService.actualizar(this.animal.identificacion,this.animal).subscribe(a => this.animal = a);
+    this.formGroup.reset();
+    this.presentToast('Animal editado exitosamente');
+    this.router.navigate(['/consulta-animal']);
+  }
+
+  async presentToast(mensaje: string) {
+    const toast = await this.toastController.create({
+      message: mensaje,
+      duration: 2000
+    });
+    toast.present();
+  }
+
 }

@@ -9,8 +9,7 @@
       refreshingSpinner="circles" refreshingText="Actulizando...">
     </ion-refresher-content>
   </ion-refresher>
-
-
+  
   <ion-list>
     <ion-grid fixed>
       <ion-row class="ion-justify-content-center ion-text-center">
@@ -27,7 +26,7 @@
                 <ion-label>
                   <h3 class="negrita">{{factura.nombreCliente}}</h3>
                   <h4>id: {{factura.idFactura}}</h4>
-                  <h4>Total: {{factura.total}}</h4>
+                  <h4>Total: {{factura.total| currency}}</h4>
                 </ion-label>
               </ion-item>
             </ion-item-sliding>

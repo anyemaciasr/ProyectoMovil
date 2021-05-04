@@ -1,6 +1,15 @@
 <ion-content>
   <ion-searchbar showCancelButton="focus" placeholder="Buscar producto"></ion-searchbar>
 
+  <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content
+      pullingIcon="chevron-down-circle-outline"
+      pullingText="Tire para actualizar "
+      refreshingSpinner="circles"
+      refreshingText="Actulizando...">
+    </ion-refresher-content>
+  </ion-refresher>
+
   <ion-list>
     <ion-grid fixed>
       <ion-row class="ion-justify-content-center ion-text-center">
@@ -10,7 +19,7 @@
             <ion-item [color]="producto.color" ng-click="focusInput=true" mode="ios" *ngFor="let producto of productosTemp; let i = index;">
 
               <ion-label class="item">
-                <h3 class="item" class="negrita">{{producto.descripcion}}</h3>
+                <h3 class="item" class="negrita">{{producto.nombre}}</h3>
                 <h4 class="item">Precio: ${{producto.precio}}</h4>
                 <h4 class="item">Cantidad: {{producto.cantidad}}</h4>
                             

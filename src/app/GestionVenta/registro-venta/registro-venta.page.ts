@@ -3,7 +3,7 @@ import { ModalController } from '@ionic/angular';
 import {  Factura } from 'src/app/models/factura/factura';
 import { ModalProductosPage } from 'src/app/pages/modal-productos/modal-productos.page';
 import {Cliente} from 'src/app/models/cliente/cliente';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { ModalClientesPage } from 'src/app/pages/modal-clientes/modal-clientes.page';
 import { GestionFacturaService } from 'src/app/services/gestion-factura.service';
 
@@ -19,7 +19,10 @@ export class RegistroVentaPage implements OnInit {
   factura:Factura;
   cliente:Cliente;
   descuento:string="";
-  constructor(private modalController: ModalController,private route: ActivatedRoute,private gestionFacturaService:GestionFacturaService) { }
+  constructor(private modalController: ModalController
+    ,private route: ActivatedRoute
+    ,private gestionFacturaService:GestionFacturaService
+    ,private router:Router) { }
 
   ngOnInit() {
     this.construirFactura();
@@ -92,6 +95,7 @@ export class RegistroVentaPage implements OnInit {
     this.gestionFacturaService.guardar(this.factura).subscribe(f => {
       console.log(f);
     });
+    this.router.navigate(['/consulta-venta']);
   }
 
 }

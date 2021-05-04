@@ -25,7 +25,7 @@ export class GestionProductoService {
     } else {
       console.error(
         `Backend returned code ${error.status}` +
-        ` Body was: ${error.error}`
+        ` Body was: ${error.message}`
       );
     }
     return throwError('Something bad happened; please try again later');
@@ -35,7 +35,7 @@ export class GestionProductoService {
     return this.http.get<Producto[]>(this.url);
   }
 
-  eliminar(id: string): Observable<Producto> {
+  eliminar(id: number): Observable<Producto> {
     return this.http.delete<Producto>(this.url + '/' + id, this.httpOptions)
       .pipe(
         tap(_ => console.log("Producto eliminado")),
@@ -51,4 +51,19 @@ export class GestionProductoService {
       );
   }
 
+  buscarProducto(id: number): Observable<Producto> {
+    return this.http.get<Producto>(this.url + '/' + id, this.httpOptions)
+      .pipe(
+        tap(_ => console.log("Datos enviados")),
+        catchError(this.handleError)
+      );
+  }
+
+  actualizar(id: number, producto: Producto): Observable<Producto> {
+    return this.http.put<Producto>(this.url + '/' + id, JSON.stringify(producto), this.httpOptions)
+    .pipe(
+      tap(_ => console.log("producto actualizado")),
+      catchError(this.handleError)
+    );
+  }
 }

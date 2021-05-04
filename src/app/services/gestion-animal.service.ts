@@ -42,6 +42,13 @@ export class GestionAnimalService {
     );
   }
 
+  buscarAnimal(id: string): Observable<Animal> {
+    return this.http.get<Animal>(this.url + '/' + id, this.httpOptions)
+      .pipe(
+        tap(_ => console.log("Datos enviados")),
+        catchError(this.handleError)
+      );
+  }
   guardar(animal:Animal):Observable<Animal>{
     return this.http.post<Animal>(this.url, JSON.stringify(animal), this.httpOptions)
     .pipe(
@@ -50,4 +57,11 @@ export class GestionAnimalService {
     );
   }
   
+  actualizar(id: string, animal: Animal): Observable<Animal> {
+    return this.http.put<Animal>(this.url + '/' + id, JSON.stringify(animal), this.httpOptions)
+    .pipe(
+      tap(_ => console.log("animal actualizado")),
+      catchError(this.handleError)
+    );
+  }
 }

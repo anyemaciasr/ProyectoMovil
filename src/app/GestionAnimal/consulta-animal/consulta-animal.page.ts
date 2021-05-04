@@ -23,7 +23,7 @@ export class ConsultaAnimalPage implements OnInit {
 
   ngOnInit() {
     this.animal = new Animal();
-   this.presentLoading();
+    this.presentLoading();
   }
   async presentLoading() {
     this.loading = await this.loadingController.create({
@@ -76,7 +76,7 @@ export class ConsultaAnimalPage implements OnInit {
           icon: 'pencil',
           cssClass: "gris",
           handler: () => {
-            this.router.navigate(['/editar-animal']);
+            this.router.navigate(['/editar-animal',animal.identificacion]);
           }
         },
         {
@@ -120,7 +120,8 @@ export class ConsultaAnimalPage implements OnInit {
           text: "Eliminar",
           cssClass: "rojo",
           handler: () => {
-
+            this.gestionAnimalService.eliminar(animal.identificacion).subscribe(a => console.log('Eliminado ', a));
+            this.presentLoading();
           },
 
         }

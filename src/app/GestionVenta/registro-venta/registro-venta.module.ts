@@ -8,6 +8,7 @@ import { RegistroVentaPageRoutingModule } from './registro-venta-routing.module'
 
 import { RegistroVentaPage } from './registro-venta.page';
 import { ComponentsModule } from 'src/app/components/components.module';
+import { AvatarModule } from 'ngx-avatar';
 
 @NgModule({
   imports: [
@@ -15,7 +16,8 @@ import { ComponentsModule } from 'src/app/components/components.module';
     CommonModule,
     FormsModule,
     IonicModule,
-    RegistroVentaPageRoutingModule
+    RegistroVentaPageRoutingModule,
+    AvatarModule
   ],
   declarations: [RegistroVentaPage]
 })

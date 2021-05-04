@@ -5,11 +5,11 @@
   <ion-slides #slides (ionSlideDidChange)="slideChanged()" pager="true" [options]="slideOpts">
     <ion-slide>
       <ion-list>
-        <form>
+        <form [formGroup]="formGroup">
           <ion-grid class="ion-paddin">
             <ion-row class="ion-justify-content-center ion-text-center">
               <ion-col size="12" size-md="6" size-lg="4">
-                <h3>Editar Animales</h3>
+                <h3>Editar Animal</h3>
               </ion-col>
             </ion-row>
             <ion-row class="ion-justify-content-center ion-text-center">
@@ -17,52 +17,66 @@
                 <ion-item>
                   <ion-label position="floating">Identificacion <ion-text color="danger"></ion-text>
                   </ion-label>
-                  <ion-input type="text" name="identificacion"  ></ion-input>
+                  <ion-input type="text" name="identificacion" formControlName="identificacion"  ></ion-input>
                 </ion-item>
+                <ion-label class="ion-text-left" color="danger"
+                  *ngIf="formGroup.controls.identificacion.errors?.required && (formGroup.controls.identificacion.touched || formGroup.controls.identificacion.dirty)">
+                  * La identificacion es requerida </ion-label>
+                <ion-label class="ion-text-left" color="danger"
+                  *ngIf="formGroup.controls.identificacion.errors?.minlength && (formGroup.controls.identificacion.touched || formGroup.controls.identificacion.dirty)">
+                  * La identificacion debe contener 6 caracteres o mas </ion-label>
               </ion-col>
               <ion-col size="12" size-md="6" size-lg="4">
                 <ion-item>
-                  <ion-label>fecha nacimiento</ion-label>
-                  <ion-datetime name="fechaNacimienti" display-format="D  MMMM YY" (ionChange)="cambioFecha($event)">
-                  </ion-datetime>
+                  <ion-label position="floating">Nombre<ion-text color="danger"></ion-text>
+                  </ion-label>
+                  <ion-input type="text" name="nombre" formControlName="nombre"></ion-input>
                 </ion-item>
+                <ion-label class="ion-text-left" color="danger" *ngIf="formGroup.controls.nombre.errors?.required && (formGroup.controls.nombre.touched || formGroup.controls.nombre.dirty)">* El nombre es requerido </ion-label>
               </ion-col>
+             
 
             </ion-row>
             <ion-row class="ion-justify-content-center ion-text-center">
+              <ion-col size="12" size-md="6" size-lg="4">
+                <ion-item>
+                  <ion-label>fecha nacimiento</ion-label>
+                  <ion-datetime name="fechaNacimiento" formControlName="fechaNacimiento" display-format="D  MMMM YY" >
+                  </ion-datetime>
+                </ion-item>
+                <ion-label class="ion-text-left" color="danger" *ngIf="formGroup.controls.fechaNacimiento.errors?.required && (formGroup.controls.fechaNacimiento.touched || formGroup.controls.fechaNacimiento.dirty)">* La fecha de nacimiento es requerida </ion-label>
+              </ion-col>
               <ion-col size="12" size-md="6" size-lg="4">
                 <ion-item>
                   <ion-label position="floating">Origen<ion-text color="danger"></ion-text>
                   </ion-label>
-                  <ion-input type="text" name="origen"></ion-input>
+                  <ion-input type="text" name="origen" formControlName="origen"></ion-input>
                 </ion-item>
+                <ion-label class="ion-text-left" color="danger" *ngIf="formGroup.controls.origen.errors?.required && (formGroup.controls.origen.touched || formGroup.controls.origen.dirty)">* El origen es requerido </ion-label>
               </ion-col>
-              <ion-col size="12" size-md="6" size-lg="4">
-                <ion-item>
-                  <ion-label position="floating">Padre<ion-text color="danger"></ion-text>
-                  </ion-label>
-                  <ion-input name="padre" type="text"></ion-input>
-                </ion-item>
-              </ion-col>
+              
             </ion-row>
             <ion-row class="ion-justify-content-center ion-text-center">
               <ion-col size="12" size-md="6" size-lg="4">
                 <ion-item>
-                  <ion-label position="floating">Madre<ion-text color="danger"></ion-text>
+                  <ion-label position="floating">Padre<ion-text color="danger"></ion-text>
                   </ion-label>
-                  <ion-input name="madre" type="text"></ion-input>
+                  <ion-input name="padre" formControlName="padre" type="text"></ion-input>
                 </ion-item>
+                <ion-label class="ion-text-left" color="danger" *ngIf="formGroup.controls.padre.errors?.required && (formGroup.controls.padre.touched || formGroup.controls.padre.dirty)">* El padre es requerido </ion-label>
               </ion-col>
               <ion-col size="12" size-md="6" size-lg="4">
                 <ion-item>
-                  <ion-label position="floating">Peso inicial<ion-text color="danger"></ion-text>
+                  <ion-label position="floating">Madre<ion-text color="danger"></ion-text>
                   </ion-label>
-                  <ion-input name="pesoInicial" type="text"></ion-input>
+                  <ion-input name="madre" formControlName="madre" type="text"></ion-input>
                 </ion-item>
+                <ion-label class="ion-text-left" color="danger" *ngIf="formGroup.controls.madre.errors?.required && (formGroup.controls.madre.touched || formGroup.controls.madre.dirty)">* La madre es requerida </ion-label>
               </ion-col>
+             
             </ion-row>
 
-
+           
           </ion-grid>
 
         </form>
@@ -74,12 +88,22 @@
 
     <ion-slide>
       <ion-list>
-        <form>
+        <form [formGroup]="formGroup"> 
 
           <ion-grid fixed>
             <ion-row class="ion-justify-content-center ion-text-center">
               <ion-col size="12" size-md="6" size-lg="4">
-                <h3>Editar Animales</h3>
+                <h3>Registro Animales</h3>
+              </ion-col>
+            </ion-row>
+            <ion-row class="ion-justify-content-center ion-text-center">
+              <ion-col ssize="12" size-md="6" size-lg="4">
+                <ion-item>
+                  <ion-label position="floating">Peso inicial<ion-text color="danger"></ion-text>
+                  </ion-label>
+                  <ion-input name="pesoInicial" formControlName="pesoInicial" type="number"></ion-input>
+                </ion-item>
+                <ion-label class="ion-text-left" color="danger" *ngIf="formGroup.controls.pesoInicial.errors?.required && (formGroup.controls.pesoInicial.touched || formGroup.controls.pesoInicial.dirty)">* El peso inicial es requerido </ion-label>
               </ion-col>
             </ion-row>
             <ion-row class="ion-justify-content-center ion-text-center">
@@ -87,48 +111,49 @@
                 <ion-item>
                   <ion-label position="floating">Peso final<ion-text color="danger"></ion-text>
                   </ion-label>
-                  <ion-input name="pesoFinal" type="text"></ion-input>
+                  <ion-input name="pesoFinal"  formControlName="pesoFinal" type="number"></ion-input>
                 </ion-item>
+                <ion-label class="ion-text-left" color="danger" *ngIf="formGroup.controls.pesoFinal.errors?.required && (formGroup.controls.pesoFinal.touched || formGroup.controls.pesoFinal.dirty)">* El peso final es requerido </ion-label>
               </ion-col>
               <ion-col size="12" size-md="6" size-lg="4">
                 <ion-item>
                   <ion-label>Agrupacion</ion-label>
-                  <ion-select #agrupacion (ionChange)="onChange(agrupacion.value)" interface="popover">
+                  <ion-select name="agrupacion"  formControlName="agrupacion" #agrupacion (ionChange)="onChange(agrupacion.value)" interface="popover">
                     <ion-select-option value="Lote">Lote</ion-select-option>
                     <ion-select-option value="Unidad">Unidad</ion-select-option>
                   </ion-select>
                 </ion-item>
-
+                <ion-label class="ion-text-left" color="danger" *ngIf="formGroup.controls.agrupacion.errors?.required && (formGroup.controls.agrupacion.touched || formGroup.controls.agrupacion.dirty)">* La agrupacion es requerida </ion-label>
               </ion-col>
             </ion-row>
 
-            <ion-row  class="ion-justify-content-center ion-text-center">
-              <ion-col size="12" size-md="6" size-lg="4" >
-                <ion-item *ngIf="validarAgrupacion()" >
+            <ion-row class="ion-justify-content-center ion-text-center">
+              <ion-col size="12" size-md="6" size-lg="4">
+                <ion-item *ngIf="validarAgrupacion()">
                   <ion-label position="floating">Cantidad<ion-text color="danger"></ion-text>
                   </ion-label>
-                  <ion-input name="cantidad" type="number"></ion-input>
+                  <ion-input name="cantidad" formControlName="cantidad" type="number"></ion-input>
                 </ion-item>
-               
+                <ion-label class="ion-text-left" color="danger" *ngIf="formGroup.controls.cantidad.errors?.required && (formGroup.controls.cantidad.touched || formGroup.controls.cantidad.dirty)">* La cantidad es requerida </ion-label>
               </ion-col>
-              
+
               <ion-col size="12" size-md="6" size-lg="4">
                 <ion-item>
                   <ion-label>Tipo ganado</ion-label>
-                  <ion-select interface="popover">
+                  <ion-select name="tipoGanado"  formControlName="tipoGanado" interface="popover">
                     <ion-select-option value="nes">gato</ion-select-option>
                     <ion-select-option value="n64">perro</ion-select-option>
                     <ion-select-option value="ps">conejo</ion-select-option>
-
                   </ion-select>
                 </ion-item>
+                <ion-label class="ion-text-left" color="danger" *ngIf="formGroup.controls.tipoGanado.errors?.required && (formGroup.controls.tipoGanado.touched || formGroup.controls.tipoGanado.dirty)">* El tipo de ganado es requerido </ion-label>
               </ion-col>
             </ion-row>
             <br>
-              <br>
+            <br>
             <ion-row>
               <ion-col size="12">
-                <ion-button id="boton" size=" undefined" class="shadow-red" shape="round">Editar</ion-button>
+                <ion-button id="boton" size=" undefined" (click)="onSubmit()" [disabled]="formGroup.invalid" class="shadow-red" shape="round">Editar</ion-button>
               </ion-col>
             </ion-row>
           </ion-grid>
@@ -142,7 +167,7 @@
   <ion-row>
     <ion-col size="12">
 
-      <ion-item lines="none" 	detail="false">
+      <ion-item lines="none" detail="false">
         <ion-buttons slot="end" *ngIf="this.activeIndex===0; else volverButton">
           <ion-chip (click)="cambiarIndex(1)" color="primary" shape="round" size="small">
             <ion-label>Siguiente</ion-label>

@@ -16,7 +16,7 @@ import { AvatarModule } from 'ngx-avatar';
     FormsModule,
     IonicModule,
     ModalClientesPageRoutingModule,
-    
+    AvatarModule
   ],
   declarations: [ModalClientesPage,FiltroClientesPipe]
 })
