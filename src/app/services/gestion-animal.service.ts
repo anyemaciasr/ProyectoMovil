@@ -3,14 +3,17 @@ import { Injectable } from '@angular/core';
 import { Observable, throwError } from 'rxjs';
 import { catchError, tap } from 'rxjs/operators';
 import { Animal } from '../models/animal/animal';
+import { HandlerErrorService } from './handler-error.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class GestionAnimalService {
 
-  url="https://localhost:5001/Animal";
-  constructor(public http: HttpClient) { }
+  url="https://villanorisapi.azurewebsites.net/Animal";
+  constructor(public http: HttpClient
+    ,private handleErrorService:HandlerErrorService
+    ) { }
 
   httpOptions = {
     headers: new HttpHeaders({
@@ -18,17 +21,6 @@ export class GestionAnimalService {
     })
   }
 
-  handleError(error:HttpErrorResponse){
-    if(error.error instanceof ErrorEvent){
-      console.error('A ocurrido un error', error.error.message);
-    }else{
-      console.error(
-        `Backend returned code ${error.status}`+
-        ` Body was: ${error.error}`
-      );
-    }
-    return throwError('Something bad happened; please try again later');
-  }
 
   consultar():Observable<Animal[]>{
     return this.http.get<Animal[]>(this.url);
@@ -37,31 +29,37 @@ export class GestionAnimalService {
   eliminar(id:string):Observable<Animal>{
     return this.http.delete<Animal>(this.url + '/'+ id, this.httpOptions)
     .pipe(
-      tap(_ => console.log("Animal eliminado")),
-      catchError(this.handleError)
+      tap(_ =>{
+        this.handleErrorService.Mensaje('Animal eliminado exitosamente')
+      } ),
+      catchError(this.handleErrorService.handleError<Animal>('Eliminar animal', null))
     );
   }
 
   buscarAnimal(id: string): Observable<Animal> {
     return this.http.get<Animal>(this.url + '/' + id, this.httpOptions)
       .pipe(
-        tap(_ => console.log("Datos enviados")),
-        catchError(this.handleError)
+        tap(_ =>{
+          this.handleErrorService.Mensaje('Animal encontrado exitosamente')
+        } ),
+      catchError(this.handleErrorService.handleError<Animal>('Buscar animal', null))
       );
   }
   guardar(animal:Animal):Observable<Animal>{
     return this.http.post<Animal>(this.url, JSON.stringify(animal), this.httpOptions)
     .pipe(
-      tap(_ => console.log("Datos enviados")),
-      catchError(this.handleError)
+      tap(_ =>{
+        this.handleErrorService.Mensaje('Animal encontrado exitosamente')
+      } ),
+    catchError(this.handleErrorService.handleError<Animal>('Guardar animal', null))
     );
   }
   
   actualizar(id: string, animal: Animal): Observable<Animal> {
     return this.http.put<Animal>(this.url + '/' + id, JSON.stringify(animal), this.httpOptions)
     .pipe(
-      tap(_ => console.log("animal actualizado")),
-      catchError(this.handleError)
-    );
+      tap(_ => this.handleErrorService.Mensaje('Animal actualizado exitosamente')),
+      catchError(this.handleErrorService.handleError<Animal>('Actualizar animal', null))
+   );
   }
 }

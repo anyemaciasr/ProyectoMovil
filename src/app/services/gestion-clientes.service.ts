@@ -3,13 +3,16 @@ import { Injectable } from '@angular/core';
 import { Observable, throwError } from 'rxjs';
 import { Cliente } from '../models/cliente/cliente';
 import { catchError, tap } from 'rxjs/operators';
+import { HandlerErrorService } from './handler-error.service';
 @Injectable({
   providedIn: 'root'
 })
 export class GestionClientesService {
   url = "https://localhost:5001/Cliente";
-
-  constructor(public http: HttpClient) { }
+  urlazure = "https://villanorisapi.azurewebsites.net/Cliente";
+  constructor(public http: HttpClient
+    ,private handleErrorService:HandlerErrorService
+    ) { }
 
   httpOptions = {
     headers: new HttpHeaders({
@@ -17,51 +20,46 @@ export class GestionClientesService {
     })
   }
 
-  handleError(error: HttpErrorResponse) {
-    if (error.error instanceof ErrorEvent) {
-      console.error('A ocurrido un error', error.error.message);
-    } else {
-      console.error(
-        `Backend returned code ${error.status}` +
-        ` Body was: ${error.message}`
-      );
-    }
-    return throwError('Something bad happened; please try again later');
-  }
 
   consultar(): Observable<Cliente[]> {
-    return this.http.get<Cliente[]>(this.url);
+    return this.http.get<Cliente[]>(this.urlazure);
   }
 
   eliminar(id: string): Observable<Cliente> {
-    return this.http.delete<Cliente>(this.url + '/' + id, this.httpOptions)
+    return this.http.delete<Cliente>(this.urlazure + '/' + id, this.httpOptions)
       .pipe(
-        tap(_ => console.log("Cliente eliminado")),
-        catchError(this.handleError)
+        tap(_ =>{
+          this.handleErrorService.Mensaje('Clietne eliminado exitosamente')
+        } ),
+      catchError(this.handleErrorService.handleError<Cliente>('Eliminar cliente', null))
       );
   }
 
   buscarCliente(id: string): Observable<Cliente> {
-    return this.http.get<Cliente>(this.url + '/' + id, this.httpOptions)
+    return this.http.get<Cliente>(this.urlazure + '/' + id, this.httpOptions)
       .pipe(
-        tap(_ => console.log("Datos enviados")),
-        catchError(this.handleError)
+        tap(_ =>{
+          this.handleErrorService.Mensaje('Cliente encontrado exitosamente')
+        } ),
+      catchError(this.handleErrorService.handleError<Cliente>('Buscar Cliente', null))
       );
   }
 
   actualizar(id: string, cliente: Cliente): Observable<Cliente> {
-    return this.http.put<Cliente>(this.url + '/' + id, JSON.stringify(cliente), this.httpOptions)
+    return this.http.put<Cliente>(this.urlazure + '/' + id, JSON.stringify(cliente), this.httpOptions)
     .pipe(
-      tap(_ => console.log("Cliente actualizado")),
-      catchError(this.handleError)
+      tap(_ => this.handleErrorService.Mensaje('Cliente actualizado exitosamente')),
+      catchError(this.handleErrorService.handleError<Cliente>('Actualizar cliente', null))
     );
   }
 
   guardar(cliente: Cliente): Observable<Cliente> {
-    return this.http.post<Cliente>(this.url, JSON.stringify(cliente), this.httpOptions)
+    return this.http.post<Cliente>(this.urlazure, JSON.stringify(cliente), this.httpOptions)
       .pipe(
-        tap(_ => console.log("Datos enviados")),
-        catchError(this.handleError)
+        tap(_ =>{
+          this.handleErrorService.Mensaje('Cliente guardado exitosamente')
+        } ),
+      catchError(this.handleErrorService.handleError<Cliente>('Guardar cliente', null))
       );
   }
 

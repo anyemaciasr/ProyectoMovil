@@ -17,7 +17,7 @@
                 <ion-item>
                   <ion-label position="floating">Identificacion <ion-text color="danger"></ion-text>
                   </ion-label>
-                  <ion-input type="text" name="identificacion" formControlName="identificacion"  ></ion-input>
+                  <ion-input readonly type="text" name="identificacion" formControlName="identificacion"  ></ion-input>
                 </ion-item>
                 <ion-label class="ion-text-left" color="danger"
                   *ngIf="formGroup.controls.identificacion.errors?.required && (formGroup.controls.identificacion.touched || formGroup.controls.identificacion.dirty)">

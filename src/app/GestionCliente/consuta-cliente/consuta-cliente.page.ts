@@ -106,10 +106,10 @@ export class ConsutaClientePage implements OnInit {
 
   async AlertEliminar(cliente: Cliente) {
     const alert = await this.alertController.create({
-      cssClass: 'my-custom-class ',
+      cssClass: 'alerClasss',
       header: 'Alerta',
       subHeader: '',
-      message: '¿Seguro que quiere eliminar a ' + '<b>'
+      message:'<br>'+ '¿Seguro que quiere eliminar a ' + '<b>'
         + cliente.nombres + ' ' + cliente.apellidos + '</b>'
         + ' de tu lista de clientes?',
       buttons: [
@@ -124,8 +124,6 @@ export class ConsutaClientePage implements OnInit {
             this.gestionClientesService.eliminar(cliente.identificacion).subscribe(
               c => this.consultar()
             );
-            
-            this.presentToast();
           },
 
         }
@@ -143,9 +141,9 @@ export class ConsutaClientePage implements OnInit {
   }
   async AlerConsulta(cliente: Cliente) {
     const alert = await this.alertController.create({
-      cssClass: 'my-custom-class ',
+      cssClass: 'alerClasss',
       header: 'Datos del cliente',
-      message: 'Identificacion: ' + cliente.identificacion
+      message:'<br><br>'+ 'Identificacion: ' + cliente.identificacion
         + '<br>Nombres: ' + cliente.nombres + '<br>Apellidos: '
         + cliente.apellidos
         + '<br>Telefono: ' + cliente.telefono + '<br>Correo: '

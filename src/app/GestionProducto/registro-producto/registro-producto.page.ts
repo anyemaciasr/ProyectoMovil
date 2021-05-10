@@ -58,10 +58,12 @@ export class RegistroProductoPage implements OnInit {
   
   guardarProducto() {
     this.producto = this.formGroup.value;
-    this.gestionProductoService.guardar(this.producto).subscribe(p => this.producto = p);
-    this.formGroup.reset();
-    this.presentToast('Producto guardado exitosamente');
-    this.router.navigate(['/consulta-producto']);
+    this.gestionProductoService.guardar(this.producto).subscribe(p => {
+        if(p!=null){
+          this.formGroup.reset();
+          this.router.navigate(['/consulta-producto']);
+        }
+    });
   }
 
   async presentToast(mensaje: string) {

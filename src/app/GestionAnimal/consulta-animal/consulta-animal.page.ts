@@ -105,10 +105,10 @@ export class ConsultaAnimalPage implements OnInit {
 
   async AlertEliminar(animal:Animal) {
     const alert = await this.alertController.create({
-      cssClass: 'my-custom-class ',
+      cssClass: 'alerClasss',
       header: 'Alerta',
       subHeader: '',
-      message: '¿Seguro que quiere eliminar a el animal con identificación'+'<b>'
+      message: '<br>'+ '¿Seguro que quiere eliminar a el animal con identificación'+'<b>'
       + animal.identificacion +' de tipo ' + animal.tipoGanado + '</b>'
       +' de tu lista de animales?',
       buttons: [
@@ -120,8 +120,7 @@ export class ConsultaAnimalPage implements OnInit {
           text: "Eliminar",
           cssClass: "rojo",
           handler: () => {
-            this.gestionAnimalService.eliminar(animal.identificacion).subscribe(a => console.log('Eliminado ', a));
-            this.presentLoading();
+            this.gestionAnimalService.eliminar(animal.identificacion).subscribe(a => this.presentLoading());
           },
 
         }
@@ -133,9 +132,9 @@ export class ConsultaAnimalPage implements OnInit {
 
   async AlerConsulta(animal:Animal) {
     const alert = await this.alertController.create({
-      cssClass: 'my-custom-class ',
+      cssClass: 'alerClasss',
       header: 'Datos del animal',
-      message: 'Identificacion: ' + animal.identificacion 
+      message: '<br><br>'+ 'Identificacion: ' + animal.identificacion 
       +'<br>Padre: '+ animal.padre +'<br>Madres: '+animal.madre 
       +'<br>Agrupacion: '+ animal.agrupacion +'<br>Origen: '
       +animal.origen 

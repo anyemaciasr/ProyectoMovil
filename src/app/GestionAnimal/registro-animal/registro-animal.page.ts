@@ -13,17 +13,17 @@ import { SqlServiceService } from 'src/app/services/sql-service.service';
 })
 export class RegistroAnimalPage implements OnInit {
   @ViewChild('slides', { static: true }) slides: IonSlides;
-  agrupacion:string;
+  agrupacion: string;
   activeIndex: number = 0;
   animal: Animal;
   animales: Animal[] = [];
   formGroup: FormGroup;
 
-  constructor(private actionSheetController: ActionSheetController, private alertController: AlertController,private formBuilder: FormBuilder
+  constructor(private actionSheetController: ActionSheetController, private alertController: AlertController, private formBuilder: FormBuilder
     , private sqlService: SqlServiceService
     , private toastController: ToastController
-    , private gestionAnimalService:GestionAnimalService
-    , private router:Router) { }
+    , private gestionAnimalService: GestionAnimalService
+    , private router: Router) { }
 
   ngOnInit() {
     this.animal = new Animal();
@@ -38,13 +38,13 @@ export class RegistroAnimalPage implements OnInit {
     freeMode: false,
   }
 
-  onChange(event){
+  onChange(event) {
     this.agrupacion = event;
     console.log(this.agrupacion);
     this.validarAgrupacion();
   }
-  validarAgrupacion(){
-    if(this.agrupacion=="Lote"){
+  validarAgrupacion() {
+    if (this.agrupacion == "Lote") {
       return true;
     }
     return false;
@@ -69,10 +69,10 @@ export class RegistroAnimalPage implements OnInit {
         {
           name: 'name1',
           type: 'number',
-          label:'Cantidad'
+          label: 'Cantidad'
         },
       ],
-     
+
       buttons: [
         {
           text: 'Cancelar',
@@ -136,10 +136,13 @@ export class RegistroAnimalPage implements OnInit {
 
   guardarAnimal() {
     this.animal = this.formGroup.value;
-    this.gestionAnimalService.guardar(this.animal).subscribe(a => this.animal = a);
-    this.formGroup.reset();
-    this.presentToast('Animal guardado exitosamente');
-    this.router.navigate(['/consulta-animal']);
+    this.gestionAnimalService.guardar(this.animal).subscribe(a => {
+      if (a != null) {
+        this.formGroup.reset();
+        this.router.navigate(['/consulta-animal']);
+      }
+    }
+    );
   }
 
   async presentToast(mensaje: string) {
@@ -150,5 +153,5 @@ export class RegistroAnimalPage implements OnInit {
     toast.present();
   }
 
-  
+
 }

@@ -25,16 +25,16 @@ export class EditarProductoPage implements OnInit {
 
   ngOnInit() {
     this.producto = new Producto();
+    this.buildForm(this.producto);
     this.consultarProducto(); 
   }
 
   consultarProducto(){
     this.id = this.route.snapshot.paramMap.get("id");
     this.gestionProductoService.buscarProducto(Number(this.id)).subscribe(p => {
-      this.producto = p
-      console.log("Producto encontrado: ", this.producto)
+      this.buildForm(p);
     });
-    this.buildForm(this.producto);
+    
   }
 
   buildForm(productoEncontrado:Producto) {
@@ -63,10 +63,11 @@ get control() {
 
   editar() {
     this.producto = this.formGroup.value;
-    this.gestionProductoService.actualizar(Number(this.id),this.producto).subscribe(a => this.producto = a);
-    this.formGroup.reset();
-    this.presentToast('Producto editado exitosamente');
-    this.router.navigate(['/consulta-producto']);
+    this.gestionProductoService.actualizar(Number(this.id),this.producto).subscribe(a =>{
+      if(a!= null){
+        this.router.navigate(['/consulta-producto']);
+      }
+    });
   }
 
   async presentToast(mensaje: string) {

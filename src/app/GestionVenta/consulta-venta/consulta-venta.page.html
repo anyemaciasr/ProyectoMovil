@@ -1,8 +1,52 @@
-<app-header titulo="Gestión ventas"> </app-header>
+<ion-header translucent>
+  <ion-toolbar *ngIf="true" color="primary">
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/"></ion-back-button>
+    </ion-buttons>
+    <ion-title slot="start" class="ion-text-capitalize">
+      Gestion venta
+    </ion-title>
 
+
+    <!--Estadisticas-->
+    <ion-buttons  slot="end">
+      <ion-button >
+        <ion-icon  name="stats-chart" slot="icon-only"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+
+    <!--Perfil-->
+    <ion-buttons  slot="end">
+      <ion-button href="/perfil-usuario">
+        <ion-icon name="person-circle" slot="icon-only"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+
+  </ion-toolbar>
+  <ion-toolbar *ngIf="false">
+    <ion-searchbar [(ngModel)]="textoABuscar" showCancelButton="focus"></ion-searchbar>
+  </ion-toolbar>
+
+</ion-header>
 <ion-content>
   <!-- Searchbar with cancel button shown on focus -->
-  <ion-searchbar [(ngModel)]="textoABuscar" showCancelButton="focus"></ion-searchbar>
+  <ion-segment value="">
+    
+    <ion-segment-button value="">
+      <ion-label>Todos</ion-label>
+    </ion-segment-button>
+
+    <ion-segment-button value="DC Comics">
+      <ion-label>Venta</ion-label>
+    </ion-segment-button>
+
+    <ion-segment-button value="Marvel Comics">
+      <ion-label>Compra</ion-label>
+    </ion-segment-button>
+
+
+  </ion-segment>
+  
 
   <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
     <ion-refresher-content pullingIcon="chevron-down-circle-outline" pullingText="Tire para actualizar "

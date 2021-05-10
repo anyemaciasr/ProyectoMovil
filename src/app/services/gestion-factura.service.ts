@@ -10,7 +10,8 @@ import { Factura } from '../models/factura/factura';
   providedIn: 'root'
 })
 export class GestionFacturaService {
-  url="https://localhost:5001/Factura";
+  urlazure="https://villanorisapi.azurewebsites.net/Factura";
+  url = "https://localhost:5001/Factura";
   constructor(public http: HttpClient) { }
 
   httpOptions = {
@@ -32,7 +33,7 @@ export class GestionFacturaService {
   }
 
   consultar():Observable<Factura[]>{
-    return this.http.get<Factura[]>(this.url);
+    return this.http.get<Factura[]>(this.urlazure);
   }
 
   
@@ -41,10 +42,10 @@ export class GestionFacturaService {
     var facturaApi = new FacturaApi();
     facturaApi.fecha = factura.fecha;
     facturaApi.descuento = factura.descuento;
-    facturaApi.idCliente = factura.cliente.identificacion;
+    facturaApi.ClienteIdentificacion = factura.cliente.identificacion;
     facturaApi.detallesDeFactura = factura.detallesFactura;
  
-   return this.http.post(this.url, JSON.stringify(facturaApi), this.httpOptions)
+   return this.http.post(this.urlazure, JSON.stringify(facturaApi), this.httpOptions)
     .pipe(
       tap(_ => console.log("Factura Guardada")),
       catchError(this.handleError)
@@ -55,6 +56,6 @@ export class GestionFacturaService {
 export class FacturaApi {
   fecha:Date;
   descuento:number;
-  idCliente:string;
+  ClienteIdentificacion:string;
   detallesDeFactura:DetalleFactura[];
 }

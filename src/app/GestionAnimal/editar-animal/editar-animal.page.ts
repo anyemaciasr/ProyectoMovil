@@ -12,7 +12,7 @@ import { GestionAnimalService } from 'src/app/services/gestion-animal.service';
 })
 export class EditarAnimalPage implements OnInit {
   @ViewChild('slides', { static: true }) slides: IonSlides;
-  agrupacion:string;
+  agrupacion: string;
   activeIndex: number = 0;
   animal: Animal;
   animales: Animal[] = [];
@@ -21,23 +21,25 @@ export class EditarAnimalPage implements OnInit {
   constructor(private actionSheetController: ActionSheetController
     , private alertController: AlertController
     , private toastController: ToastController
-    , private gestionAnimalService:GestionAnimalService
-    , private router:Router
-    ,private formBuilder:FormBuilder
-    ,private route:ActivatedRoute
-    ) { }
+    , private gestionAnimalService: GestionAnimalService
+    , private router: Router
+    , private formBuilder: FormBuilder
+    , private route: ActivatedRoute
+  ) { }
 
   ngOnInit() {
     this.animal = new Animal();
+    this.buildForm(this.animal);
     this.consultarAnimal();
   }
 
-  consultarAnimal(){
+  consultarAnimal() {
     var id = this.route.snapshot.paramMap.get("id");
-    this.gestionAnimalService.buscarAnimal(id).subscribe(
-      a => this.animal = a
+    this.gestionAnimalService.buscarAnimal(id).subscribe(a => {
+      this.buildForm(a);
+    }
     );
-    this.buildForm(this.animal);
+
   }
 
   slideOpts = {
@@ -47,13 +49,13 @@ export class EditarAnimalPage implements OnInit {
     freeMode: false,
   }
 
-  onChange(event){
+  onChange(event) {
     this.agrupacion = event;
     console.log(this.agrupacion);
     this.validarAgrupacion();
   }
-  validarAgrupacion(){
-    if(this.agrupacion=="Lote"){
+  validarAgrupacion() {
+    if (this.agrupacion == "Lote") {
       return true;
     }
     return false;
@@ -79,10 +81,10 @@ export class EditarAnimalPage implements OnInit {
         {
           name: 'name1',
           type: 'number',
-          label:'Cantidad'
+          label: 'Cantidad'
         },
       ],
-     
+
       buttons: [
         {
           text: 'Cancelar',
@@ -103,9 +105,9 @@ export class EditarAnimalPage implements OnInit {
     await alert.present();
   }
 
-  buildForm(animalEncontrado:Animal) {
+  buildForm(animalEncontrado: Animal) {
     this.animal = animalEncontrado;
-   
+
     this.formGroup = this.formBuilder.group({
       identificacion: [this.animal.identificacion, [Validators.required, Validators.minLength(6)]],
       nombre: [this.animal.nombre, Validators.required],
@@ -135,10 +137,11 @@ export class EditarAnimalPage implements OnInit {
 
   editar() {
     this.animal = this.formGroup.value;
-    this.gestionAnimalService.actualizar(this.animal.identificacion,this.animal).subscribe(a => this.animal = a);
-    this.formGroup.reset();
-    this.presentToast('Animal editado exitosamente');
-    this.router.navigate(['/consulta-animal']);
+    this.gestionAnimalService.actualizar(this.animal.identificacion, this.animal).subscribe(a => {
+      if(a!=null){
+        this.router.navigate(['/consulta-animal']);
+      }
+    });
   }
 
   async presentToast(mensaje: string) {

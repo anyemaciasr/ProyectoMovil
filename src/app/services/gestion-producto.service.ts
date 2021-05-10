@@ -3,15 +3,18 @@ import { Injectable } from '@angular/core';
 import { Observable, throwError } from 'rxjs';
 import { catchError, tap } from 'rxjs/operators';
 import { Producto } from '../models/producto/producto';
+import { HandlerErrorService } from './handler-error.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class GestionProductoService {
 
-  url = "https://localhost:5001/Producto";
+  url = "https://villanorisapi.azurewebsites.net/Producto";
 
-  constructor(public http: HttpClient) { }
+  constructor(public http: HttpClient
+    ,private handleErrorService:HandlerErrorService
+    ) { }
 
   httpOptions = {
     headers: new HttpHeaders({
@@ -19,17 +22,6 @@ export class GestionProductoService {
     })
   }
 
-  handleError(error: HttpErrorResponse) {
-    if (error.error instanceof ErrorEvent) {
-      console.error('A ocurrido un error', error.error.message);
-    } else {
-      console.error(
-        `Backend returned code ${error.status}` +
-        ` Body was: ${error.message}`
-      );
-    }
-    return throwError('Something bad happened; please try again later');
-  }
 
   consultar(): Observable<Producto[]> {
     return this.http.get<Producto[]>(this.url);
@@ -38,32 +30,35 @@ export class GestionProductoService {
   eliminar(id: number): Observable<Producto> {
     return this.http.delete<Producto>(this.url + '/' + id, this.httpOptions)
       .pipe(
-        tap(_ => console.log("Producto eliminado")),
-        catchError(this.handleError)
+        tap(_ => this.handleErrorService.Mensaje('Producto eliminado exitosamente')),
+      catchError(this.handleErrorService.handleError<Producto>('Eliminar producto', null))
       );
   }
 
   guardar(producto: Producto): Observable<any> {
     return this.http.post(this.url, JSON.stringify(producto), this.httpOptions)
       .pipe(
-        tap(_ => console.log("Datos enviados")),
-        catchError(this.handleError)
+        tap(_ =>{
+          this.handleErrorService.Mensaje('Producto guardado exitosamente')
+        } ),
+      catchError(this.handleErrorService.handleError<Producto>('Guardar producto', null))
       );
   }
 
   buscarProducto(id: number): Observable<Producto> {
     return this.http.get<Producto>(this.url + '/' + id, this.httpOptions)
       .pipe(
-        tap(_ => console.log("Datos enviados")),
-        catchError(this.handleError)
+        tap(_ => this.handleErrorService.Mensaje('Producto encontrado exitosamente')),
+      catchError(this.handleErrorService.handleError<Producto>('Buscar producto', null))
       );
   }
 
   actualizar(id: number, producto: Producto): Observable<Producto> {
     return this.http.put<Producto>(this.url + '/' + id, JSON.stringify(producto), this.httpOptions)
     .pipe(
-      tap(_ => console.log("producto actualizado")),
-      catchError(this.handleError)
+      tap(_ => this.handleErrorService.Mensaje('Producto actualizado exitosamente')),
+      catchError(this.handleErrorService.handleError<Producto>('Actualizar producto', null))
     );
   }
+
 }

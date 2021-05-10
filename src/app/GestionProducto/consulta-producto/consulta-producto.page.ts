@@ -10,22 +10,22 @@ import { GestionProductoService } from 'src/app/services/gestion-producto.servic
   styleUrls: ['./consulta-producto.page.scss'],
 })
 export class ConsultaProductoPage implements OnInit {
-  textoABuscar:string;
+  textoABuscar: string;
   producto: Producto;
   productos: Producto[] = [];
-  loading:any;
+  loading: any;
   constructor(private actionSheetController: ActionSheetController
-    , private alertController: AlertController, private router:Router
-    ,private loadingController:LoadingController
+    , private alertController: AlertController, private router: Router
+    , private loadingController: LoadingController
     , private gestionProductoService: GestionProductoService
-    , private toastController:ToastController, private navCtrl:NavController) { }
+    , private toastController: ToastController, private navCtrl: NavController) { }
 
   ngOnInit() {
     this.producto = new Producto();
     this.presentLoading();
   }
 
-  
+
 
   doRefresh(event) {
     this.consultar();
@@ -35,7 +35,7 @@ export class ConsultaProductoPage implements OnInit {
     this.loading = await this.loadingController.create({
       cssClass: 'my-custom-class',
       message: 'Cargando lista de clientes',
-      spinner:"crescent" 
+      spinner: "crescent"
     });
     await this.loading.present();
     this.consultar();
@@ -50,18 +50,18 @@ export class ConsultaProductoPage implements OnInit {
         console.log("Datos de servidor recividos");
       }
     );
-    
+
   }
 
-  redirectTo(){
+  redirectTo() {
     this.navCtrl.navigateForward('/registro-producto');
   }
 
-  opciones(producto :Producto) {
+  opciones(producto: Producto) {
     this.presentActionSheet(producto);
   }
 
-  async presentActionSheet(producto :Producto) {
+  async presentActionSheet(producto: Producto) {
     const actionSheet = await this.actionSheetController.create({
       header: 'Opciones',
       cssClass: 'my-custom-class negrita',
@@ -71,8 +71,8 @@ export class ConsultaProductoPage implements OnInit {
           icon: 'clipboard',
           cssClass: "gris",
           handler: () => {
-           this.AlerConsulta(producto);
-            
+            this.AlerConsulta(producto);
+
           }
         },
         {
@@ -80,40 +80,40 @@ export class ConsultaProductoPage implements OnInit {
           icon: 'pencil',
           cssClass: "gris",
           handler: () => {
-            this.router.navigate(['/editar-producto',producto.codigo]);
+            this.router.navigate(['/editar-producto', producto.codigo]);
           }
         },
         {
-        text: 'Eliminar',
-        role: 'destructive',
-        icon: 'trash',
-        cssClass: "rojo",
-        handler: () => {
-          this.AlertEliminar(producto);
-        }
-      },
-     
-      {
-        text: 'Cancel',
-        icon: 'close',
-        role: 'cancel',
-        cssClass: "negrita gris",
-        handler: () => {
-          console.log('Cancel clicked');
-        }
-      }]
+          text: 'Eliminar',
+          role: 'destructive',
+          icon: 'trash',
+          cssClass: "rojo",
+          handler: () => {
+            this.AlertEliminar(producto);
+          }
+        },
+
+        {
+          text: 'Cancel',
+          icon: 'close',
+          role: 'cancel',
+          cssClass: "negrita gris",
+          handler: () => {
+            console.log('Cancel clicked');
+          }
+        }]
     });
     await actionSheet.present();
   }
 
-  async AlertEliminar(producto:Producto) {
+  async AlertEliminar(producto: Producto) {
     const alert = await this.alertController.create({
-      cssClass: 'my-custom-class ',
+      cssClass: 'alerClasss',
       header: 'Alerta',
       subHeader: '',
-      message: '¿Seguro que quiere eliminar el producto'+'<b>'
-      + producto.nombre +' con codigo ' + producto.codigo + '</b>'
-      +' de tu lista de productos?',
+      message: '<br>'+'¿Seguro que quiere eliminar el producto ' + '<b>'
+        + producto.nombre + ' con codigo ' + producto.codigo + '</b>'
+        + ' de tu lista de productos?',
       buttons: [
         {
           text: "Cancelar",
@@ -123,7 +123,8 @@ export class ConsultaProductoPage implements OnInit {
           text: "Eliminar",
           cssClass: "rojo",
           handler: () => {
-           this.gestionProductoService.eliminar(Number(producto.codigo)).subscribe(p => console.log("Producto eliminado"));
+            this.gestionProductoService.eliminar(Number(producto.codigo)).subscribe(p => console.log("Producto eliminado"));
+            this.presentLoading();
           },
 
         }
@@ -133,20 +134,23 @@ export class ConsultaProductoPage implements OnInit {
     await alert.present();
   }
 
-  async AlerConsulta(producto:Producto) {
+  async AlerConsulta(producto: Producto) {
     const alert = await this.alertController.create({
-      cssClass: 'my-custom-class ',
+      cssClass: 'alerClasss',
       header: 'Datos del producto',
-      message: 'Codigo: ' + producto.codigo 
-      +'<br>Nombre: '+ producto.nombre+'<br>Precio: '+producto.precio 
-      +'<br>categoria: '+ producto.categoria +'<br>Descripcion: '
-      +producto.descripcion, 
-      buttons: ['OK']
+      message: this.contruirMensaje(producto),
+      animated:true,
+      buttons: [
+        {
+          text:'Listo',
+      }
+        
+      ]
     });
 
     await alert.present();
   }
-  
+
   async presentToast() {
     const toast = await this.toastController.create({
       message: 'Producto eliminado exitosamente',
@@ -154,4 +158,27 @@ export class ConsultaProductoPage implements OnInit {
     });
     toast.present();
   }
+
+  contruirMensaje(producto: Producto): string {
+    var cuerpoConsulta = `<ion-list >   
+              <ion-item lines="none">
+              <p class="items"><strong>Codigo:</strong> `+ producto.codigo + `</p>
+              </ion-item>  
+              <ion-item lines="none">
+                <p class="items"><strong>Nombre:</strong> `+ producto.nombre + `</p>
+              </ion-item>
+              <ion-item lines="none">
+                <p class="items"><strong>Categoria:</strong> `+ producto.categoria + `</p>
+              </ion-item>
+              <ion-item lines="none">
+                <p class="items"><strong>Precio:</strong> `+ producto.precio + `</p>
+              </ion-item>
+              <ion-item lines="none">
+                <p class="items"><strong>Descripcion:</strong> `+ producto.descripcion + `</p>
+              </ion-item>
+          </ion-list>`;
+    return cuerpoConsulta;
+  }
+
+
 }

@@ -18,9 +18,9 @@ export class RegistoClientePage implements OnInit {
   constructor(private formBuilder: FormBuilder
     , private sqlService: SqlServiceService
     , private toastController: ToastController
-    , private gestionClienteService:GestionClientesService
-    , private router:Router
-    ) { }
+    , private gestionClienteService: GestionClientesService
+    , private router: Router
+  ) { }
 
   ngOnInit() {
     this.cliente = new Cliente();
@@ -59,22 +59,26 @@ export class RegistoClientePage implements OnInit {
 
   guardarCliente() {
     this.cliente = this.formGroup.value;
-    this.gestionClienteService.guardar(this.cliente).subscribe(c => this.cliente = c);
-    this.formGroup.reset();
-    this.presentToast('Cliente guardado exitosamente');
-    this.router.navigate(['/consulta-cliente']);
-   /* this.cliente = this.formGroup.value;
-    if (this.sqlService.validarCliente(this.cliente.identificacion)) {
-      this.presentToast('El cliente ya se encuentra registrado');
-      return;
-    } else {
-      this.sqlService.guardarCliente(this.cliente).subscribe(c => {
-        this.cliente = c;
-        this.presentToast('Cliente guardado exitosamente');
-      });
-      this.consultarCliente();
-      this.formGroup.reset();
-    }*/
+    this.gestionClienteService.guardar(this.cliente).subscribe(c => {
+      if(c!=null){
+        this.formGroup.reset();
+        this.router.navigate(['/consulta-cliente']);
+      }      
+    }
+    );
+
+    /* this.cliente = this.formGroup.value;
+     if (this.sqlService.validarCliente(this.cliente.identificacion)) {
+       this.presentToast('El cliente ya se encuentra registrado');
+       return;
+     } else {
+       this.sqlService.guardarCliente(this.cliente).subscribe(c => {
+         this.cliente = c;
+         this.presentToast('Cliente guardado exitosamente');
+       });
+       this.consultarCliente();
+       this.formGroup.reset();
+     }*/
 
   }
   consultarCliente() {

@@ -23,21 +23,21 @@ export class EditarClientePage implements OnInit {
 
   ngOnInit() {
     this.cliente = new Cliente();
+    this.buildForm(this.cliente);
     this.consultarCliente();
   }
   consultarCliente() {
     var id = this.route.snapshot.paramMap.get("id");
-    this.gestionClienteService.buscarCliente(id).subscribe(c => {
-      this.cliente = c;
-      console.log("Cliente encontrado this cliente", this.cliente);
+    this.gestionClienteService.buscarCliente(id).subscribe(c => {     
+      this.buildForm(c); 
     });
-    this.buildForm(this.cliente);
+
   }
 
-  buildForm(clienteEncontrado: Cliente) {
+  buildForm(clienteEncontrado?: Cliente) {
     this.cliente = clienteEncontrado
     this.formGroup = this.formBuilder.group({
-      identificacion: [+this.cliente.identificacion , [Validators.required, Validators.minLength(6)]],
+      identificacion: [this.cliente.identificacion, [Validators.required, Validators.minLength(6)]],
       nombres: [this.cliente.nombres, Validators.required],
       apellidos: [this.cliente.apellidos, Validators.required],
       telefono: [this.cliente.telefono, Validators.required],
@@ -52,7 +52,6 @@ export class EditarClientePage implements OnInit {
   editar() {
     this.cliente = this.formGroup.value;
     this.gestionClienteService.actualizar(this.cliente.identificacion, this.cliente).subscribe(p => this.cliente = p);
-    this.presentToast('Cliente editado exitosamente');
     this.formGroup.reset;
     this.router.navigate(['/consulta-cliente']);
   }

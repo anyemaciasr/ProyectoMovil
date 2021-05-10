@@ -22,7 +22,7 @@
         <ion-col size="12" size-md="12" size-lg="12">
           <ion-list>
             <ion-item-sliding *ngFor="let producto of productos | filtroProducto:textoABuscar  ; let i = index;">
-              <ion-item (click)="opciones(producto)" >
+              <ion-item  (click)="opciones(producto)" >
                 <ion-avatar slot="start">
                   <ion-text color="primary">
                     <ngx-avatar src="assets/producto2.png" value="28%" size="40" textSizeRatio="2.5" [round]="true">

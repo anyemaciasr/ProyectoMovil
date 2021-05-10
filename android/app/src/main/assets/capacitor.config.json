@@ -1,6 +1,6 @@
 {
-  "appId": "io.ionic.starter",
-  "appName": "Presentacion",
+  "appId": "com.VillaNorisApp.app",
+  "appName": "VillaNorisApp",
   "bundledWebRuntime": false,
   "npmClient": "npm",
   "webDir": "www",

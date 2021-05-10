@@ -35,3 +35,15 @@
     color: rgb(51, 63, 66) !important;
 }
 
+.alerClasss .alert-wrapper{
+    background: white;
+    
+}
+
+.alerClasss .alert-head.sc-ion-alert-md{
+    background: var(--ion-color-primary);
+}
+
+.alerClasss .alert-title.sc-ion-alert-md{
+    color: white;
+}
