@@ -12,18 +12,16 @@ import { HttpClientModule } from '@angular/common/http';
 import { FiltroFitosanitarioPipe } from './pipes/filtro-fitosanitario.pipe';
 import { FiltroProductoPipe } from './pipes/filtro-producto.pipe';
 
-
-
 @NgModule({
   declarations: [AppComponent],
   entryComponents: [],
   imports: [
     ComponentsModule,
     BrowserModule,
-     IonicModule.forRoot(), 
+     IonicModule.forRoot(),
      AppRoutingModule,
      HttpClientModule,
-     
+
     ],
   providers: [{ provide: RouteReuseStrategy, useClass: IonicRouteStrategy },SQLite],
   bootstrap: [AppComponent],

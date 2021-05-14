@@ -4,13 +4,13 @@ import { Observable, throwError } from 'rxjs';
 import { catchError, tap } from 'rxjs/operators';
 import { Animal } from '../models/animal/animal';
 import { HandlerErrorService } from './handler-error.service';
-
+import {environment}from '../../environments/environment';
 @Injectable({
   providedIn: 'root'
 })
 export class GestionAnimalService {
 
-  url="https://villanorisapi.azurewebsites.net/Animal";
+  url= environment.urlBase+"Animal";
   constructor(public http: HttpClient
     ,private handleErrorService:HandlerErrorService
     ) { }
@@ -49,12 +49,12 @@ export class GestionAnimalService {
     return this.http.post<Animal>(this.url, JSON.stringify(animal), this.httpOptions)
     .pipe(
       tap(_ =>{
-        this.handleErrorService.Mensaje('Animal encontrado exitosamente')
+        this.handleErrorService.Mensaje('Animal guardado exitosamente')
       } ),
     catchError(this.handleErrorService.handleError<Animal>('Guardar animal', null))
     );
   }
-  
+
   actualizar(id: string, animal: Animal): Observable<Animal> {
     return this.http.put<Animal>(this.url + '/' + id, JSON.stringify(animal), this.httpOptions)
     .pipe(

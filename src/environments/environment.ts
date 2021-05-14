@@ -3,7 +3,9 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
-  production: false
+  production: false,
+  urlBase: "https://villanorisapi.azurewebsites.net/",
+  urlBaseDevelopment: "https://localhost:5001/"
 };
 
 /*

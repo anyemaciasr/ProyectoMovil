@@ -30,34 +30,31 @@ textoABuscar:string;
         console.log("Datos de servidor recividos");
       }
     );
-    
+
   }
   async presentLoading() {
     this.loading = await this.loadingController.create({
       cssClass: 'my-custom-class',
       message: 'Cargando lista de clientes',
-      spinner:"crescent" 
+      spinner:"crescent"
     });
     await this.loading.present();
     this.consultar();
     await this.loading.dismiss();
   }
 
-  
+
   opciones(cliente: Cliente) {
     console.log(cliente);
     this.modalController.dismiss(
       cliente
     );
   }
-  
-  confirmarProductos(cliente) {
-    this.modalController.dismiss();
-  }
+
 
   dismiss() {
     // using the injected ModalController this page
     // can "dismiss" itself and optionally pass back data
-    this.modalController.dismiss();
+    this.modalController.dismiss( new Cliente());
   }
 }

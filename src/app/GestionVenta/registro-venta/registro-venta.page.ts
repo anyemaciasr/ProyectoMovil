@@ -19,6 +19,7 @@ export class RegistroVentaPage implements OnInit {
   factura:Factura;
   cliente:Cliente;
   descuento:string="";
+  colorDivider:string = 'Default';
   constructor(private modalController: ModalController
     ,private route: ActivatedRoute
     ,private gestionFacturaService:GestionFacturaService
@@ -26,7 +27,7 @@ export class RegistroVentaPage implements OnInit {
 
   ngOnInit() {
     this.construirFactura();
-  
+
   }
 
   construirFactura(){
@@ -36,7 +37,7 @@ export class RegistroVentaPage implements OnInit {
     this.factura.fecha = new Date();
     this.factura.detallesFactura = [];
     this.factura.cliente = new Cliente();
-    
+
   }
   calcularDescuento(){
     if(this.descuento == ""){
@@ -51,7 +52,7 @@ export class RegistroVentaPage implements OnInit {
     }else{
       this.descuento = "Rango mayor 100%"
     }
-    
+
   }
   async presentModalProductos() {
     const modal = await this.modalController.create({
@@ -80,18 +81,29 @@ export class RegistroVentaPage implements OnInit {
 
     const { data } = await modal.onDidDismiss();
     this.factura.cliente = data;
+    if(this.factura.cliente.identificacion!=null){
+        this.colorDivider = "success"
+    }else{
+      this.colorDivider = 'Default';
+    }
   }
 
   generarId(){
     var id = new Date();
-    this.factura.detallesFactura.map(function (item) { 
+    this.factura.detallesFactura.map(function (item) {
      item.idDetalle = item.idDetalle + id.getFullYear().toString() + id.getMonth().toString() + id.getDay().toString() + id.getHours().toString() + id.getMinutes().toString() + id.getSeconds().toString();
       return item;
     });
   }
   fac:any;
   facturar(){
-    this.generarId();   
+    console.log(this.factura.cliente.identificacion);
+
+    if(this.factura.cliente.identificacion==null){
+      this.colorDivider = "danger"
+      return;
+    }
+    this.generarId();
     this.gestionFacturaService.guardar(this.factura).subscribe(f => {
       console.log(f);
     });

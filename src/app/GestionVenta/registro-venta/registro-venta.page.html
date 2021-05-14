@@ -12,7 +12,7 @@
         <ion-col size="12" size-md="6" size-lg="4">
           <ion-label >Villa Noris</ion-label>
         </ion-col>
-        
+
         <br>
       </ion-row>-->
       <ion-row class="ion-justify-content-center ion-text-center">
@@ -23,20 +23,34 @@
           <ion-label class="texto">No : {{factura.idFactura}}</ion-label>
         </ion-col>
       </ion-row>
-      <ion-row >
-        <ion-item-divider (click)="presentModalClientes()">
+      <ion-row class="ion-padding-top">
+        <ion-item-divider [color]="colorDivider" (click)="presentModalClientes()">
           <ion-label>
-            Cliente
+            CLIENTE
           </ion-label>
-          <ion-buttons slot="end">
+          <ion-buttons *ngIf="colorDivider==='Default' || colorDivider==='danger'" slot="end">
             <ion-button>
               <ion-icon slot="start" name="search"></ion-icon>
             </ion-button>
           </ion-buttons>
+
+          <ion-buttons *ngIf="colorDivider==='success'" slot="end">
+            <ion-button>
+              <ion-icon name="checkbox"></ion-icon>
+            </ion-button>
+          </ion-buttons>
+
         </ion-item-divider>
-        <ion-item>
-          <ion-label>Nombre: {{factura.cliente.nombres}}</ion-label>
-        </ion-item>
+
+        <ion-list lines="none" mode="ios">
+          <ion-item >
+              <ion-label>Identificacion: {{factura.cliente.identificacion}}</ion-label>
+            </ion-item>
+            <ion-item >
+              <ion-label>Nombre: {{factura.cliente.nombres}} {{factura.cliente.apellidos}}</ion-label>
+            </ion-item>
+        </ion-list>
+
       </ion-row>
 
       <ion-row class="ion-justify-content-center ion-text-center">
@@ -49,9 +63,9 @@
                 <ion-icon name="bag-add"></ion-icon>
               </ion-button>
             </ion-item>
-            
 
-          <ion-card-content>
+
+            <ion-card-content>
               <ion-list>
                 <ion-grid fixed>
                   <ion-row class="ion-justify-content-center ion-text-center">
@@ -86,8 +100,9 @@
           <p style="font-size: xx-small;">Escriba el porcentaje del descuento [0-100]</p>
           <ion-item>
 
-            <ion-label  class="text">Descuento %</ion-label>
-            <ion-input (ionChange)="calcularDescuento()" [(ngModel)]="descuento" type="number" placeholder="10%"></ion-input>
+            <ion-label class="text">Descuento %</ion-label>
+            <ion-input (ionChange)="calcularDescuento()" [(ngModel)]="descuento" type="number" placeholder="10%">
+            </ion-input>
           </ion-item>
           <ion-item>
             <ion-label class="text">Sub total: {{factura.subTotal| currency}}</ion-label>

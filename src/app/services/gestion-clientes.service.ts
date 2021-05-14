@@ -4,12 +4,15 @@ import { Observable, throwError } from 'rxjs';
 import { Cliente } from '../models/cliente/cliente';
 import { catchError, tap } from 'rxjs/operators';
 import { HandlerErrorService } from './handler-error.service';
+import {environment}from '../../environments/environment';
 @Injectable({
   providedIn: 'root'
 })
 export class GestionClientesService {
-  url = "https://localhost:5001/Cliente";
-  urlazure = "https://villanorisapi.azurewebsites.net/Cliente";
+  url = environment.urlBaseDevelopment+"Cliente";
+
+  urlazure = environment.urlBase + "Cliente";
+
   constructor(public http: HttpClient
     ,private handleErrorService:HandlerErrorService
     ) { }
