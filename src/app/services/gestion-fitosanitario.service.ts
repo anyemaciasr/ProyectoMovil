@@ -9,7 +9,7 @@ import { HandlerErrorService } from './handler-error.service';
   providedIn: 'root'
 })
 export class GestionFitosanitarioService {
-  url = environment.urlBaseDevelopment + 'Fitosanitario';
+  url = environment.urlBase + 'Fitosanitario';
   constructor(public http: HttpClient
     ,private handleErrorService:HandlerErrorService
     ) { }

@@ -10,7 +10,7 @@ import {environment} from '../../environments/environment';
 })
 export class GestionAnimalService {
 
-  url= environment.urlBaseDevelopment+"Animal";
+  url= environment.urlBase+"Animal";
   constructor(public http: HttpClient
     ,private handleErrorService:HandlerErrorService
     ) { }

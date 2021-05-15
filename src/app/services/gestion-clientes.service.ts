@@ -9,7 +9,7 @@ import {environment}from '../../environments/environment';
   providedIn: 'root'
 })
 export class GestionClientesService {
-  url = environment.urlBaseDevelopment+"Cliente";
+  url = environment.urlBase+"Cliente";
 
   urlazure = environment.urlBase + "Cliente";
 
