@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
-import { ActionSheetController, AlertController, NavController, ToastController } from '@ionic/angular';
+import { ActivatedRoute, Router } from '@angular/router';
+import { ActionSheetController, AlertController, LoadingController, NavController, ToastController } from '@ionic/angular';
 import { Fitosanitario } from 'src/app/models/controlfitosanitario/fitosanitario';
+import { GestionAnimalService } from 'src/app/services/gestion-animal.service';
+import { GestionFitosanitarioService } from 'src/app/services/gestion-fitosanitario.service';
 
 @Component({
   selector: 'app-consulta',
@@ -10,47 +12,71 @@ import { Fitosanitario } from 'src/app/models/controlfitosanitario/fitosanitario
 })
 export class ConsultaPage implements OnInit {
   fitosanitario: Fitosanitario;
-  textoABuscar:string;
+  textoABuscar: string;
+  loading: any;
+  fitosanitarios: Fitosanitario[] = [];
   constructor(private actionSheetController: ActionSheetController
-    , private alertController: AlertController, private router:Router
-    , private toastController:ToastController, private navCtrl:NavController) { }
+    , private alertController: AlertController, private router: Router
+    , private toastController: ToastController, private navCtrl: NavController
+    , private gestionFitosanitarioService: GestionFitosanitarioService
+    , private loadingController: LoadingController
+    , private route: ActivatedRoute
+    , private gestionAnimalService: GestionAnimalService
+  ) { }
 
   ngOnInit() {
-    this.fitosanitario=new Fitosanitario();
+    this.fitosanitario = new Fitosanitario();
+    this.presentLoading();
   }
 
-  fitosanitarios: Fitosanitario[] = [{
-    nombreMedicamento:"gogo",
-    dosisAplicada:"500",
-    tiempoRetiro:"30 mn",
-    tipoMedicamento:"acetaminofen",
-    animalTratado:"yo",
-    fechaAplicacion: new Date()
 
-  },
-  {
-    nombreMedicamento:"error",
-    dosisAplicada:"20",
-    tiempoRetiro:"30 mn",
-    tipoMedicamento:"axido",
-    animalTratado:"koko",
-    fechaAplicacion: new Date()
 
-  },
-  ];
+  consultar() {
+    var id = this.route.snapshot.paramMap.get("id");
+    if (id == "todos") {
+      this.gestionFitosanitarioService.consultar().subscribe(
+        datos => {
+          console.log(datos);
+          this.fitosanitarios = datos;
+          console.log("Datos de servidor recividos");
+        }
+      );
+      return;
+    }
+
+    this.gestionAnimalService.buscarAnimal(id).subscribe(a => {
+      if(a != null){
+        this.fitosanitarios = a.controles;
+      }
+    })
+
+
+  }
+
+  async presentLoading() {
+    this.loading = await this.loadingController.create({
+      cssClass: 'my-custom-class',
+      message: 'Cargando lista de controles fitosanitarios',
+      spinner: "crescent"
+    });
+    await this.loading.present();
+    this.consultar();
+    await this.loading.dismiss();
+  }
 
   doRefresh(event) {
+    this.consultar();
     event.target.complete();
   }
-  redirectTo(){
+  redirectTo() {
     this.navCtrl.navigateForward('/registro');
   }
 
-  opciones(fitosanitario :Fitosanitario) {
+  opciones(fitosanitario: Fitosanitario) {
     this.presentActionSheet(fitosanitario);
   }
 
-  async presentActionSheet(fitosanitario :Fitosanitario) {
+  async presentActionSheet(fitosanitario: Fitosanitario) {
     const actionSheet = await this.actionSheetController.create({
       header: 'Opciones',
       cssClass: 'my-custom-class negrita',
@@ -60,8 +86,8 @@ export class ConsultaPage implements OnInit {
           icon: 'clipboard',
           cssClass: "gris",
           handler: () => {
-           this.AlerConsulta(fitosanitario);
-            
+            this.AlerConsulta(fitosanitario);
+
           }
         },
         {
@@ -73,37 +99,27 @@ export class ConsultaPage implements OnInit {
           }
         },
         {
-        text: 'Eliminar',
-        role: 'destructive',
-        icon: 'trash',
-        cssClass: "rojo",
-        handler: () => {
-          this.AlertEliminar(fitosanitario);
-        }
-      },
-     
-      {
-        text: 'Cancel',
-        icon: 'close',
-        role: 'cancel',
-        cssClass: "negrita gris",
-        handler: () => {
-          console.log('Cancel clicked');
-        }
-      }]
+          text: 'Cancel',
+          icon: 'close',
+          role: 'cancel',
+          cssClass: "negrita gris",
+          handler: () => {
+            console.log('Cancel clicked');
+          }
+        }]
     });
     await actionSheet.present();
   }
 
 
-  async AlertEliminar(fitosanitario :Fitosanitario) {
+  async AlertEliminar(fitosanitario: Fitosanitario) {
     const alert = await this.alertController.create({
       cssClass: 'my-custom-class ',
       header: 'Alerta',
       subHeader: '',
-      message: '¿Seguro que quiere eliminar el registro fitosanitario del animal con identificación '+'<b>'
-      + fitosanitario.animalTratado +' con fecha de aplicacion ' + fitosanitario.fechaAplicacion + '</b>'
-      +' de tu lista de registos fitosanitarios?',
+      message: '¿Seguro que quiere eliminar el registro fitosanitario del animal con identificación ' + '<b>'
+        + fitosanitario.animalIdentificacion + ' con fecha de aplicacion ' + fitosanitario.fechaAplicacion + '</b>'
+        + ' de tu lista de registos fitosanitarios?',
       buttons: [
         {
           text: "Cancelar",
@@ -124,14 +140,14 @@ export class ConsultaPage implements OnInit {
   }
 
 
-  async AlerConsulta(fitosanitario :Fitosanitario) {
+  async AlerConsulta(fitosanitario: Fitosanitario) {
     const alert = await this.alertController.create({
       cssClass: 'my-custom-class ',
       header: 'Datos del registro',
-      message: 'Animal tratado: ' + fitosanitario.animalTratado 
-      +'<br>Nombre medicamento: '+ fitosanitario.nombreMedicamento  +'<br>Dosis aplicada: '+fitosanitario.dosisAplicada 
-      +'<br>tipo medicamento: '+ fitosanitario.tipoMedicamento  +'<br>Tiempo de retiro: '+fitosanitario.tiempoRetiro 
-      +'<br>Fecha aplicacion: '+  fitosanitario.fechaAplicacion,
+      message: 'Animal tratado: ' + fitosanitario.animalIdentificacion
+        + '<br>Nombre medicamento: ' + fitosanitario.nombreMedicamento + '<br>Dosis aplicada: ' + fitosanitario.dosisAplicada
+        + '<br>tipo medicamento: ' + fitosanitario.tipoMedicamento + '<br>Tiempo de retiro: ' + fitosanitario.tiempoRetiro
+        + '<br>Fecha aplicacion: ' + fitosanitario.fechaAplicacion,
       buttons: ['OK']
     });
 

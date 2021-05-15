@@ -99,7 +99,7 @@ export class RegistroAnimalPage implements OnInit {
     this.animal.nombre = "";
     this.animal.agrupacion = "";
     this.animal.cantidad = 0;
-    this.animal.fechaNacimiento = new Date();
+    this.animal.fechaNacimiento = null;
     this.animal.origen = "";
     this.animal.padre = "";
     this.animal.madre = "";
@@ -108,7 +108,7 @@ export class RegistroAnimalPage implements OnInit {
     this.animal.tipoGanado = "";
 
     this.formGroup = this.formBuilder.group({
-      identificacion: [this.animal.identificacion, [Validators.required, Validators.minLength(6)]],
+      identificacion: [this.animal.identificacion, [Validators.required]],
       nombre: [this.animal.nombre, Validators.required],
       agrupacion: [this.animal.agrupacion, Validators.required],
       cantidad: [this.animal.cantidad, Validators.required],

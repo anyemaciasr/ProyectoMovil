@@ -4,13 +4,13 @@ import { Observable, throwError } from 'rxjs';
 import { catchError, tap } from 'rxjs/operators';
 import { Animal } from '../models/animal/animal';
 import { HandlerErrorService } from './handler-error.service';
-import {environment}from '../../environments/environment';
+import {environment} from '../../environments/environment';
 @Injectable({
   providedIn: 'root'
 })
 export class GestionAnimalService {
 
-  url= environment.urlBase+"Animal";
+  url= environment.urlBaseDevelopment+"Animal";
   constructor(public http: HttpClient
     ,private handleErrorService:HandlerErrorService
     ) { }
@@ -36,10 +36,11 @@ export class GestionAnimalService {
     );
   }
 
-  buscarAnimal(id: string): Observable<Animal> {
-    return this.http.get<Animal>(this.url + '/' + id, this.httpOptions)
+  buscarAnimal(id: string): Observable<any> {
+    return this.http.get<any>(this.url + '/' + id, this.httpOptions)
       .pipe(
         tap(_ =>{
+          console.log(_)
           this.handleErrorService.Mensaje('Animal encontrado exitosamente')
         } ),
       catchError(this.handleErrorService.handleError<Animal>('Buscar animal', null))

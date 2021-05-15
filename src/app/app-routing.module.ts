@@ -23,7 +23,7 @@ const routes: Routes = [
     path: 'editar-cliente/:id',
     loadChildren: () => import('./GestionCliente/editar-cliente/editar-cliente.module').then( m => m.EditarClientePageModule)
   },
-  
+
   {
     path: 'registro-venta/:id',
     loadChildren: () => import('./GestionVenta/registro-venta/registro-venta.module').then( m => m.RegistroVentaPageModule)
@@ -49,11 +49,11 @@ const routes: Routes = [
     loadChildren: () => import('./GestionAnimal/editar-animal/editar-animal.module').then( m => m.EditarAnimalPageModule)
   },
   {
-    path: 'registro',
+    path: 'registro/:id',
     loadChildren: () => import('./ControlFitosanitario/registro/registro.module').then( m => m.RegistroPageModule)
   },
   {
-    path: 'consulta',
+    path: 'consulta/:id',
     loadChildren: () => import('./ControlFitosanitario/consulta/consulta.module').then( m => m.ConsultaPageModule)
   },
   {

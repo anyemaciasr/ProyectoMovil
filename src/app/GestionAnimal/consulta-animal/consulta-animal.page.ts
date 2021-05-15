@@ -56,6 +56,13 @@ export class ConsultaAnimalPage implements OnInit {
     this.presentActionSheet(animal);
   }
 
+  redirectToRegistroFito(id){
+    this.router.navigate(['/registro', id])
+  }
+  
+  redirectToConsulta(id){
+    this.router.navigate(['/consulta', id])
+  }
 
   async presentActionSheet(animal :Animal) {
     const actionSheet = await this.actionSheetController.create({
@@ -68,7 +75,7 @@ export class ConsultaAnimalPage implements OnInit {
           cssClass: "gris",
           handler: () => {
            this.AlerConsulta(animal);
-            
+
           }
         },
         {
@@ -88,7 +95,7 @@ export class ConsultaAnimalPage implements OnInit {
           this.AlertEliminar(animal);
         }
       },
-     
+
       {
         text: 'Cancel',
         icon: 'close',
@@ -134,10 +141,10 @@ export class ConsultaAnimalPage implements OnInit {
     const alert = await this.alertController.create({
       cssClass: 'alerClasss',
       header: 'Datos del animal',
-      message: '<br><br>'+ 'Identificacion: ' + animal.identificacion 
-      +'<br>Padre: '+ animal.padre +'<br>Madres: '+animal.madre 
+      message: '<br><br>'+ 'Identificacion: ' + animal.identificacion
+      +'<br>Padre: '+ animal.padre +'<br>Madres: '+animal.madre
       +'<br>Agrupacion: '+ animal.agrupacion +'<br>Origen: '
-      +animal.origen 
+      +animal.origen
       +'<br>Peso inicial: '+ animal.pesoInicial +'<br>Peso final: '
       +animal.pesoFinal
       +'<br>Tipo ganado: '+ animal.tipoGanado +'<br>Fecha de nacimiento: '
@@ -147,5 +154,5 @@ export class ConsultaAnimalPage implements OnInit {
 
     await alert.present();
   }
-  
+
 }

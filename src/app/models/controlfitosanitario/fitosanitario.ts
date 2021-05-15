@@ -3,6 +3,6 @@ export class Fitosanitario {
     dosisAplicada:string;
     tiempoRetiro:string;
     tipoMedicamento:string;
-    animalTratado:string;
+    animalIdentificacion:string;
     fechaAplicacion:Date;
 }
