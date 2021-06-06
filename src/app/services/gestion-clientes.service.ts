@@ -5,6 +5,7 @@ import { Cliente } from '../models/cliente/cliente';
 import { catchError, tap } from 'rxjs/operators';
 import { HandlerErrorService } from './handler-error.service';
 import {environment}from '../../environments/environment';
+import { AngularFirestore } from '@angular/fire/firestore';
 @Injectable({
   providedIn: 'root'
 })
@@ -15,6 +16,7 @@ export class GestionClientesService {
 
   constructor(public http: HttpClient
     ,private handleErrorService:HandlerErrorService
+    ,private firestore:AngularFirestore
     ) { }
 
   httpOptions = {
@@ -66,4 +68,36 @@ export class GestionClientesService {
       );
   }
 
+  //Servicios firebase fireStore
+
+
+  agregarClienteFirebase(cliente:any):Promise<any>{
+    return this.firestore.collection('Clientes').add(cliente).then(_ => {
+      this.handleErrorService.Mensaje('Cliente guardado exitosamente')
+    }).catch(this.handleErrorService.handleError<any>('Guardar cliente', null));
+  }
+
+  consultarClienteFirebase():Observable<any>{
+    return this.firestore.collection('Clientes', ref => ref.orderBy("nombres")).snapshotChanges();
+  }
+
+  eliminarClienteFirebase(id:string):Promise<any>{
+    return this.firestore.collection('Clientes').doc(id).delete().then(_ => {
+      this.handleErrorService.Mensaje('Cliente Eliminado exitosamente')
+    }).catch(this.handleErrorService.handleError<any>('Eliminar cliente', null));
+  }
+
+  obtenerClienteFirebase(id:string):Observable<any>{
+    return this.firestore.collection('Clientes').doc(id).snapshotChanges()
+    .pipe(
+      tap(_ => this.handleErrorService.Mensaje('Cliente actualizado exitosamente')),
+      catchError(this.handleErrorService.handleError<Cliente>('Actualizar cliente', null))
+    );
+  }
+
+  actualizarClienteFirebase(id:string, cliente:any):Promise<any>{
+    return this.firestore.collection('Clientes').doc(id).update(cliente).then(_ => {
+      this.handleErrorService.Mensaje('Cliente actualizado exitosamente')
+    }).catch(this.handleErrorService.handleError<any>('Actualizar cliente', null));
+  }
 }

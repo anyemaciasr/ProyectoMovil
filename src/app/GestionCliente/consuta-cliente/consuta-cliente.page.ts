@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { ActionSheetController, AlertController, LoadingController, ToastController, ViewDidEnter } from '@ionic/angular';
+
 import { Cliente } from 'src/app/models/cliente/cliente';
 import { GestionClientesService } from 'src/app/services/gestion-clientes.service';
 import { SqlServiceService } from 'src/app/services/sql-service.service';
@@ -12,19 +13,21 @@ import { SqlServiceService } from 'src/app/services/sql-service.service';
 })
 export class ConsutaClientePage implements OnInit {
   cliente: Cliente;
-  textoABuscar:string;
+  textoABuscar: string;
   clientes: Cliente[] = [];
-  loading:any;
+  loading: any;
+  idFirebase: any[] = [];
   constructor(private sqlService: SqlServiceService
     , private actionSheetController: ActionSheetController
     , private alertController: AlertController
     , private router: Router
     , private toastController: ToastController
     , private gestionClientesService: GestionClientesService
-    , private loadingController:LoadingController) {}
+    , private loadingController: LoadingController) { }
 
   ngOnInit() {
     this.presentLoading();
+
   }
 
   doRefresh(event) {
@@ -33,24 +36,43 @@ export class ConsutaClientePage implements OnInit {
   }
 
   consultar() {
-    this.gestionClientesService.consultar().subscribe(
-      datos => {
-        console.log(datos);
-        this.clientes = datos;
-        console.log("Datos de servidor recividos");
-      }
-    );
-    
+    // this.gestionClientesService.consultar().subscribe(
+    //   datos => {
+    //
+    //     console.log(datos);
+    //     this.clientes = datos;
+    //     console.log("Datos de servidor recividos");
+    //   }
+    // );
+    var DataLength = 0;
+    var contador = 0;
+      this.clientes = [];
+      this.idFirebase = [];
+      this.gestionClientesService.consultarClienteFirebase().subscribe(datos => {
+        console.log(datos.length);
+        DataLength = datos.length;
+        datos.forEach(element => {
+          this.idFirebase.push({
+            "id": element.payload.doc.id,
+            "identificacion": element.payload.doc.data().identificacion
+          });
+          this.clientes.push(element.payload.doc.data());
+          contador++
+          if(DataLength == contador){
+            this.loading.dismiss();
+          }
+        });
+      })
+
   }
   async presentLoading() {
     this.loading = await this.loadingController.create({
       cssClass: 'my-custom-class',
       message: 'Cargando lista de clientes',
-      spinner:"crescent" 
+      spinner: "crescent"
     });
     await this.loading.present();
     this.consultar();
-    await this.loading.dismiss();
   }
 
 
@@ -77,7 +99,8 @@ export class ConsutaClientePage implements OnInit {
           icon: 'pencil',
           cssClass: "gris",
           handler: () => {
-            this.router.navigate(['/editar-cliente', cliente.identificacion]);
+            var clienteEliminar = this.idFirebase.find(c => c.identificacion == cliente.identificacion)
+            this.router.navigate(['/editar-cliente', clienteEliminar.id]);
           }
         },
         {
@@ -109,7 +132,7 @@ export class ConsutaClientePage implements OnInit {
       cssClass: 'alerClasss',
       header: 'Alerta',
       subHeader: '',
-      message:'<br>'+ '¿Seguro que quiere eliminar a ' + '<b>'
+      message: '<br>' + '¿Seguro que quiere eliminar a ' + '<b>'
         + cliente.nombres + ' ' + cliente.apellidos + '</b>'
         + ' de tu lista de clientes?',
       buttons: [
@@ -121,9 +144,11 @@ export class ConsutaClientePage implements OnInit {
           text: "Eliminar",
           cssClass: "rojo",
           handler: () => {
-            this.gestionClientesService.eliminar(cliente.identificacion).subscribe(
-              c => this.consultar()
-            );
+            var clienteEliminar = this.idFirebase.find(c => c.identificacion == cliente.identificacion);
+            this.gestionClientesService.eliminarClienteFirebase(clienteEliminar.id).then(() => {
+              console.log("Cliente eliminado correctamente");
+              this.presentLoading();
+            }).catch(error => console.log(error))
           },
 
         }
@@ -143,7 +168,7 @@ export class ConsutaClientePage implements OnInit {
     const alert = await this.alertController.create({
       cssClass: 'alerClasss',
       header: 'Datos del cliente',
-      message:'<br><br>'+ 'Identificacion: ' + cliente.identificacion
+      message: '<br><br>' + 'Identificacion: ' + cliente.identificacion
         + '<br>Nombres: ' + cliente.nombres + '<br>Apellidos: '
         + cliente.apellidos
         + '<br>Telefono: ' + cliente.telefono + '<br>Correo: '

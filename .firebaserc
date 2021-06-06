@@ -1,0 +1,11 @@
+{
+  "targets": {
+    "villanorisapi": {
+      "hosting": {
+        "app": [
+          "villanorisapi"
+        ]
+      }
+    }
+  }
+}

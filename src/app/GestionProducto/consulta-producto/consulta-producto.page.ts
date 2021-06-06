@@ -39,7 +39,7 @@ export class ConsultaProductoPage implements OnInit {
     });
     await this.loading.present();
     this.consultar();
-    await this.loading.dismiss();
+
   }
 
   consultar() {
@@ -47,6 +47,7 @@ export class ConsultaProductoPage implements OnInit {
       datos => {
         console.log(datos);
         this.productos = datos;
+        this.loading.dismiss();
         console.log("Datos de servidor recividos");
       }
     );
@@ -142,9 +143,10 @@ export class ConsultaProductoPage implements OnInit {
       animated:true,
       buttons: [
         {
+
           text:'Listo',
       }
-        
+
       ]
     });
 
@@ -160,10 +162,10 @@ export class ConsultaProductoPage implements OnInit {
   }
 
   contruirMensaje(producto: Producto): string {
-    var cuerpoConsulta = `<ion-list >   
+    var cuerpoConsulta = `<ion-list >
               <ion-item lines="none">
               <p class="items"><strong>Codigo:</strong> `+ producto.codigo + `</p>
-              </ion-item>  
+              </ion-item>
               <ion-item lines="none">
                 <p class="items"><strong>Nombre:</strong> `+ producto.nombre + `</p>
               </ion-item>

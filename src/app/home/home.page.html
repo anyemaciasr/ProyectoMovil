@@ -2,4 +2,10 @@
     <ion-text color="primary" class="ion-text-center">
         <h1>Bienvenido</h1>
     </ion-text>
+
+    <ul>
+      <li class="text" *ngFor="let item of items | async">
+        {{item.name}}
+      </li>
+    </ul>
 </ion-content>

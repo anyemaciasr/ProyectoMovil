@@ -33,7 +33,7 @@ export class ConsultaAnimalPage implements OnInit {
     });
     await this.loading.present();
     this.consultar();
-    await this.loading.dismiss();
+
   }
 
   doRefresh(event) {
@@ -44,6 +44,7 @@ export class ConsultaAnimalPage implements OnInit {
   consultar(){
     this.gestionAnimalService.consultar().subscribe(a => {
       this.animales = a
+      this.loading.dismiss();
       console.log('Datos Recibidos', a);
     });
   }
@@ -59,7 +60,7 @@ export class ConsultaAnimalPage implements OnInit {
   redirectToRegistroFito(id){
     this.router.navigate(['/registro', id])
   }
-  
+
   redirectToConsulta(id){
     this.router.navigate(['/consulta', id])
   }

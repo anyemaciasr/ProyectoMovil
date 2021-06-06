@@ -1,12 +1,20 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { AngularFirestore } from '@angular/fire/firestore';
+import { Observable } from 'rxjs';
+import { GestionClientesService } from '../services/gestion-clientes.service';
 
 @Component({
   selector: 'app-home',
   templateUrl: 'home.page.html',
   styleUrls: ['home.page.scss'],
 })
-export class HomePage {
+export class HomePage implements OnInit {
+  items: Observable<any[]>;
+  constructor(firestore: AngularFirestore) {
+    this.items = firestore.collection('items').valueChanges();
+  }
 
-  constructor() {}
+  ngOnInit() {
 
+  }
 }

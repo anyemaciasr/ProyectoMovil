@@ -1,3 +1,4 @@
+import { Location } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { AbstractControl, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
@@ -20,6 +21,7 @@ export class RegistoClientePage implements OnInit {
     , private toastController: ToastController
     , private gestionClienteService: GestionClientesService
     , private router: Router
+    , private location: Location
   ) { }
 
   ngOnInit() {
@@ -59,26 +61,21 @@ export class RegistoClientePage implements OnInit {
 
   guardarCliente() {
     this.cliente = this.formGroup.value;
-    this.gestionClienteService.guardar(this.cliente).subscribe(c => {
+  /*  this.gestionClienteService.guardar(this.cliente).subscribe(c => {
       if(c!=null){
         this.formGroup.reset();
         this.router.navigate(['/consulta-cliente']);
-      }      
+      }
     }
-    );
+    );*/
 
-    /* this.cliente = this.formGroup.value;
-     if (this.sqlService.validarCliente(this.cliente.identificacion)) {
-       this.presentToast('El cliente ya se encuentra registrado');
-       return;
-     } else {
-       this.sqlService.guardarCliente(this.cliente).subscribe(c => {
-         this.cliente = c;
-         this.presentToast('Cliente guardado exitosamente');
-       });
-       this.consultarCliente();
-       this.formGroup.reset();
-     }*/
+    this.gestionClienteService.agregarClienteFirebase(this.cliente).then(c => {
+      console.log("Cliente registrado con exito", c );
+      this.formGroup.reset();
+      this.location.back();
+    }).catch(e => {
+      console.log(e);
+    })
 
   }
   consultarCliente() {

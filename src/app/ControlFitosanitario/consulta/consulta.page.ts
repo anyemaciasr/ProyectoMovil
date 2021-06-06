@@ -38,6 +38,7 @@ export class ConsultaPage implements OnInit {
         datos => {
           console.log(datos);
           this.fitosanitarios = datos;
+          this.loading.dismiss();
           console.log("Datos de servidor recividos");
         }
       );
@@ -47,6 +48,7 @@ export class ConsultaPage implements OnInit {
     this.gestionAnimalService.buscarAnimal(id).subscribe(a => {
       if(a != null){
         this.fitosanitarios = a.controles;
+        this.loading.dismiss();
       }
     })
 
@@ -61,7 +63,7 @@ export class ConsultaPage implements OnInit {
     });
     await this.loading.present();
     this.consultar();
-    await this.loading.dismiss();
+
   }
 
   doRefresh(event) {

@@ -22,7 +22,7 @@ export class ConsultaVentaPage implements OnInit {
     this.presentLoading();
   }
 
-  routerLink(){
+  routerLink() {
     this.router.navigate(['/registro-venta', this.facturas.length]);
   }
 
@@ -34,23 +34,23 @@ export class ConsultaVentaPage implements OnInit {
   async presentLoading() {
     this.loading = await this.loadingController.create({
       cssClass: 'my-custom-class',
-      message: 'Cargando lista de clientes',
-      spinner: "crescent"
+      message: 'Cargando lista de facturas',
+      spinner: "crescent",
     });
     await this.loading.present();
     this.consultar();
-    await this.loading.dismiss();
   }
 
   consultar() {
-    this.gestionFacturaService.consultar().subscribe(
-      datos => {
-        console.log(datos);
-        this.facturas = datos;
-        console.log("Datos de servidor recividos");
-        console.log("Factura objeto ", this.facturas);
-      }
-    );
+      this.gestionFacturaService.consultar().subscribe(
+        datos => {
+          console.log(datos);
+          this.facturas = datos;
+          this.loading.dismiss();
+          console.log("Datos de servidor recividos");
+          console.log("Factura objeto ", this.facturas);
+        }
+      );
   }
   redirectTo() {
     this.navCtrl.navigateForward('/registro-venta');
@@ -90,6 +90,7 @@ export class ConsultaVentaPage implements OnInit {
     const alert = await this.alertController.create({
       cssClass: 'my-custom-class ',
       header: 'Datos de la factura',
+
       message: 'Codigo: ' + factura.idFactura
         + '<br>Cliente:' + factura.nombreCliente
         + '<br>Fecha: ' + factura.fecha + '<br>subTotal: ' + factura.subTotal
