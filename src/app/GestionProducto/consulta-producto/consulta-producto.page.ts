@@ -34,7 +34,7 @@ export class ConsultaProductoPage implements OnInit {
   async presentLoading() {
     this.loading = await this.loadingController.create({
       cssClass: 'my-custom-class',
-      message: 'Cargando lista de clientes',
+      message: 'Cargando lista de productos',
       spinner: "crescent"
     });
     await this.loading.present();
