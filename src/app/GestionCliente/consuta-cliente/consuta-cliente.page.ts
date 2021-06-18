@@ -36,33 +36,15 @@ export class ConsutaClientePage implements OnInit {
   }
 
   consultar() {
-    // this.gestionClientesService.consultar().subscribe(
-    //   datos => {
-    //
-    //     console.log(datos);
-    //     this.clientes = datos;
-    //     console.log("Datos de servidor recividos");
-    //   }
-    // );
-    var DataLength = 0;
-    var contador = 0;
-      this.clientes = [];
-      this.idFirebase = [];
-      this.gestionClientesService.consultarClienteFirebase().subscribe(datos => {
-        console.log(datos.length);
-        DataLength = datos.length;
-        datos.forEach(element => {
-          this.idFirebase.push({
-            "id": element.payload.doc.id,
-            "identificacion": element.payload.doc.data().identificacion
-          });
-          this.clientes.push(element.payload.doc.data());
-          contador++
-          if(DataLength == contador){
-            this.loading.dismiss();
-          }
-        });
-      })
+    this.gestionClientesService.consultar().subscribe(
+      datos => {
+
+        console.log(datos);
+        this.clientes = datos;
+        this.loading.dismiss();
+        console.log("Datos de servidor recividos");
+      }
+    );
 
   }
   async presentLoading() {
@@ -99,8 +81,8 @@ export class ConsutaClientePage implements OnInit {
           icon: 'pencil',
           cssClass: "gris",
           handler: () => {
-            var clienteEliminar = this.idFirebase.find(c => c.identificacion == cliente.identificacion)
-            this.router.navigate(['/editar-cliente', clienteEliminar.id]);
+           // var clienteEliminar = this.idFirebase.find(c => c.identificacion == cliente.identificacion)
+            this.router.navigate(['/editar-cliente', cliente.identificacion]);
           }
         },
         {
@@ -144,11 +126,16 @@ export class ConsutaClientePage implements OnInit {
           text: "Eliminar",
           cssClass: "rojo",
           handler: () => {
-            var clienteEliminar = this.idFirebase.find(c => c.identificacion == cliente.identificacion);
-            this.gestionClientesService.eliminarClienteFirebase(clienteEliminar.id).then(() => {
-              console.log("Cliente eliminado correctamente");
+
+            this.gestionClientesService.eliminar(cliente.identificacion).subscribe( c => {
               this.presentLoading();
-            }).catch(error => console.log(error))
+            })
+
+            // var clienteEliminar = this.idFirebase.find(c => c.identificacion == cliente.identificacion);
+            // this.gestionClientesService.eliminarClienteFirebase(clienteEliminar.id).then(() => {
+            //   console.log("Cliente eliminado correctamente");
+            //   this.presentLoading();
+            // }).catch(error => console.log(error))
           },
 
         }

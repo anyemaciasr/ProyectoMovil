@@ -9,14 +9,14 @@
 
 
     <!--Estadisticas-->
-    <ion-buttons  slot="end">
+    <ion-buttons *ngIf="true" slot="end">
       <ion-button >
         <ion-icon  name="stats-chart" slot="icon-only"></ion-icon>
       </ion-button>
     </ion-buttons>
 
     <!--Perfil-->
-    <ion-buttons  slot="end">
+    <ion-buttons *ngIf="true"  slot="end">
       <ion-button href="/perfil-usuario">
         <ion-icon name="person-circle" slot="icon-only"></ion-icon>
       </ion-button>
@@ -29,9 +29,9 @@
 
 </ion-header>
 <ion-content>
-  <!-- Searchbar with cancel button shown on focus -->
+  <!-- Searchbar with cancel button shown on focus
   <ion-segment value="">
-    
+
     <ion-segment-button value="">
       <ion-label>Todos</ion-label>
     </ion-segment-button>
@@ -45,21 +45,21 @@
     </ion-segment-button>
 
 
-  </ion-segment>
-  
+  </ion-segment> -->
+
 
   <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
     <ion-refresher-content pullingIcon="chevron-down-circle-outline" pullingText="Tire para actualizar "
       refreshingSpinner="circles" refreshingText="Actulizando...">
     </ion-refresher-content>
   </ion-refresher>
-  
+  <ion-searchbar [(ngModel)]="textoABuscar" showCancelButton="focus"></ion-searchbar>
   <ion-list>
     <ion-grid fixed>
       <ion-row class="ion-justify-content-center ion-text-center">
         <ion-col size="12" size-md="12" size-lg="12">
           <ion-list>
-            <ion-item-sliding *ngFor="let factura of facturas  ; let i = index;">
+            <ion-item-sliding *ngFor="let factura of facturas| filtroFactura:textoABuscar; let i = index;">
               <ion-item (click)="opciones(factura)">
                 <ion-avatar slot="start">
                   <ion-text color="primary">
@@ -68,7 +68,7 @@
                   </ion-text>
                 </ion-avatar>
                 <ion-label>
-                  <h3 class="negrita">{{factura.nombreCliente}}</h3>
+                  <h3 class="negrita"><b>{{factura.nombreCliente}}</b></h3>
                   <h4>id: {{factura.idFactura}}</h4>
                   <h4>Total: {{factura.total| currency}}</h4>
                 </ion-label>

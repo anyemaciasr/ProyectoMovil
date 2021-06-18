@@ -2,7 +2,7 @@
 
 
 <ion-content>
-  
+
   <!-- Searchbar with cancel button shown on focus -->
   <ion-searchbar [(ngModel)]="textoABuscar" showCancelButton="focus"></ion-searchbar>
 
@@ -14,7 +14,7 @@
         refreshingText="Actulizando...">
       </ion-refresher-content>
     </ion-refresher>
-  
+
   <ion-list>
     <ion-grid fixed>
       <ion-row *ngIf='clientes && clientes.length' class="ion-justify-content-center ion-text-center">
@@ -36,7 +36,7 @@
       <ion-row *ngIf='clientes && clientes.length===0' class="ion-justify-content-center ion-text-center">
         <ion-col size="12" size-md="12" size-lg="12">
           <ion-label color="medium">Aun no tienes ningun cliente :(</ion-label><br><br>
-          <ion-label color="medium">Pero no te preocupei pollo :D, te tengo la solucion, ahi ve en el botoncito verde de abajo a la derecha, bueno ahi puedes comenzar a agregar clienticos</ion-label>
+          <ion-label color="medium">Puedes registrar precionando el boton que se encuentra en la parte inferior derecha</ion-label>
         </ion-col>
       </ion-row>
     </ion-grid>

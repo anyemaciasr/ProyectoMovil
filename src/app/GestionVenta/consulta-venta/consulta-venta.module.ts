@@ -9,6 +9,7 @@ import { ConsultaVentaPageRoutingModule } from './consulta-venta-routing.module'
 import { ConsultaVentaPage } from './consulta-venta.page';
 import { ComponentsModule } from 'src/app/components/components.module';
 import { AvatarModule } from 'ngx-avatar';
+import { FiltroFacturaPipe } from 'src/app/pipes/filtro-factura.pipe';
 
 @NgModule({
   imports: [
@@ -17,8 +18,9 @@ import { AvatarModule } from 'ngx-avatar';
     FormsModule,
     IonicModule,
     ConsultaVentaPageRoutingModule,
-    AvatarModule
+    AvatarModule,
+
   ],
-  declarations: [ConsultaVentaPage]
+  declarations: [ConsultaVentaPage,FiltroFacturaPipe]
 })
 export class ConsultaVentaPageModule {}

@@ -14,12 +14,12 @@ import { FiltroProductoPipe } from './pipes/filtro-producto.pipe';
 import { AngularFireModule } from '@angular/fire';
 import { environment } from 'src/environments/environment';
 import { AngularFirestoreModule } from '@angular/fire/firestore';
+import { FiltroFacturaPipe } from './pipes/filtro-factura.pipe';
 @NgModule({
-  declarations: [AppComponent],
+  declarations: [AppComponent, FiltroFacturaPipe],
   entryComponents: [],
   imports: [
     ComponentsModule,
-    AngularFireModule.initializeApp(environment.firebase),
     AngularFirestoreModule,
     BrowserModule,
      IonicModule.forRoot(),

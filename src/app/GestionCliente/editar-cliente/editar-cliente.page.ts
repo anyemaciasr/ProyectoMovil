@@ -2,7 +2,7 @@ import { Location } from '@angular/common';
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { ToastController } from '@ionic/angular';
+import { LoadingController, ToastController } from '@ionic/angular';
 import { Cliente } from 'src/app/models/cliente/cliente';
 import { GestionClientesService } from 'src/app/services/gestion-clientes.service';
 import { SqlServiceService } from 'src/app/services/sql-service.service';
@@ -16,31 +16,37 @@ export class EditarClientePage implements OnInit {
   cliente: Cliente;
   formGroup: FormGroup;
   id:string;
+  loading:any;
   constructor(private sqlService: SqlServiceService
     , private toastController: ToastController
     , private route: ActivatedRoute
     , private formBuilder: FormBuilder
     , private gestionClienteService: GestionClientesService
     , private router: Router
+    , private loadingController: LoadingController
     , private location:Location) { }
 
   ngOnInit() {
     this.cliente = new Cliente();
     this.buildForm(this.cliente);
-    this.consultarCliente();
+    this.presentLoading();
   }
   consultarCliente() {
     var id = this.route.snapshot.paramMap.get("id");
-    // this.gestionClienteService.buscarCliente(id).subscribe(c => {
-    //   this.buildForm(c);
-    // });
-    this.id = id
-    this.gestionClienteService.obtenerClienteFirebase(id).subscribe(c => {
-      console.log(c.payload.data());
+     this.gestionClienteService.buscarCliente(id).subscribe(c => {
+       this.buildForm(c);
+       this.loading.dismiss();
+     });
 
-      this.buildForm(c.payload.data());
-    })
-
+  }
+  async presentLoading() {
+    this.loading = await this.loadingController.create({
+      cssClass: 'my-custom-class',
+      message: 'Cargando datos del animal',
+      spinner: "crescent",
+    });
+    await this.loading.present();
+    this.consultarCliente();
   }
 
   buildForm(clienteEncontrado?: Cliente) {
@@ -60,13 +66,10 @@ export class EditarClientePage implements OnInit {
 
   editar() {
     this.cliente = this.formGroup.value;
-    this.gestionClienteService.actualizarClienteFirebase(this.id, this.cliente).then(() => {
-      this.formGroup.reset;
-      this.location.back();
-    });
-    // this.gestionClienteService.actualizar(this.cliente.identificacion, this.cliente).subscribe(p => this.cliente = p);
-    // this.formGroup.reset;
-    // this.router.navigate(['/consulta-cliente']);
+
+     this.gestionClienteService.actualizar(this.cliente.identificacion, this.cliente).subscribe(p => this.cliente = p);
+     this.formGroup.reset;
+     this.location.back();
   }
   get control() {
     return this.formGroup.controls;

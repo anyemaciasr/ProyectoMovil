@@ -16,7 +16,7 @@
             <ion-item>
               <ion-label  position="floating" >Identificacion <ion-text color="danger">*</ion-text>
               </ion-label>
-              <ion-input readonly type="text"name="identificacion" formControlName="identificacion" ></ion-input>          
+              <ion-input readonly type="text"name="identificacion" formControlName="identificacion" ></ion-input>
             </ion-item>
             <ion-label class="ion-text-left" color="danger" *ngIf="formGroup.controls.identificacion.errors?.required && (formGroup.controls.identificacion.touched || formGroup.controls.identificacion.dirty)">* La identificacion es obligatoria </ion-label>
             <ion-label class="ion-text-left" color="danger" *ngIf="formGroup.controls.identificacion.errors?.minlength && (formGroup.controls.identificacion.touched || formGroup.controls.identificacion.dirty)">* La identificacion debe contener 6 caracteres o mas </ion-label>
@@ -58,7 +58,7 @@
             </ion-item>
             <ion-label class="ion-text-left" color="danger" *ngIf="formGroup.controls.correo.errors?.required && (formGroup.controls.correo.touched || formGroup.controls.correo.dirty)">* El correo es obligatorio </ion-label>
             <ion-label class="ion-text-left" color="danger" *ngIf="formGroup.controls.correo.errors?.email && (formGroup.controls.correo.touched || formGroup.controls.correo.dirty)">* El correo no es valido </ion-label>
-            
+
           </ion-col>
           <br>
           <br>
@@ -67,13 +67,13 @@
           <br>
           <br>
           <ion-col size="12" size-md="6" size-lg="4">
-            <ion-button id="boton" (click)="onSubmit()" [disabled]="formGroup.invalid" size=" undefined" class="shadow-red" shape="round">Registrar</ion-button>
+            <ion-button id="boton" (click)="onSubmit()" [disabled]="formGroup.invalid" size=" undefined" class="shadow-red" shape="round">Editar</ion-button>
           </ion-col>
         </ion-row>
-        
+
       </ion-grid>
 
-     
+
     </form>
   </ion-list>
 

@@ -1,3 +1,4 @@
+import { formatCurrency, getCurrencySymbol } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { ActionSheetController, AlertController, LoadingController, NavController, ToastController } from '@ionic/angular';
@@ -13,6 +14,7 @@ export class ConsultaVentaPage implements OnInit {
   factura: Factura;
   facturas: Factura[] = [];
   loading: any;
+  textoABuscar: string;
   constructor(private actionSheetController: ActionSheetController
     , private alertController: AlertController, private router: Router
     , private toastController: ToastController, private navCtrl: NavController
@@ -87,15 +89,26 @@ export class ConsultaVentaPage implements OnInit {
     await actionSheet.present();
   }
   async AlerConsulta(factura) {
+    var total:number = Number(factura.total);
+    var descuento:number = Number(factura.descuento);
+    var subTotal:number = Number(factura.subTotal);
+    factura.descuento = formatCurrency(descuento, 'en-US', getCurrencySymbol('USD', 'narrow'));
+    factura.total = formatCurrency(total, 'en-US', getCurrencySymbol('USD', 'wide'));
+    factura.subTotal = formatCurrency(subTotal, 'en-US', getCurrencySymbol('USD', 'wide'));
     const alert = await this.alertController.create({
-      cssClass: 'my-custom-class ',
+      cssClass: 'alerClasss',
       header: 'Datos de la factura',
 
-      message: 'Codigo: ' + factura.idFactura
-        + '<br>Cliente:' + factura.nombreCliente
-        + '<br>Fecha: ' + factura.fecha + '<br>subTotal: ' + factura.subTotal
-        + '<br>Descuento: ' + factura.descuento + '<br>Total: ' + factura.total,
-      buttons: ['OK']
+      message: '<br><br><b>Codigo:</b> ' + factura.idFactura
+        + '<br><b>Cliente:</b>' + factura.nombreCliente
+        + '<br><b>Fecha:</b> ' + factura.fecha + '<br><b>subTotal:</b> ' + factura.subTotal
+        + '<br><b>Descuento:</b> ' + factura.descuento + '<br><b>Total:</b> ' + factura.total,
+      buttons: [
+        {
+          text: 'Listo',
+          cssClass: 'solid',
+        }
+      ]
     });
 
     await alert.present();

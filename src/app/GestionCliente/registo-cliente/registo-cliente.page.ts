@@ -61,22 +61,22 @@ export class RegistoClientePage implements OnInit {
 
   guardarCliente() {
     this.cliente = this.formGroup.value;
-  /*  this.gestionClienteService.guardar(this.cliente).subscribe(c => {
+   this.gestionClienteService.guardar(this.cliente).subscribe(c => {
       if(c!=null){
         this.formGroup.reset();
-        this.router.navigate(['/consulta-cliente']);
+        this.location.back();
       }
     }
-    );*/
+    );
 
-    this.gestionClienteService.agregarClienteFirebase(this.cliente).then(c => {
+  /*   this.gestionClienteService.agregarClienteFirebase(this.cliente).then(c => {
       console.log("Cliente registrado con exito", c );
       this.formGroup.reset();
       this.location.back();
     }).catch(e => {
       console.log(e);
     })
-
+*/
   }
   consultarCliente() {
     this.clientes = this.sqlService.clientes;

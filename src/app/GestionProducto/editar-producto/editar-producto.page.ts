@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { ToastController } from '@ionic/angular';
+import { LoadingController, ToastController } from '@ionic/angular';
 import { Producto } from 'src/app/models/producto/producto';
 import { GestionProductoService } from 'src/app/services/gestion-producto.service';
 import { SqlServiceService } from 'src/app/services/sql-service.service';
@@ -15,27 +15,40 @@ export class EditarProductoPage implements OnInit {
   producto: Producto;
   formGroup: FormGroup;
   id:string;
+  loading:any;
   constructor(private sqlService: SqlServiceService
     , private toastController: ToastController
     ,private route: ActivatedRoute
     ,private formBuilder: FormBuilder
     ,private gestionProductoService:GestionProductoService
+    ,private loadingController: LoadingController
     ,private router:Router
     ) { }
 
   ngOnInit() {
     this.producto = new Producto();
     this.buildForm(this.producto);
-    this.consultarProducto(); 
+    this.presentLoading();
+  }
+  async presentLoading() {
+    this.loading = await this.loadingController.create({
+      cssClass: 'my-custom-class',
+      message: 'Cargando datos del animal',
+      spinner: "crescent",
+    });
+    await this.loading.present();
+    this.consultarProducto();
   }
 
   consultarProducto(){
     this.id = this.route.snapshot.paramMap.get("id");
     this.gestionProductoService.buscarProducto(Number(this.id)).subscribe(p => {
       this.buildForm(p);
+      this.loading.dismiss();
     });
-    
+
   }
+
 
   buildForm(productoEncontrado:Producto) {
     this.producto = productoEncontrado

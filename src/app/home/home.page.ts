@@ -10,8 +10,8 @@ import { GestionClientesService } from '../services/gestion-clientes.service';
 })
 export class HomePage implements OnInit {
   items: Observable<any[]>;
-  constructor(firestore: AngularFirestore) {
-    this.items = firestore.collection('items').valueChanges();
+  constructor() {
+   
   }
 
   ngOnInit() {

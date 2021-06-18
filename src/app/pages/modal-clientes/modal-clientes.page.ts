@@ -27,6 +27,7 @@ textoABuscar:string;
       datos => {
         console.log(datos);
         this.clientes = datos;
+        this.loading.dismiss();
         console.log("Datos de servidor recividos");
       }
     );
@@ -40,7 +41,7 @@ textoABuscar:string;
     });
     await this.loading.present();
     this.consultar();
-    await this.loading.dismiss();
+
   }
 
 

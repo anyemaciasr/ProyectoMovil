@@ -116,7 +116,7 @@ export class ConsultaPage implements OnInit {
 
   async AlertEliminar(fitosanitario: Fitosanitario) {
     const alert = await this.alertController.create({
-      cssClass: 'my-custom-class ',
+      cssClass: 'alerClasss',
       header: 'Alerta',
       subHeader: '',
       message: '¿Seguro que quiere eliminar el registro fitosanitario del animal con identificación ' + '<b>'
@@ -144,7 +144,7 @@ export class ConsultaPage implements OnInit {
 
   async AlerConsulta(fitosanitario: Fitosanitario) {
     const alert = await this.alertController.create({
-      cssClass: 'my-custom-class ',
+      cssClass: 'alerClasss',
       header: 'Datos del registro',
       message: 'Animal tratado: ' + fitosanitario.animalIdentificacion
         + '<br>Nombre medicamento: ' + fitosanitario.nombreMedicamento + '<br>Dosis aplicada: ' + fitosanitario.dosisAplicada

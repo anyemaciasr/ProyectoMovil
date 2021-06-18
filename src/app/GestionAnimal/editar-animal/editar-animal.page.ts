@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { ActionSheetController, AlertController, IonSlides, ToastController } from '@ionic/angular';
+import { ActionSheetController, AlertController, IonSlides, LoadingController, ToastController } from '@ionic/angular';
 import { Animal } from 'src/app/models/animal/animal';
 import { GestionAnimalService } from 'src/app/services/gestion-animal.service';
 
@@ -17,7 +17,7 @@ export class EditarAnimalPage implements OnInit {
   animal: Animal;
   animales: Animal[] = [];
   formGroup: FormGroup;
-
+  loading:any;
   constructor(private actionSheetController: ActionSheetController
     , private alertController: AlertController
     , private toastController: ToastController
@@ -25,21 +25,32 @@ export class EditarAnimalPage implements OnInit {
     , private router: Router
     , private formBuilder: FormBuilder
     , private route: ActivatedRoute
+    , private loadingController:LoadingController,
   ) { }
 
   ngOnInit() {
     this.animal = new Animal();
     this.buildForm(this.animal);
-    this.consultarAnimal();
+    this.presentLoading();
   }
 
   consultarAnimal() {
     var id = this.route.snapshot.paramMap.get("id");
     this.gestionAnimalService.buscarAnimal(id).subscribe(a => {
       this.buildForm(a);
+      this.loading.dismiss();
     }
     );
 
+  }
+  async presentLoading() {
+    this.loading = await this.loadingController.create({
+      cssClass: 'my-custom-class',
+      message: 'Cargando datos del animal',
+      spinner: "crescent",
+    });
+    await this.loading.present();
+    this.consultarAnimal();
   }
 
   slideOpts = {
