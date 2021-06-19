@@ -6,7 +6,7 @@ import { Fitosanitario } from 'src/app/models/controlfitosanitario/fitosanitario
 import { GestionAnimalService } from 'src/app/services/gestion-animal.service';
 import { GestionFitosanitarioService } from 'src/app/services/gestion-fitosanitario.service';
 import { SqlServiceService } from 'src/app/services/sql-service.service';
-
+import { Location } from '@angular/common';
 @Component({
   selector: 'app-editar',
   templateUrl: './editar.page.html',
@@ -26,6 +26,7 @@ export class EditarPage implements OnInit {
     ,private gestionAnimalService:GestionAnimalService
     , private router: Router
     , private loadingController: LoadingController
+    , private location: Location
   ) { }
 
   ngOnInit() {
@@ -80,12 +81,10 @@ export class EditarPage implements OnInit {
 
     this.gestionFitosanitarioService.actualizar(this.fitosanitario.codigo, this.fitosanitario).subscribe(p => {
       if (p != null) {
-        this.router.navigate(['/consulta']);
+        this.location.back();
       }
     });
   }
-
-
 
   get control() {
     return this.formGroup.controls;
