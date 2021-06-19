@@ -57,7 +57,7 @@ const routes: Routes = [
     loadChildren: () => import('./ControlFitosanitario/consulta/consulta.module').then( m => m.ConsultaPageModule)
   },
   {
-    path: 'editar',
+    path: 'editar/:id',
     loadChildren: () => import('./ControlFitosanitario/editar/editar.module').then( m => m.EditarPageModule)
   },
   {

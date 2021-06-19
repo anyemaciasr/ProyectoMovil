@@ -1,4 +1,5 @@
 export class Fitosanitario {
+    codigo:string;
     nombreMedicamento:string;
     dosisAplicada:string;
     tiempoRetiro:string;

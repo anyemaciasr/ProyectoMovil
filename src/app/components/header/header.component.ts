@@ -12,7 +12,7 @@ export class HeaderComponent implements OnInit {
 
   ngOnInit() {}
   redirecionar(){
-    this.router.navigate(['/perfil-usuario']);
+    this.router.navigate(['/registrar']);
   }
 
 }

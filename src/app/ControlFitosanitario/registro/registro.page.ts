@@ -37,6 +37,7 @@ export class RegistroPage implements OnInit {
     }else{
       this.fitosanitario.animalIdentificacion = id;
     }
+    this.fitosanitario.codigo="";
     this.fitosanitario.dosisAplicada = "";
     this.fitosanitario.fechaAplicacion = null;
     this.fitosanitario.nombreMedicamento = "";
@@ -45,6 +46,7 @@ export class RegistroPage implements OnInit {
 
     this.formGroup = this.formBuilder.group({
       animalIdentificacion: [this.fitosanitario.animalIdentificacion, Validators.required],
+      codigo:[this.fitosanitario.codigo, Validators.required],
       dosisAplicada: [this.fitosanitario.dosisAplicada, Validators.required],
       fechaAplicacion: [this.fitosanitario.fechaAplicacion, Validators.required],
       nombreMedicamento: [this.fitosanitario.nombreMedicamento, Validators.required],

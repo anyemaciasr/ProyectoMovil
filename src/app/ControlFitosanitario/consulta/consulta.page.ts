@@ -97,7 +97,7 @@ export class ConsultaPage implements OnInit {
           icon: 'pencil',
           cssClass: "gris",
           handler: () => {
-            this.router.navigate(['/editar']);
+            this.router.navigate(['/editar',fitosanitario.codigo]);
           }
         },
         {
