@@ -7,7 +7,7 @@ import { Observable, of } from 'rxjs';
 })
 export class HandlerErrorService {
 
-  constructor(private toastController:ToastController) { }
+  constructor(private toastController: ToastController) { }
 
   public handleError<T>(operation = 'operation', result?: T) {
     return (error: any): Observable<T> => {
@@ -20,8 +20,8 @@ export class HandlerErrorService {
       else if (error.status == "401") {
 
         this.mostrarError400(error);
-        
-        }
+
+      }
 
       return of(result as T);
     };
@@ -31,7 +31,7 @@ export class HandlerErrorService {
     const toast = await this.toastController.create({
       message: mensaje,
       duration: 2000,
-      keyboardClose:true,
+      keyboardClose: true,
       mode: "ios",
       position: "top",
       translucent: true
@@ -42,16 +42,16 @@ export class HandlerErrorService {
     console.error(error);
     let contadorValidaciones: number = 0;
     let mensajeValidaciones: string =
-    `Señor(a) usuario(a), se han presentado algunos errores de validación, por favor revíselos y vuelva a realizar la
+      `Señor(a) usuario(a), se han presentado algunos errores de validación, por favor revíselos y vuelva a realizar la
    operación.<br/><br/>`;
     for (const prop in error.error.errors) {
-    contadorValidaciones++;
-    mensajeValidaciones += `<strong>${contadorValidaciones}. ${prop}:</strong>`;
-    error.error.errors[prop].forEach(element => {
-    mensajeValidaciones += `<br/> - ${element}`;
-    });
-    mensajeValidaciones += `<br/>`;
+      contadorValidaciones++;
+      mensajeValidaciones += `<strong>${contadorValidaciones}. ${prop}:</strong>`;
+      error.error.errors[prop].forEach(element => {
+        mensajeValidaciones += `<br/> - ${element}`;
+      });
+      mensajeValidaciones += `<br/>`;
     }
     this.Mensaje(mensajeValidaciones);
-    }
+  }
 }

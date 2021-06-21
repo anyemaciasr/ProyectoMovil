@@ -1,5 +1,6 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Router } from '@angular/router';
+import { UsuarioService } from 'src/app/services/usuario.service';
 
 @Component({
   selector: 'app-header',
@@ -8,11 +9,17 @@ import { Router } from '@angular/router';
 })
 export class HeaderComponent implements OnInit {
   @Input() titulo: string="";
-  constructor(private router:Router) { }
+  @Output() cambiarEstado = new EventEmitter<boolean>();
+  constructor(private router:Router, private usuarioService: UsuarioService) { }
 
   ngOnInit() {}
   redirecionar(){
-    this.router.navigate(['/registrar']);
+    this.usuarioService.logueado = false;
+    this.router.navigate(['/login']);
+  }
+  cambiar(){
+    this.cambiarEstado.emit(true);
+    this.usuarioService.logueado = false;
   }
 
 }

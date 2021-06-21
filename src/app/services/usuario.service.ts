@@ -2,8 +2,9 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { catchError, tap } from 'rxjs/operators';
-import { Usuario } from '../models/Usuario/usuario';
+import { Usuario, UsuarioL } from '../models/Usuario/usuario';
 import { HandlerErrorService } from './handler-error.service';
+import {environment}from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -11,9 +12,13 @@ import { HandlerErrorService } from './handler-error.service';
 export class UsuarioService {
 
 
-  url = "https://villanorisapi.azurewebsites.net/Usuario";
+  url = environment.urlBaseDevelopment+"Usuario";
+  logueado = false;
+  urlazure = environment.urlBase + "Usuario";
   constructor(public http: HttpClient
-    , private handleErrorService: HandlerErrorService) { }
+    , private handleErrorService: HandlerErrorService
+
+    ) { }
 
   httpOptions = {
     headers: new HttpHeaders({
@@ -31,5 +36,15 @@ export class UsuarioService {
       );
   }
 
- 
+  login(usuario: UsuarioL): Observable<UsuarioL>{
+    return this.http.post<UsuarioL>(this.url, JSON.stringify(usuario), this.httpOptions)
+      .pipe(
+        tap(_ =>{
+
+          this.handleErrorService.Mensaje('Bienvenido')
+        } ),
+      catchError(this.handleErrorService.handleError<UsuarioL>('Guardar usuario', null))
+      );
+  }
+
 }

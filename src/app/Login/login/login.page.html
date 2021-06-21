@@ -13,33 +13,30 @@
               <ion-label floating>
                 <ion-icon color="secondary" name="person" item-start class="text-primary"></ion-icon>
               </ion-label>
-              <ion-input type="text" placeholder="Usuario"></ion-input>
+              <ion-input name="nombreUsuario" [(ngModel)]="usuario.nombreUsuario" type="text" placeholder="Usuario"></ion-input>
             </ion-item>
             <br>
             <ion-item>
               <ion-label floating>
                 <ion-icon color="secondary" name="key" item-start class="text-primary"></ion-icon>
               </ion-label>
-              <ion-input class="padding-bottom" type="text" placeholder="Contraseña"></ion-input>
+              <ion-input name="clave" [(ngModel)]="usuario.clave" class="padding-bottom" type="password" placeholder="Contraseña"></ion-input>
+            </ion-item>
+            <br>
+            <br>
+            <ion-item lines="none" class="ion-justify-content-center ion-text-center">
+              <ion-col  size="12" size-md="6" size-lg="4">
+                <ion-button size="undefined" (cambiarEstado)="estado()" (click)="redireccion()" class="shadow-red" shape="round">Iniciar sesión</ion-button>
+              </ion-col>
             </ion-item>
 
-            <br>
-            <br>
           </ion-card>
         </ion-col>
       </ion-row>
       <ion-row class="ion-justify-content-center ion-text-center">
-        <ion-col size="12" size-md="6" size-lg="4">
-          <ion-button size=" undefined" class="shadow-red" shape="round">Iniciar sesión</ion-button>
-        </ion-col>
+
       </ion-row>
-      <ion-row class="ion-justify-content-center ion-text-center">
-        <ion-col size="12" size-md="6" size-lg="4">
-          <ion-label>¿Aún no tienes cuenta?</ion-label>
-          <br>
-          <a routerLink="/registrar" >Crear cuenta</a>
-        </ion-col>
-      </ion-row>
+
     </ion-grid>
   </form>
 

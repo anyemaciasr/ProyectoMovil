@@ -5,7 +5,7 @@
 export const environment = {
   production: false,
   urlBase: "https://villanorisapi.azurewebsites.net/",
-  urlBaseDevelopment: "https://localhost:5001/",
+  urlBaseDevelopment: "https://localhost:44392/",
   // firebase:{
   //   apiKey: "AIzaSyBzV8ZBElvyQnrIRjW5J4y4Zoaox406huE",
   //   authDomain: "villanorisapi.firebaseapp.com",

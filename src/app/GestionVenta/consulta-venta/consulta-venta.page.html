@@ -1,33 +1,4 @@
-<ion-header translucent>
-  <ion-toolbar *ngIf="true" color="primary">
-    <ion-buttons slot="start">
-      <ion-back-button defaultHref="/"></ion-back-button>
-    </ion-buttons>
-    <ion-title slot="start" class="ion-text-capitalize">
-      Gestion venta
-    </ion-title>
-
-
-    <!--Estadisticas-->
-    <ion-buttons *ngIf="true" slot="end">
-      <ion-button >
-        <ion-icon  name="stats-chart" slot="icon-only"></ion-icon>
-      </ion-button>
-    </ion-buttons>
-
-    <!--Perfil-->
-    <ion-buttons *ngIf="true"  slot="end">
-      <ion-button href="/perfil-usuario">
-        <ion-icon name="person-circle" slot="icon-only"></ion-icon>
-      </ion-button>
-    </ion-buttons>
-
-  </ion-toolbar>
-  <ion-toolbar *ngIf="false">
-    <ion-searchbar [(ngModel)]="textoABuscar" showCancelButton="focus"></ion-searchbar>
-  </ion-toolbar>
-
-</ion-header>
+<app-header titulo="Gestion Factura"></app-header>
 <ion-content>
   <!-- Searchbar with cancel button shown on focus
   <ion-segment value="">

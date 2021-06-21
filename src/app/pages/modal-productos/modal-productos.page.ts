@@ -24,7 +24,7 @@ export class ModalProductosPage implements OnInit {
 
   ngOnInit() {
     this.presentLoading();
-    
+
   }
   contruirLista(){
     this.productos.forEach(producto => {
@@ -38,6 +38,7 @@ export class ModalProductosPage implements OnInit {
       productoTemp.color = "Default";
       this.productosTemp.push(productoTemp);
     });
+    this.loading.dismiss();
   }
 
   doRefresh(event) {
@@ -48,11 +49,11 @@ export class ModalProductosPage implements OnInit {
     this.loading = await this.loadingController.create({
       cssClass: 'my-custom-class',
       message: 'Cargando lista de clientes',
-      spinner:"crescent" 
+      spinner:"crescent"
     });
     await this.loading.present();
     this.consultar();
-    await this.loading.dismiss();
+
   }
 
   consultar() {
@@ -64,9 +65,9 @@ export class ModalProductosPage implements OnInit {
         console.log("Datos de servidor recividos");
       }
     );
-    
+
   }
- 
+
   agregarDetalle(producto: Producto, cantidad: number) {
     var detalleFactura = new DetalleFactura();
     detalleFactura.idDetalle = producto.codigo;

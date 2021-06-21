@@ -150,7 +150,7 @@ export class ConsultaPage implements OnInit {
         + '<br>Nombre medicamento: ' + fitosanitario.nombreMedicamento + '<br>Dosis aplicada: ' + fitosanitario.dosisAplicada
         + '<br>tipo medicamento: ' + fitosanitario.tipoMedicamento + '<br>Tiempo de retiro: ' + fitosanitario.tiempoRetiro
         + '<br>Fecha aplicacion: ' + fitosanitario.fechaAplicacion,
-      buttons: ['OK']
+      buttons: ['Listo']
     });
 
     await alert.present();
