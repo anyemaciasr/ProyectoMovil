@@ -15,8 +15,10 @@ export class HeaderComponent implements OnInit {
   ngOnInit() {}
   redirecionar(){
     this.usuarioService.logueado = false;
+    this.usuarioService.cerrarSesion();
     this.router.navigate(['/login']);
   }
+
   cambiar(){
     this.cambiarEstado.emit(true);
     this.usuarioService.logueado = false;

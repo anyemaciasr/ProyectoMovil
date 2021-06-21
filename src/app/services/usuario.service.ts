@@ -5,7 +5,7 @@ import { catchError, tap } from 'rxjs/operators';
 import { Usuario, UsuarioL } from '../models/Usuario/usuario';
 import { HandlerErrorService } from './handler-error.service';
 import {environment}from '../../environments/environment';
-
+import { Storage } from '@ionic/storage-angular';
 @Injectable({
   providedIn: 'root'
 })
@@ -17,8 +17,10 @@ export class UsuarioService {
   urlazure = environment.urlBase + "Usuario";
   constructor(public http: HttpClient
     , private handleErrorService: HandlerErrorService
-
-    ) { }
+    , private storage: Storage
+    ) {
+      this.init();
+    }
 
   httpOptions = {
     headers: new HttpHeaders({
@@ -40,11 +42,25 @@ export class UsuarioService {
     return this.http.post<UsuarioL>(this.url, JSON.stringify(usuario), this.httpOptions)
       .pipe(
         tap(_ =>{
-
+          this.storage.set("usuarioActivo", _);
           this.handleErrorService.Mensaje('Bienvenido')
         } ),
       catchError(this.handleErrorService.handleError<UsuarioL>('Guardar usuario', null))
       );
   }
+
+  usuarioLogueado():Promise<UsuarioL> {
+    return this.storage.get("usuarioActivo")
+  }
+
+  cerrarSesion(){
+    this.storage.remove("usuarioActivo");
+  }
+
+  async init(){
+    await this.storage.create();
+  }
+
+
 
 }

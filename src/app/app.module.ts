@@ -11,7 +11,7 @@ import { SQLite } from '@ionic-native/sqlite/ngx';
 import { HttpClientModule } from '@angular/common/http';
 import { FiltroFitosanitarioPipe } from './pipes/filtro-fitosanitario.pipe';
 import { FiltroProductoPipe } from './pipes/filtro-producto.pipe';
-
+import { IonicStorageModule } from '@ionic/storage-angular';
 import { environment } from 'src/environments/environment';
 
 import { FiltroFacturaPipe } from './pipes/filtro-factura.pipe';
@@ -24,7 +24,7 @@ import { FiltroFacturaPipe } from './pipes/filtro-factura.pipe';
      IonicModule.forRoot(),
      AppRoutingModule,
      HttpClientModule,
-
+     IonicStorageModule.forRoot()
     ],
   providers: [{ provide: RouteReuseStrategy, useClass: IonicRouteStrategy },SQLite],
   bootstrap: [AppComponent],

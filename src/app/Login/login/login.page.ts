@@ -9,12 +9,20 @@ import { UsuarioService } from 'src/app/services/usuario.service';
   styleUrls: ['./login.page.scss'],
 })
 export class LoginPage implements OnInit {
-
+  list = [];
   @Output() cambiarEstado = new EventEmitter<boolean>();
   constructor(private router: Router, private usuarioService:UsuarioService) { }
   usuario: UsuarioL
   ngOnInit() {
     this.usuario = new UsuarioL();
+    this.usuarioService.usuarioLogueado().then(u => {
+      if(u != null){
+        this.estado()
+        this.router.navigate(['/consulta-cliente']);
+        this.usuario = new UsuarioL();
+        this.usuarioService.logueado = true;
+      }
+    })
   }
 
   redireccion(){
@@ -23,9 +31,11 @@ export class LoginPage implements OnInit {
       if(usu != null){
         this.router.navigate(['/consulta-cliente']);
         this.usuario = new UsuarioL();
+        this.estado();
         this.usuarioService.logueado = true;
       }
     })
+
 
   }
 
