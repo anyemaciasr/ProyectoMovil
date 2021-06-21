@@ -27,7 +27,6 @@ export class ConsutaClientePage implements OnInit {
 
   ngOnInit() {
     this.presentLoading();
-
   }
 
   doRefresh(event) {
@@ -38,7 +37,6 @@ export class ConsutaClientePage implements OnInit {
   consultar() {
     this.gestionClientesService.consultar().subscribe(
       datos => {
-
         console.log(datos);
         this.clientes = datos;
         this.loading.dismiss();
