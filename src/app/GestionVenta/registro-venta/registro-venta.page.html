@@ -73,8 +73,7 @@
                       <ion-list>
                         <ion-item-sliding *ngFor="let detalle of factura.detallesFactura; let i = index;">
                           <ion-item (click)="opciones(detalle)">
-                            <ion-icon slot="end" name="add"></ion-icon>
-                            <ion-icon slot="end" name="remove"></ion-icon>
+                            
                             <ion-label>
                               <h4 class="negrita">{{detalle.nombre}}</h4>
                               <h4 class="negrita">Precio:{{detalle.valorUnitario}}</h4>

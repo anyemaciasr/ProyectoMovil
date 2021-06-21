@@ -51,7 +51,7 @@ export class LoginPage implements OnInit {
   async presentLoading() {
     this.loading = await this.loadingController.create({
       cssClass: 'my-custom-class',
-      message: 'Cargando lista de clientes',
+      message: 'Iniciando sesion',
       spinner: "crescent"
     });
     await this.loading.present();

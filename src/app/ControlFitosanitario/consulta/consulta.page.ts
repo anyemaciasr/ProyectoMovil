@@ -25,6 +25,7 @@ export class ConsultaPage implements OnInit {
   ) { }
 
   ngOnInit() {
+    
     this.fitosanitario = new Fitosanitario();
     this.presentLoading();
   }
@@ -146,7 +147,7 @@ export class ConsultaPage implements OnInit {
     const alert = await this.alertController.create({
       cssClass: 'alerClasss',
       header: 'Datos del registro',
-      message: 'Animal tratado: ' + fitosanitario.animalIdentificacion
+      message: '<br><br>Animal tratado: ' + fitosanitario.animalIdentificacion
         + '<br>Nombre medicamento: ' + fitosanitario.nombreMedicamento + '<br>Dosis aplicada: ' + fitosanitario.dosisAplicada
         + '<br>tipo medicamento: ' + fitosanitario.tipoMedicamento + '<br>Tiempo de retiro: ' + fitosanitario.tiempoRetiro
         + '<br>Fecha aplicacion: ' + fitosanitario.fechaAplicacion,
