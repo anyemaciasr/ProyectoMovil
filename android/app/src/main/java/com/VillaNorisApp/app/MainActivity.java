@@ -1,4 +1,4 @@
-package io.ionic.starter;
+package com.VillaNorisApp.app;
 
 import android.os.Bundle;
 

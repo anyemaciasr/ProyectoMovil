@@ -12,7 +12,7 @@ import { Storage } from '@ionic/storage-angular';
 export class UsuarioService {
 
 
-  url = environment.urlBaseDevelopment+"Usuario";
+  url = environment.urlBase+"Usuario";
   logueado = false;
   urlazure = environment.urlBase + "Usuario";
   constructor(public http: HttpClient
