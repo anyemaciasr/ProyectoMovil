@@ -79,7 +79,7 @@
           <ion-col size="12" size-md="6" size-lg="4">
             <ion-item>
               <ion-label>fecha aplicaion</ion-label>
-              <ion-datetime formControlName="fechaAplicacion" name="fechaAplicacion" display-format="D  MMMM YY">
+              <ion-datetime formControlName="fechaAplicacion" name="fechaAplicacion" display-format="DMMMMYY">
               </ion-datetime>
             </ion-item>
           </ion-col>
@@ -92,7 +92,7 @@
         <br>
         <ion-row class="ion-justify-content-center ion-text-center">
           <ion-col size="12" size-md="6" size-lg="4">
-            <ion-button size=" undefined" (click)="onSubmit()" [disabled]="formGroup.invalid" class="shadow-red"
+            <ion-button size="undefined" (click)="onSubmit()" [disabled]="formGroup.invalid" class="shadow-red"
               shape="round">Registrar</ion-button>
           </ion-col>
         </ion-row>

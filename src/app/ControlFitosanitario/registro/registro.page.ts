@@ -46,7 +46,6 @@ export class RegistroPage implements OnInit {
 
     this.formGroup = this.formBuilder.group({
       animalIdentificacion: [this.fitosanitario.animalIdentificacion, Validators.required],
-      codigo:[this.fitosanitario.codigo, Validators.required],
       dosisAplicada: [this.fitosanitario.dosisAplicada, Validators.required],
       fechaAplicacion: [this.fitosanitario.fechaAplicacion, Validators.required],
       nombreMedicamento: [this.fitosanitario.nombreMedicamento, Validators.required],
@@ -65,8 +64,6 @@ export class RegistroPage implements OnInit {
     })
 
   }
-
-
 
   get control() {
     return this.formGroup.controls;
