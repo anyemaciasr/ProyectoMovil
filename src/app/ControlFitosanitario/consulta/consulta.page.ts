@@ -31,6 +31,7 @@ export class ConsultaPage implements OnInit {
   }
 
 
+  
 
   consultar() {
     var id = this.route.snapshot.paramMap.get("id");

@@ -142,9 +142,9 @@
                 <ion-item>
                   <ion-label>Tipo ganado</ion-label>
                   <ion-select name="tipoGanado"  formControlName="tipoGanado" interface="popover">
-                    <ion-select-option value="gato">gato</ion-select-option>
-                    <ion-select-option value="perro">perro</ion-select-option>
-                    <ion-select-option value="conejo">conejo</ion-select-option>
+                    <ion-select-option value="Ganado Carne ">Ganado carne </ion-select-option>
+                    <ion-select-option value="Ganado Lechero ">Ganado lechero </ion-select-option>
+                    <ion-select-option value="Ganado doble propósito">Ganado doble propósito </ion-select-option>
                   </ion-select>
                 </ion-item>
                 <ion-label class="ion-text-left" color="danger" *ngIf="formGroup.controls.tipoGanado.errors?.required && (formGroup.controls.tipoGanado.touched || formGroup.controls.tipoGanado.dirty)">* El tipo de ganado es requerido </ion-label>
