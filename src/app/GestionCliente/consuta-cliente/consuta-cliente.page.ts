@@ -5,6 +5,7 @@ import { ActionSheetController, AlertController, LoadingController, ToastControl
 import { Cliente } from 'src/app/models/cliente/cliente';
 import { GestionClientesService } from 'src/app/services/gestion-clientes.service';
 import { SqlServiceService } from 'src/app/services/sql-service.service';
+import { UsuarioService } from 'src/app/services/usuario.service';
 
 @Component({
   selector: 'app-consuta-cliente',
@@ -23,11 +24,18 @@ export class ConsutaClientePage implements OnInit {
     , private router: Router
     , private toastController: ToastController
     , private gestionClientesService: GestionClientesService
+    , private usuarioService: UsuarioService
     , private loadingController: LoadingController) { }
 
   ngOnInit() {
+    this.usuarioService.usuarioLogueado().then(usuario => {
+      if (usuario == null) {
+        this.router.navigate(['/login']);
+      }
+    })
     this.presentLoading();
   }
+
 
   doRefresh(event) {
     this.consultar();
@@ -79,7 +87,7 @@ export class ConsutaClientePage implements OnInit {
           icon: 'pencil',
           cssClass: "gris",
           handler: () => {
-           // var clienteEliminar = this.idFirebase.find(c => c.identificacion == cliente.identificacion)
+
             this.router.navigate(['/editar-cliente', cliente.identificacion]);
           }
         },
@@ -125,9 +133,19 @@ export class ConsutaClientePage implements OnInit {
           cssClass: "rojo",
           handler: () => {
 
-            this.gestionClientesService.eliminar(cliente.identificacion).subscribe( c => {
-              this.presentLoading();
+            this.usuarioService.usuarioLogueado().then(usuario => {
+              if (usuario == null) {
+                this.AlertLoguin();
+                this.router.navigate(['/login']);
+
+              } else {
+                this.gestionClientesService.eliminar(cliente.identificacion).subscribe(c => {
+                  this.presentLoading();
+                })
+              }
             })
+
+
 
             // var clienteEliminar = this.idFirebase.find(c => c.identificacion == cliente.identificacion);
             // this.gestionClientesService.eliminarClienteFirebase(clienteEliminar.id).then(() => {
@@ -159,6 +177,23 @@ export class ConsutaClientePage implements OnInit {
         + '<br>Telefono: ' + cliente.telefono + '<br>Correo: '
         + cliente.correo,
       buttons: ['OK']
+    });
+
+    await alert.present();
+  }
+
+  async AlertLoguin() {
+    const alert = await this.alertController.create({
+      cssClass: 'alerClasss',
+      header: 'Datos del cliente',
+      message: 'Para poder realizar esta accion debes estar logueado',
+      buttons: [
+        {
+          text:'iniciar sesion',
+          handler: () => {
+            window.location.reload();
+          }
+        }]
     });
 
     await alert.present();

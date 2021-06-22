@@ -6,6 +6,7 @@ import { LoadingController, ToastController } from '@ionic/angular';
 import { Cliente } from 'src/app/models/cliente/cliente';
 import { GestionClientesService } from 'src/app/services/gestion-clientes.service';
 import { SqlServiceService } from 'src/app/services/sql-service.service';
+import { UsuarioService } from 'src/app/services/usuario.service';
 
 @Component({
   selector: 'app-editar-cliente',
@@ -23,10 +24,18 @@ export class EditarClientePage implements OnInit {
     , private formBuilder: FormBuilder
     , private gestionClienteService: GestionClientesService
     , private router: Router
+    , private usuarioService: UsuarioService
     , private loadingController: LoadingController
     , private location:Location) { }
 
   ngOnInit() {
+    this.usuarioService.usuarioLogueado().then(usuario =>{
+      if(usuario == null){
+        this.router.navigate(['/login']);
+        this.cerrandoSesion();
+      }
+    })
+
     this.cliente = new Cliente();
     this.buildForm(this.cliente);
     this.presentLoading();
@@ -38,6 +47,17 @@ export class EditarClientePage implements OnInit {
        this.loading.dismiss();
      });
 
+  }
+  async cerrandoSesion(){
+    var loading = await this.loadingController.create({
+      cssClass: 'my-custom-class',
+      message: 'Cerrando sesion',
+      spinner: "crescent",
+      duration: 3000
+    });
+    await loading.present();
+    loading.dismiss();
+    window.location.reload();
   }
   async presentLoading() {
     this.loading = await this.loadingController.create({

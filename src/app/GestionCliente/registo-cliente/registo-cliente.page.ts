@@ -6,6 +6,7 @@ import { ToastController } from '@ionic/angular';
 import { Cliente } from 'src/app/models/cliente/cliente';
 import { GestionClientesService } from 'src/app/services/gestion-clientes.service';
 import { SqlServiceService } from 'src/app/services/sql-service.service';
+import { UsuarioService } from 'src/app/services/usuario.service';
 
 @Component({
   selector: 'app-registo-cliente',
@@ -21,10 +22,16 @@ export class RegistoClientePage implements OnInit {
     , private toastController: ToastController
     , private gestionClienteService: GestionClientesService
     , private router: Router
+    , private usuarioService: UsuarioService
     , private location: Location
   ) { }
 
   ngOnInit() {
+    this.usuarioService.usuarioLogueado().then(usuario =>{
+      if(usuario == null){
+        this.router.navigate(['/login']);
+      }
+    })
     this.cliente = new Cliente();
     this.buildForm();
   }
@@ -69,14 +76,6 @@ export class RegistoClientePage implements OnInit {
     }
     );
 
-  /*   this.gestionClienteService.agregarClienteFirebase(this.cliente).then(c => {
-      console.log("Cliente registrado con exito", c );
-      this.formGroup.reset();
-      this.location.back();
-    }).catch(e => {
-      console.log(e);
-    })
-*/
   }
   consultarCliente() {
     this.clientes = this.sqlService.clientes;
