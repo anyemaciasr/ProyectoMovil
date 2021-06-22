@@ -120,7 +120,7 @@ export class EditarAnimalPage implements OnInit {
     this.animal = animalEncontrado;
 
     this.formGroup = this.formBuilder.group({
-      identificacion: [this.animal.identificacion, [Validators.required, Validators.minLength(6)]],
+      identificacion: [this.animal.identificacion, [Validators.required]],
       nombre: [this.animal.nombre, Validators.required],
       agrupacion: [this.animal.agrupacion, Validators.required],
       cantidad: [this.animal.cantidad, Validators.required],
