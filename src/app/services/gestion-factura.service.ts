@@ -5,12 +5,12 @@ import { Observable, throwError } from 'rxjs';
 import { catchError, tap } from 'rxjs/operators';
 import { DetalleFactura } from '../models/factura/detalleFactura';
 import { Factura } from '../models/factura/factura';
-
+import {environment} from '../../environments/environment';
 @Injectable({
   providedIn: 'root'
 })
 export class GestionFacturaService {
-  urlazure="https://villanorisapi.azurewebsites.net/Factura";
+  urlazure=environment.urlBase+"Factura";
   url = "https://localhost:5001/Factura";
   constructor(public http: HttpClient) { }
 
@@ -19,7 +19,7 @@ export class GestionFacturaService {
       'Content-type': 'application/json'
     })
   }
-  
+
   handleError(error:HttpErrorResponse){
     if(error.error instanceof ErrorEvent){
       console.error('A ocurrido un error', error.error.message);
@@ -36,15 +36,15 @@ export class GestionFacturaService {
     return this.http.get<Factura[]>(this.urlazure);
   }
 
-  
+
   guardar(factura:Factura):Observable<any>{
-    
+
     var facturaApi = new FacturaApi();
     facturaApi.fecha = factura.fecha;
     facturaApi.descuento = factura.descuento;
     facturaApi.ClienteIdentificacion = factura.cliente.identificacion;
     facturaApi.detallesDeFactura = factura.detallesFactura;
- 
+
    return this.http.post(this.urlazure, JSON.stringify(facturaApi), this.httpOptions)
     .pipe(
       tap(_ => console.log("Factura Guardada")),

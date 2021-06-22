@@ -4,13 +4,13 @@ import { Observable, throwError } from 'rxjs';
 import { catchError, tap } from 'rxjs/operators';
 import { Producto } from '../models/producto/producto';
 import { HandlerErrorService } from './handler-error.service';
-
+import {environment} from '../../environments/environment';
 @Injectable({
   providedIn: 'root'
 })
 export class GestionProductoService {
 
-  url = "https://villanorisapi.azurewebsites.net/Producto";
+  url =environment.urlBase+"Producto";
 
   constructor(public http: HttpClient
     ,private handleErrorService:HandlerErrorService
